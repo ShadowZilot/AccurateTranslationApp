@@ -9,7 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;
-import com.human_developing_soft.accurate_translation.translation.data.TranslatorSubject;
+import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
+import com.human_developing_soft.accurate_translation.translation.data.Translating;
+
+import org.json.JSONException;
 
 public class TranslationFragment extends Fragment {
     private TranslationFragmentBinding mBinding;
@@ -29,12 +32,21 @@ public class TranslationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        TranslatorSubject subject = new TranslatorSubject.Base(
-                "Hello World!"
+        Translating subject = new HandledTranslating(
+                new Translating.Base(
+                   "Привет мир!",
+                   "ru",
+                   "en"
+                )
         );
         Runnable runnable = () -> {
-                String result = subject.translate();
-                mBinding.testContent.post(() -> mBinding.testContent.setText(result));
+                try {
+                    String result = subject.translate();
+                    mBinding.testContent.post(() -> mBinding.testContent.setText(result));
+                } catch (JSONException e) {
+                    mBinding.testContent.post(() -> mBinding.testContent.setText("Error!"));
+                }
+
         };
         new Thread(runnable).start();
     }
