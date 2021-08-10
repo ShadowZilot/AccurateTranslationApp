@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AccurateTranslation</string>
+    <string name="field_hint">Type text</string>
 </resources>

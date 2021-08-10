@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
+import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 
 import org.json.JSONException;
 
@@ -29,6 +30,8 @@ public class TranslatingViewModel extends ViewModel {
                 mObserver.updateField(result);
             } catch (JSONException e) {
                 mObserver.updateField("Error!");
+            } catch (BadRequestException e) {
+                mObserver.updateField("");
             }
         };
         new Thread(runnable)
