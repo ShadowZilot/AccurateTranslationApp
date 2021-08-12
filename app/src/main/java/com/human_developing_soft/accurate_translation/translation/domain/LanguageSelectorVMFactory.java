@@ -1,22 +1,26 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.human_developing_soft.accurate_translation.translation.ui.LanguagesObserver;
-import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 
-public class TranslatingVMFactory implements ViewModelProvider.Factory {
-    private final TranslatingObserver mObserver;
+public class LanguageSelectorVMFactory implements ViewModelProvider.Factory {
+    private final Context mContext;
+    private final LanguagesObserver mObserver;
 
-    public TranslatingVMFactory(TranslatingObserver pObserver) {
+    public LanguageSelectorVMFactory(Context pContext,
+                                     LanguagesObserver pObserver) {
         mObserver = pObserver;
+        mContext = pContext;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new TranslatingViewModel(mObserver);
+        return (T) new LanguageSelectorVM(mContext, mObserver);
     }
 }

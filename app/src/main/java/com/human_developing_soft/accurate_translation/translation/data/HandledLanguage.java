@@ -1,8 +1,12 @@
 package com.human_developing_soft.accurate_translation.translation.data;
 
+import android.os.Bundle;
+
 public interface HandledLanguage {
 
     String name();
+
+    Bundle languageBundle();
 
     class Base implements HandledLanguage {
         private final String mLanguage;
@@ -20,9 +24,28 @@ public interface HandledLanguage {
             mIsIdentifiable = pIsIdentifiable;
         }
 
+        public Base(
+            Bundle packedLanguage
+        ) {
+            mName = packedLanguage.getString("name");
+            mLanguage = packedLanguage.getString("language");
+            mCountryCode = packedLanguage.getString("countryCode");
+            mIsIdentifiable = packedLanguage.getBoolean("identifiable");
+        }
+
         @Override
         public String name() {
             return mName;
+        }
+
+        @Override
+        public Bundle languageBundle() {
+            Bundle packed = new Bundle();
+            packed.putString("name", mName);
+            packed.putString("countryCode", mCountryCode);
+            packed.putString("language", mLanguage);
+            packed.putBoolean("identifiable", mIsIdentifiable);
+            return packed;
         }
     }
 }

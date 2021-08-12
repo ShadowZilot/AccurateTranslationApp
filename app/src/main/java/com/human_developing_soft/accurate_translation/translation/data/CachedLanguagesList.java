@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
-interface CachedLanguagesList {
+public interface CachedLanguagesList {
 
     List<HandledLanguage> languages();
 

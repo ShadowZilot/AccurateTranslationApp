@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CancelButton" parent="Theme.AccurateTranslation">
+        <item name="colorPrimary">@android:color/darker_gray</item>
+    </style>
+
+    <style name="LanguageText" parent="Theme.AccurateTranslation">
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

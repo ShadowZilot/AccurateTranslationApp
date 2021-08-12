@@ -36,7 +36,7 @@ public class LanguagesSchema {
         return String.format("%s (%s TEXT," +
                         " %s TEXT," +
                         " %s TEXT," +
-                        " %s BOOLEAN," +
+                        " %s TEXT," +
                         " %s TEXT," +
                         " %s BOOLEAN," +
                         " %s BOOLEAN," +

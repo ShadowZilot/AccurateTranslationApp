@@ -40,7 +40,7 @@ public class LanguagesDatabase implements LanguageStorage {
     public List<HandledLanguage> allLanguages() {
         List<HandledLanguage> result = new ArrayList<>();
         Cursor cursor = mDatabase.query(
-                mSchema.schema(),
+                mSchema.tableName(),
                 null,
                 null,
                 null,
