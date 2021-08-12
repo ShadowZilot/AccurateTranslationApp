@@ -25,6 +25,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/secondLanguageSelector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/secondLanguageField"
+        app:layout_constraintTop_toBottomOf="@id/firstLanguageField"/>
+
     <EditText
         android:id="@+id/secondLanguageField"
         android:layout_margin="16dp"
@@ -33,7 +41,7 @@
         android:hint="@string/field_hint"
         android:inputType="text"
         android:autofillHints="text"
-        app:layout_constraintTop_toBottomOf="@id/firstLanguageField"
+        app:layout_constraintTop_toBottomOf="@id/secondLanguageSelector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

@@ -1,6 +1,5 @@
 package com.human_developing_soft.accurate_translation.translation.ui;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,9 +50,18 @@ public class TranslationFragment extends Fragment
             }
         });
         mBinding.firstLanguageSelector.setOnClickListener((View v) -> {
-            LanguageSelectorDialog languageSelector = new LanguageSelectorDialog();
+            LanguageSelectorDialog languageSelector = new LanguageSelectorDialog(
+                    "firstLanguage");
             getParentFragmentManager().setFragmentResultListener(
-                "language", this, this
+                "firstLanguage", this, this
+            );
+            languageSelector.show(getParentFragmentManager(), "selector");
+        });
+        mBinding.secondLanguageSelector.setOnClickListener((View v) -> {
+            LanguageSelectorDialog languageSelector = new LanguageSelectorDialog(
+                    "secondLanguage");
+            getParentFragmentManager().setFragmentResultListener(
+                    "secondLanguage", this, this
             );
             languageSelector.show(getParentFragmentManager(), "selector");
         });
@@ -68,9 +76,14 @@ public class TranslationFragment extends Fragment
 
     @Override
     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-        if (requestKey.equals("language")) {
+        if (requestKey.equals("firstLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
             mBinding.firstLanguageSelector.setText(
+                    language.name()
+            );
+        } else if (requestKey.equals("secondLanguage")) {
+            HandledLanguage language = new HandledLanguage.Base(result);
+            mBinding.secondLanguageSelector.setText(
                     language.name()
             );
         }
