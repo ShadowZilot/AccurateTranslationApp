@@ -6,6 +6,8 @@ public interface HandledLanguage {
 
     String name();
 
+    String languageCode();
+
     Bundle languageBundle();
 
     class Base implements HandledLanguage {
@@ -36,6 +38,11 @@ public interface HandledLanguage {
         @Override
         public String name() {
             return mName;
+        }
+
+        @Override
+        public String languageCode() {
+            return mLanguage;
         }
 
         @Override

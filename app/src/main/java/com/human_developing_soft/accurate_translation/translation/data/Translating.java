@@ -1,5 +1,6 @@
 package com.human_developing_soft.accurate_translation.translation.data;
 
+import com.human_developing_soft.accurate_translation.translation.domain.SelectedLanguages;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
@@ -13,15 +14,12 @@ public interface Translating {
 
     class Base implements Translating {
         private final String mTranslatingText;
-        private final String mToLangCode;
-        private final String mFromLangCode;
+        private final SelectedLanguages mSelectedLanguages;
 
         public Base(String pTranslatingText,
-                    String pToLangCode,
-                    String pFromLangCode) {
+                    SelectedLanguages pSelectedLanguage) {
             mTranslatingText = pTranslatingText;
-            mToLangCode = pToLangCode;
-            mFromLangCode = pFromLangCode;
+            mSelectedLanguages = pSelectedLanguage;
         }
 
         @Override
@@ -32,7 +30,7 @@ public interface Translating {
             languageTranslator.setServiceUrl("https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/756c7112-71ae-410e-8c81-dabff716e136");
             TranslateOptions translateOptions = new TranslateOptions.Builder()
                     .addText(mTranslatingText)
-                    .modelId(String.format("%1s-%2s", mToLangCode, mFromLangCode))
+                    .modelId(mSelectedLanguages.languagesCode())
                     .build();
             return languageTranslator.translate(translateOptions)
                     .execute().getResult().toString();

@@ -6,11 +6,16 @@ import com.human_developing_soft.accurate_translation.translation.data.HandledTr
 import com.human_developing_soft.accurate_translation.translation.data.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
+import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 
 import org.json.JSONException;
 
 public class TranslatingViewModel extends ViewModel {
     private final TranslatingObserver mObserver;
+    private SelectedLanguages mSelectedLanguage = new SelectedLanguages.Base(
+            "en",
+            "ru"
+    );
 
     public TranslatingViewModel(TranslatingObserver pObserver) {
         mObserver = pObserver;
@@ -20,8 +25,7 @@ public class TranslatingViewModel extends ViewModel {
         Translating subject = new HandledTranslating(
                 new Translating.Base(
                         fieldText,
-                        "en",
-                        "ru"
+                        mSelectedLanguage
                 )
         );
         Runnable runnable = () -> {
@@ -33,8 +37,17 @@ public class TranslatingViewModel extends ViewModel {
             } catch (BadRequestException e) {
                 mObserver.updateField("");
             }
+            catch (NotFoundException e) {
+                mObserver.updateField("This languages not supported for translating");
+            }
         };
         new Thread(runnable)
                 .start();
+    }
+
+    public void updateTranslatingLanguage(String firstLanguage,
+                                          String secondLanguage) {
+        mSelectedLanguage = mSelectedLanguage.updateLanguages(firstLanguage,
+                secondLanguage);
     }
 }

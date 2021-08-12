@@ -81,11 +81,13 @@ public class TranslationFragment extends Fragment
             mBinding.firstLanguageSelector.setText(
                     language.name()
             );
+            mViewModel.updateTranslatingLanguage(language.languageCode(), "");
         } else if (requestKey.equals("secondLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
             mBinding.secondLanguageSelector.setText(
                     language.name()
             );
+            mViewModel.updateTranslatingLanguage("", language.languageCode());
         }
     }
 }
