@@ -15,11 +15,14 @@ public interface Translating {
     class Base implements Translating {
         private final String mTranslatingText;
         private final SelectedLanguages mSelectedLanguages;
+        private final Boolean mIsSwapNeeded;
 
         public Base(String pTranslatingText,
-                    SelectedLanguages pSelectedLanguage) {
+                    SelectedLanguages pSelectedLanguage,
+                    Boolean pIsSwapNeeded) {
             mTranslatingText = pTranslatingText;
             mSelectedLanguages = pSelectedLanguage;
+            mIsSwapNeeded = pIsSwapNeeded;
         }
 
         @Override
@@ -30,7 +33,7 @@ public interface Translating {
             languageTranslator.setServiceUrl("https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/756c7112-71ae-410e-8c81-dabff716e136");
             TranslateOptions translateOptions = new TranslateOptions.Builder()
                     .addText(mTranslatingText)
-                    .modelId(mSelectedLanguages.languagesCode())
+                    .modelId(mSelectedLanguages.languagesCode(mIsSwapNeeded))
                     .build();
             return languageTranslator.translate(translateOptions)
                     .execute().getResult().toString();

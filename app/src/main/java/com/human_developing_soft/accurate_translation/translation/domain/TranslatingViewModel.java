@@ -21,24 +21,26 @@ public class TranslatingViewModel extends ViewModel {
         mObserver = pObserver;
     }
 
-    public void translateText(String fieldText) {
+    public void translateText(String fieldText, Boolean isFirstField) {
         Translating subject = new HandledTranslating(
                 new Translating.Base(
                         fieldText,
-                        mSelectedLanguage
+                        mSelectedLanguage,
+                        isFirstField
                 )
         );
         Runnable runnable = () -> {
             try {
                 String result = subject.translate();
-                mObserver.updateField(result);
+                mObserver.updateField(result, !isFirstField);
             } catch (JSONException e) {
-                mObserver.updateField("Error!");
+                mObserver.updateField("Error!", !isFirstField);
             } catch (BadRequestException e) {
-                mObserver.updateField("");
+                mObserver.updateField("", !isFirstField);
             }
             catch (NotFoundException e) {
-                mObserver.updateField("This languages not supported for translating");
+                mObserver.updateField("This languages not supported for translating",
+                        !isFirstField);
             }
         };
         new Thread(runnable)

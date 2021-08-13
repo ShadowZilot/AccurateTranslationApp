@@ -2,7 +2,7 @@ package com.human_developing_soft.accurate_translation.translation.domain;
 
 public interface SelectedLanguages {
 
-    String languagesCode();
+    String languagesCode(Boolean isSwapNeeded);
 
     SelectedLanguages updateLanguages(String firstLanguage, String secondLanguage);
 
@@ -16,10 +16,16 @@ public interface SelectedLanguages {
         }
 
         @Override
-        public String languagesCode() {
-            return String.format("%s-%s",
-                    mFirstLanguage,
-                    mSecondLanguage);
+        public String languagesCode(Boolean isSwapNeeded) {
+            if (isSwapNeeded) {
+                return String.format("%s-%s",
+                        mFirstLanguage,
+                        mSecondLanguage);
+            } else {
+                return String.format("%s-%s",
+                        mSecondLanguage,
+                        mFirstLanguage);
+            }
         }
 
         @Override
