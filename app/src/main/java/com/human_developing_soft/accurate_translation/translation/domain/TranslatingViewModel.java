@@ -1,7 +1,12 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.Button;
+
 import androidx.lifecycle.ViewModel;
 
+import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
@@ -12,13 +17,21 @@ import org.json.JSONException;
 
 public class TranslatingViewModel extends ViewModel {
     private final TranslatingObserver mObserver;
-    private SelectedLanguages mSelectedLanguage = new SelectedLanguages.Base(
-            "en",
-            "ru"
-    );
+    private SelectedLanguages mSelectedLanguage;
 
-    public TranslatingViewModel(TranslatingObserver pObserver) {
+    public TranslatingViewModel(TranslatingObserver pObserver, Context context) {
         mObserver = pObserver;
+        SharedPreferences preferences = context.getSharedPreferences("selectedLanguages",
+                Context.MODE_PRIVATE);
+        try {
+            mSelectedLanguage = new SelectedLanguages.Base(preferences.getString("selected",
+                    ""));
+        } catch (IndexOutOfBoundsException e) {
+            mSelectedLanguage = new SelectedLanguages.Base(
+                new HandledLanguage.Dummy(),
+                new HandledLanguage.Dummy()
+            );
+        }
     }
 
     public void translateText(String fieldText, Boolean isFirstField) {
@@ -47,9 +60,20 @@ public class TranslatingViewModel extends ViewModel {
                 .start();
     }
 
-    public void updateTranslatingLanguage(String firstLanguage,
-                                          String secondLanguage) {
+    public void updateTranslatingLanguage(HandledLanguage firstLanguage,
+                                          HandledLanguage secondLanguage,
+                                          Context context) {
         mSelectedLanguage = mSelectedLanguage.updateLanguages(firstLanguage,
                 secondLanguage);
+        SharedPreferences preferences = context.getSharedPreferences("selectedLanguages",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("selected", mSelectedLanguage.packedString());
+        editor.apply();
+    }
+
+    public void initUI(Button firstSelector,
+                       Button secondSelector) {
+        mSelectedLanguage.initSelectors(firstSelector, secondSelector);
     }
 }

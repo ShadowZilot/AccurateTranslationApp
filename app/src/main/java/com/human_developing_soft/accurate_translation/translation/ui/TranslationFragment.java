@@ -32,7 +32,7 @@ public class TranslationFragment extends Fragment
                 false);
 
         mViewModel = new ViewModelProvider(this,
-                new TranslatingVMFactory(this)
+                new TranslatingVMFactory(this, requireContext())
         ).get(TranslatingViewModel.class);
         mBinding.firstLanguageField.setTag("free");
         mBinding.firstLanguageField.addTextChangedListener(new TextWatcher() {
@@ -84,6 +84,8 @@ public class TranslationFragment extends Fragment
             );
             languageSelector.show(getParentFragmentManager(), "selector");
         });
+        mViewModel.initUI(mBinding.firstLanguageSelector,
+                mBinding.secondLanguageSelector);
         return mBinding.getRoot();
     }
 
@@ -94,13 +96,17 @@ public class TranslationFragment extends Fragment
             mBinding.firstLanguageSelector.setText(
                     language.name()
             );
-            mViewModel.updateTranslatingLanguage(language.languageCode(), "");
+            mViewModel.updateTranslatingLanguage(language,
+                    new HandledLanguage.Dummy(),
+                    requireContext());
         } else if (requestKey.equals("secondLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
             mBinding.secondLanguageSelector.setText(
                     language.name()
             );
-            mViewModel.updateTranslatingLanguage("", language.languageCode());
+            mViewModel.updateTranslatingLanguage(new HandledLanguage.Dummy(),
+                    language,
+                    requireContext());
         }
         mBinding.firstLanguageField.setText("");
         mBinding.secondLanguageField.setText("");

@@ -1,39 +1,67 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
+import android.widget.Button;
+
+import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
+
 public interface SelectedLanguages {
 
     String languagesCode(Boolean isSwapNeeded);
 
-    SelectedLanguages updateLanguages(String firstLanguage, String secondLanguage);
+    SelectedLanguages updateLanguages(HandledLanguage firstLanguage,
+                                      HandledLanguage secondLanguage);
+
+    void initSelectors(Button firstSelector, Button secondSelector);
+
+    String packedString();
 
     class Base implements SelectedLanguages {
-        private final String mFirstLanguage;
-        private final String mSecondLanguage;
+        private final HandledLanguage mFirstLanguage;
+        private final HandledLanguage mSecondLanguage;
 
-        public Base(String pFirstLanguage, String pSecondLanguage) {
+        public Base(HandledLanguage pFirstLanguage, HandledLanguage pSecondLanguage) {
             mFirstLanguage = pFirstLanguage;
             mSecondLanguage = pSecondLanguage;
+        }
+
+        public Base(String initValue) {
+            this(
+                new HandledLanguage.Base(initValue.split("&")[0]),
+                new HandledLanguage.Base(initValue.split("&")[1])
+            );
         }
 
         @Override
         public String languagesCode(Boolean isSwapNeeded) {
             if (isSwapNeeded) {
                 return String.format("%s-%s",
-                        mFirstLanguage,
-                        mSecondLanguage);
+                        mFirstLanguage.languageCode(),
+                        mSecondLanguage.languageCode());
             } else {
                 return String.format("%s-%s",
-                        mSecondLanguage,
-                        mFirstLanguage);
+                        mSecondLanguage.languageCode(),
+                        mFirstLanguage.languageCode());
             }
         }
 
         @Override
-        public SelectedLanguages updateLanguages(String firstLanguage, String secondLanguage) {
+        public SelectedLanguages updateLanguages(HandledLanguage firstLanguage,
+                                                 HandledLanguage secondLanguage) {
             return new Base(
-                    firstLanguage.equals("") ? mFirstLanguage : firstLanguage,
-                    secondLanguage.equals("") ? mSecondLanguage : secondLanguage
+                    firstLanguage.languageCode().equals("") ? mFirstLanguage : firstLanguage,
+                    secondLanguage.languageCode().equals("") ? mSecondLanguage : secondLanguage
             );
+        }
+
+        @Override
+        public void initSelectors(Button firstSelector, Button secondSelector) {
+            firstSelector.setText(mFirstLanguage.name());
+            secondSelector.setText(mSecondLanguage.name());
+        }
+
+        @Override
+        public String packedString() {
+            return mFirstLanguage.toString() + "&" + mSecondLanguage.toString();
         }
     }
 }

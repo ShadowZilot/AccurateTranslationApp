@@ -2,6 +2,8 @@ package com.human_developing_soft.accurate_translation.translation.data;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 public interface HandledLanguage {
 
     String name();
@@ -24,6 +26,16 @@ public interface HandledLanguage {
             mName = pName;
             mCountryCode = pCountryCode;
             mIsIdentifiable = pIsIdentifiable;
+        }
+
+        public Base(
+            String initValue
+        ) {
+            String[] values = initValue.split(";");
+            mLanguage = values[0];
+            mName = values[1];
+            mCountryCode = values[2];
+            mIsIdentifiable = Boolean.parseBoolean(values[3]);
         }
 
         public Base(
@@ -53,6 +65,36 @@ public interface HandledLanguage {
             packed.putString("language", mLanguage);
             packed.putBoolean("identifiable", mIsIdentifiable);
             return packed;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return mLanguage +
+                    ";" +
+                    mName +
+                    ";" +
+                    mCountryCode +
+                    ";" +
+                    mIsIdentifiable.toString();
+        }
+    }
+
+    class Dummy implements HandledLanguage {
+
+        @Override
+        public String name() {
+            return "";
+        }
+
+        @Override
+        public String languageCode() {
+            return "";
+        }
+
+        @Override
+        public Bundle languageBundle() {
+            return new Bundle();
         }
     }
 }
