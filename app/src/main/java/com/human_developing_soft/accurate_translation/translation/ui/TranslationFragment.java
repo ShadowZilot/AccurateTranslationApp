@@ -84,9 +84,27 @@ public class TranslationFragment extends Fragment
             );
             languageSelector.show(getParentFragmentManager(), "selector");
         });
+        if (savedInstanceState != null) {
+            mBinding.firstLanguageField.setTag("blocked");
+            mBinding.secondLanguageField.setTag("blocked");
+            mBinding.firstLanguageField.setText(
+                    savedInstanceState.getString("firstField")
+            );
+            mBinding.secondLanguageField.setText(
+                    savedInstanceState.getString("secondField")
+            );
+            mBinding.firstLanguageField.setTag("free");
+            mBinding.secondLanguageField.setTag("free");
+        }
         mViewModel.initUI(mBinding.firstLanguageSelector,
                 mBinding.secondLanguageSelector);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("firstField", mBinding.firstLanguageField.getText().toString());
+        outState.putString("secondField", mBinding.secondLanguageField.getText().toString());
     }
 
     @Override

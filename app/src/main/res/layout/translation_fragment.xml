@@ -1,48 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/translatingToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_700"
+        app:titleTextColor="@color/white"
+        app:title="Translate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/firstLanguageSelector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="English"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/firstLanguageField"/>
-
-    <EditText
-        android:id="@+id/firstLanguageField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:autofillHints="text"
-        android:inputType="text"
-        android:hint="@string/field_hint"
-        app:layout_constraintTop_toBottomOf="@id/firstLanguageSelector"
+        android:drawableStart="@android:drawable/btn_dialog"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/translatingToolbar"
+        tools:text="English" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_vice_versa"
+        app:layout_constraintStart_toEndOf="@id/firstLanguageSelector"
+        app:layout_constraintEnd_toStartOf="@id/secondLanguageSelector"
+        app:layout_constraintTop_toTopOf="@id/firstLanguageSelector"
+        app:layout_constraintBottom_toBottomOf="@id/secondLanguageSelector"
+        android:contentDescription="@string/label_sign_vice_versa" />
 
     <Button
         android:id="@+id/secondLanguageSelector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@id/secondLanguageField"
-        app:layout_constraintTop_toBottomOf="@id/firstLanguageField"/>
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/translatingToolbar"
+        tools:text="Russian" />
 
-    <EditText
-        android:id="@+id/secondLanguageField"
-        android:layout_margin="16dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/firstFieldContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/field_hint"
-        android:inputType="text"
-        android:autofillHints="text"
-        app:layout_constraintTop_toBottomOf="@id/secondLanguageSelector"
+        app:counterEnabled="true"
+        app:counterMaxLength="400"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/firstLanguageSelector">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/firstLanguageField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:autofillHints="text"
+            android:hint="@string/field_hint"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/secondFieldContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="400"
+        app:layout_constraintTop_toBottomOf="@id/firstFieldContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/secondLanguageField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:autofillHints="text"
+            android:hint="@string/field_hint"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
