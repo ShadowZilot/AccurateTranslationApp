@@ -1,7 +1,5 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.Button;
 
 import androidx.lifecycle.ViewModel;
@@ -22,19 +20,10 @@ public class TranslatingViewModel extends ViewModel {
     private Thread mLastThread;
     private SelectedLanguages mSelectedLanguage;
 
-    public TranslatingViewModel(TranslatingObserver pObserver, Context context) {
+    public TranslatingViewModel(TranslatingObserver pObserver,
+                                CachedSelectedLanguages cache) {
         mObserver = pObserver;
-        SharedPreferences preferences = context.getSharedPreferences("selectedLanguages",
-                Context.MODE_PRIVATE);
-        try {
-            mSelectedLanguage = new SelectedLanguages.Base(preferences.getString("selected",
-                    ""));
-        } catch (IndexOutOfBoundsException e) {
-            mSelectedLanguage = new SelectedLanguages.Base(
-                new HandledLanguage.Dummy(),
-                new HandledLanguage.Dummy()
-            );
-        }
+        mSelectedLanguage = cache.cachedSelectedLanguage();
     }
 
     public void translateText(String fieldText, Boolean isFirstField,
@@ -75,14 +64,10 @@ public class TranslatingViewModel extends ViewModel {
 
     public void updateTranslatingLanguage(HandledLanguage firstLanguage,
                                           HandledLanguage secondLanguage,
-                                          Context context) {
+                                          CachedSelectedLanguages cache) {
         mSelectedLanguage = mSelectedLanguage.updateLanguages(firstLanguage,
                 secondLanguage);
-        SharedPreferences preferences = context.getSharedPreferences("selectedLanguages",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("selected", mSelectedLanguage.packedString());
-        editor.apply();
+        cache.cacheSelectedLanguage(mSelectedLanguage);
     }
 
     public void initUI(Button firstSelector,

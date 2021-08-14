@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
+import com.human_developing_soft.accurate_translation.translation.domain.CachedSelectedLanguages;
 import com.human_developing_soft.accurate_translation.translation.domain.TranslatingVMFactory;
 import com.human_developing_soft.accurate_translation.translation.domain.TranslatingViewModel;
 
@@ -32,7 +33,9 @@ public class TranslationFragment extends Fragment
                 false);
 
         mViewModel = new ViewModelProvider(this,
-                new TranslatingVMFactory(this, requireContext())
+                new TranslatingVMFactory(this,
+                        new CachedSelectedLanguages.Base(requireContext())
+                )
         ).get(TranslatingViewModel.class);
         mBinding.firstLanguageField.setTag("free");
         mBinding.firstLanguageField.addTextChangedListener(new TextWatcher() {
@@ -122,7 +125,9 @@ public class TranslationFragment extends Fragment
             );
             mViewModel.updateTranslatingLanguage(language,
                     new HandledLanguage.Dummy(),
-                    requireContext());
+                    new CachedSelectedLanguages.Base(
+                        requireContext()
+                    ));
         } else if (requestKey.equals("secondLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
             mBinding.secondLanguageSelector.setText(
@@ -130,7 +135,9 @@ public class TranslationFragment extends Fragment
             );
             mViewModel.updateTranslatingLanguage(new HandledLanguage.Dummy(),
                     language,
-                    requireContext());
+                    new CachedSelectedLanguages.Base(
+                        requireContext()
+                    ));
         }
         mBinding.firstLanguageField.setText("");
         mBinding.secondLanguageField.setText("");

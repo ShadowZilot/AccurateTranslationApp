@@ -1,7 +1,5 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,16 +8,17 @@ import com.human_developing_soft.accurate_translation.translation.ui.Translating
 
 public class TranslatingVMFactory implements ViewModelProvider.Factory {
     private final TranslatingObserver mObserver;
-    private final Context mContext;
+    private final CachedSelectedLanguages mCache;
 
-    public TranslatingVMFactory(TranslatingObserver pObserver, Context pContext) {
+    public TranslatingVMFactory(TranslatingObserver pObserver,
+                                CachedSelectedLanguages pContext) {
         mObserver = pObserver;
-        mContext = pContext;
+        mCache = pContext;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new TranslatingViewModel(mObserver, mContext);
+        return (T) new TranslatingViewModel(mObserver, mCache);
     }
 }
