@@ -47,7 +47,9 @@ public class TranslationFragment extends Fragment
             @Override
             public void afterTextChanged(Editable s) {
                 if (mBinding.firstLanguageField.getTag().equals("free")) {
-                    mViewModel.translateText(s.toString(), true);
+                    mViewModel.translateText(s.toString(),
+                            true,
+                            new StringProvider.Base(requireContext()));
                 }
             }
         });
@@ -64,7 +66,9 @@ public class TranslationFragment extends Fragment
             @Override
             public void afterTextChanged(Editable s) {
                 if (mBinding.secondLanguageField.getTag().equals("free")) {
-                    mViewModel.translateText(s.toString(), false);
+                    mViewModel.translateText(s.toString(),
+                            false,
+                            new StringProvider.Base(requireContext()));
                 }
             }
         });
@@ -103,8 +107,10 @@ public class TranslationFragment extends Fragment
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString("firstField", mBinding.firstLanguageField.getText().toString());
-        outState.putString("secondField", mBinding.secondLanguageField.getText().toString());
+        outState.putString("firstField",
+                mBinding.firstLanguageField.getText().toString());
+        outState.putString("secondField",
+                mBinding.secondLanguageField.getText().toString());
     }
 
     @Override

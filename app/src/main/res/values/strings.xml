@@ -4,4 +4,11 @@
     <string name="apply_language_select">Apply</string>
     <string name="cancel_language_select">Cancel</string>
     <string name="label_sign_vice_versa">Sign vice versa</string>
+    <string name="error_while_getting_response_label">Error!</string>
+    <string name="language_not_support_for_translate_label">
+        This languages not supported for translating
+    </string>
+    <string name="no_internet_connection_label">
+        Seems you have no internet connection
+    </string>
 </resources>
