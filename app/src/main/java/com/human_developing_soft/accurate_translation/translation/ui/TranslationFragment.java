@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.domain.CachedSelectedLanguages;
@@ -104,7 +105,9 @@ public class TranslationFragment extends Fragment
             mBinding.secondLanguageField.setTag("free");
         }
         mViewModel.initUI(mBinding.firstLanguageSelector,
-                mBinding.secondLanguageSelector);
+                mBinding.secondLanguageSelector,
+                mBinding.firstLanguageField,
+                mBinding.secondLanguageField);
         return mBinding.getRoot();
     }
 
@@ -123,20 +126,34 @@ public class TranslationFragment extends Fragment
             mBinding.firstLanguageSelector.setText(
                     language.name()
             );
+            mBinding.firstLanguageField.setHint(
+                    new StringProvider.Base(
+                            requireContext()
+                    ).string(R.string.field_hint,
+                            language.name()
+                    )
+            );
             mViewModel.updateTranslatingLanguage(language,
                     new HandledLanguage.Dummy(),
                     new CachedSelectedLanguages.Base(
-                        requireContext()
+                            requireContext()
                     ));
         } else if (requestKey.equals("secondLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
             mBinding.secondLanguageSelector.setText(
                     language.name()
             );
+            mBinding.secondLanguageField.setHint(
+                    new StringProvider.Base(
+                            requireContext()
+                    ).string(R.string.field_hint,
+                            language.name()
+                    )
+            );
             mViewModel.updateTranslatingLanguage(new HandledLanguage.Dummy(),
                     language,
                     new CachedSelectedLanguages.Base(
-                        requireContext()
+                            requireContext()
                     ));
         }
         mBinding.firstLanguageField.setText("");

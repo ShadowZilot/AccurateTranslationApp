@@ -52,7 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:autofillHints="text"
-            android:hint="@string/field_hint"
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:autofillHints="text"
-            android:hint="@string/field_hint"
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 

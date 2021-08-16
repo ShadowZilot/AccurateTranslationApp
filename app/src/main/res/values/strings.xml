@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Accurate\nTranslation</string>
-    <string name="field_hint">Type text</string>
+    <string name="field_hint">Type %s text</string>
     <string name="apply_language_select">Apply</string>
     <string name="cancel_language_select">Cancel</string>
     <string name="label_sign_vice_versa">Sign vice versa</string>
@@ -10,8 +10,5 @@
     </string>
     <string name="no_internet_connection_label">
         Seems you have no internet connection
-    </string>
-    <string name="bad_request_exception">
-        Sorry, something went wrong internally
     </string>
 </resources>

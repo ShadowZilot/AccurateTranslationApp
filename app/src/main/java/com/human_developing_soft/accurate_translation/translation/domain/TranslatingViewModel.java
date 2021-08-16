@@ -1,6 +1,7 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.lifecycle.ViewModel;
 
@@ -47,10 +48,6 @@ public class TranslatingViewModel extends ViewModel {
                         provider.string(R.string.error_while_getting_response_label),
                         !isFirstField
                 );
-            } catch (BadRequestException e) {
-                mObserver.updateField(
-                        provider.string(R.string.bad_request_exception),
-                        !isFirstField);
             }
             catch (NotFoundException e) {
                 mObserver.updateField(
@@ -81,7 +78,10 @@ public class TranslatingViewModel extends ViewModel {
     }
 
     public void initUI(Button firstSelector,
-                       Button secondSelector) {
+                       Button secondSelector,
+                       EditText firstField,
+                       EditText secondField) {
         mSelectedLanguage.initSelectors(firstSelector, secondSelector);
+        mSelectedLanguage.initFieldHints(firstField, secondField);
     }
 }
