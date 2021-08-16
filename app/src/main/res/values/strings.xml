@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AccurateTranslation</string>
+    <string name="app_name">Accurate\nTranslation</string>
     <string name="field_hint">Type text</string>
     <string name="apply_language_select">Apply</string>
     <string name="cancel_language_select">Cancel</string>

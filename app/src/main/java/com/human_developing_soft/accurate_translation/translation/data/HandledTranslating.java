@@ -5,15 +5,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HandledTranslating implements Translating {
-    private final Translating mDecoratingObject;
+    private final PreTranslating mDecoratingObject;
 
-    public HandledTranslating(Translating pDecorating) {
+    public HandledTranslating(PreTranslating pDecorating) {
         mDecoratingObject = pDecorating;
     }
 
     @Override
     public String translate() throws JSONException {
-        JSONObject object = new JSONObject(mDecoratingObject.translate());
+        return translate(mDecoratingObject.translate());
+    }
+
+    public String translate(String jsonString) throws JSONException {
+        JSONObject object = new JSONObject(jsonString);
         JSONArray translationsArray = object.getJSONArray("translations");
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < translationsArray.length(); i++) {

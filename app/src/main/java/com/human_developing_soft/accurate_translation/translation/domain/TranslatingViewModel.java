@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
+import com.human_developing_soft.accurate_translation.translation.data.PreTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
@@ -29,7 +30,7 @@ public class TranslatingViewModel extends ViewModel {
     public void translateText(String fieldText, Boolean isFirstField,
                               StringProvider provider) {
         Translating subject = new HandledTranslating(
-                new Translating.Base(
+                new PreTranslating.Base(
                         fieldText,
                         mSelectedLanguage,
                         isFirstField

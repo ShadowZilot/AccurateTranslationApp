@@ -25,10 +25,13 @@ public interface LanguagesHandler {
             List<TranslationModel> models = mModels.models();
             List<Language> resultList = new ArrayList<>();
             boolean isLanguageValid = false;
-            for (Language language: languages) {
-                for (TranslationModel model: models) {
-                    if (language.getLanguage().equals(model.getTarget())
-                            || language.getLanguage().equals(model.getSource())) {
+            for (Language language : languages) {
+                for (TranslationModel model : models) {
+                    if ((language.getLanguage().equals(model.getTarget())
+                            && model.getSource().equals("en"))
+                            || (language.getLanguage().equals(model.getSource())
+                            && model.getTarget().equals("en"))
+                    || language.getLanguage().equals("en")) {
                         isLanguageValid = true;
                         break;
                     } else {

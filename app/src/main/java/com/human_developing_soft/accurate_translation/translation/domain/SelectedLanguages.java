@@ -6,7 +6,7 @@ import com.human_developing_soft.accurate_translation.translation.data.HandledLa
 
 public interface SelectedLanguages {
 
-    String languagesCode(Boolean isSwapNeeded);
+    String[] languagesCode(Boolean isSwapNeeded);
 
     SelectedLanguages updateLanguages(HandledLanguage firstLanguage,
                                       HandledLanguage secondLanguage);
@@ -26,21 +26,23 @@ public interface SelectedLanguages {
 
         public Base(String initValue) {
             this(
-                new HandledLanguage.Base(initValue.split("&")[0]),
-                new HandledLanguage.Base(initValue.split("&")[1])
+                    new HandledLanguage.Base(initValue.split("&")[0]),
+                    new HandledLanguage.Base(initValue.split("&")[1])
             );
         }
 
         @Override
-        public String languagesCode(Boolean isSwapNeeded) {
+        public String[] languagesCode(Boolean isSwapNeeded) {
             if (isSwapNeeded) {
-                return String.format("%s-%s",
+                return new String[]{
                         mFirstLanguage.languageCode(),
-                        mSecondLanguage.languageCode());
+                        mSecondLanguage.languageCode()
+                };
             } else {
-                return String.format("%s-%s",
+                return new String[]{
                         mSecondLanguage.languageCode(),
-                        mFirstLanguage.languageCode());
+                        mFirstLanguage.languageCode()
+                };
             }
         }
 
