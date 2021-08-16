@@ -9,11 +9,11 @@ public interface CachedLanguagesList {
     List<HandledLanguage> languages();
 
     class Base implements CachedLanguagesList {
-        private final LanguagesList mDecorating;
+        private final LanguagesHandler mWrappedObject;
         private final Context mContext;
 
-        public Base(LanguagesList pDecorating, Context pContext) {
-            mDecorating = pDecorating;
+        public Base(LanguagesHandler pWrapped, Context pContext) {
+            mWrappedObject = pWrapped;
             mContext = pContext;
         }
 
@@ -22,7 +22,7 @@ public interface CachedLanguagesList {
             LanguageStorage database = LanguagesDatabase.instance(mContext);
             List<HandledLanguage> languages = database.allLanguages();
             if (languages.isEmpty()) {
-                database.saveLanguages(mDecorating.languages());
+                database.saveLanguages(mWrappedObject.languagesList());
                 languages = database.allLanguages();
             }
             return languages;

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkFragment;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslationFragment;
 
 public class FragmentAdapter extends FragmentStateAdapter {
@@ -17,11 +18,15 @@ public class FragmentAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return new TranslationFragment();
+        if (position == 0) {
+            return new TranslationFragment();
+        } else {
+            return new BookmarkFragment();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 2;
     }
 }

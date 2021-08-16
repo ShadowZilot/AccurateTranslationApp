@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.human_developing_soft.accurate_translation.translation.data.CachedLanguagesList;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
+import com.human_developing_soft.accurate_translation.translation.data.LanguagesHandler;
 import com.human_developing_soft.accurate_translation.translation.data.LanguagesList;
+import com.human_developing_soft.accurate_translation.translation.data.ModelList;
 import com.human_developing_soft.accurate_translation.translation.ui.LanguagesObserver;
 
 import java.util.ArrayList;
@@ -20,7 +22,10 @@ public class LanguageSelectorVM extends ViewModel {
     public LanguageSelectorVM(Context pContext, LanguagesObserver pObserver) {
         mLanguageList = new CachedLanguagesList
                 .Base(
-                new LanguagesList.Base(),
+                new LanguagesHandler.Base(
+                    new ModelList.Base(),
+                    new LanguagesList.Base()
+                ),
                 pContext
         );
         mObserver = pObserver;

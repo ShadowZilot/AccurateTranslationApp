@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.ibm.watson.language_translator.v3.model.Language;
+
 public interface HandledLanguage {
 
     String name();
@@ -29,7 +31,7 @@ public interface HandledLanguage {
         }
 
         public Base(
-            String initValue
+                String initValue
         ) {
             String[] values = initValue.split(";");
             mLanguage = values[0];
@@ -39,7 +41,7 @@ public interface HandledLanguage {
         }
 
         public Base(
-            Bundle packedLanguage
+                Bundle packedLanguage
         ) {
             mName = packedLanguage.getString("name");
             mLanguage = packedLanguage.getString("language");
