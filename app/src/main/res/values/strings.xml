@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Accurate\nTranslation</string>
+    <string name="translation_tab_name">Translation</string>
+    <string name="bookmark_tab_name">Bookmarks</string>
     <string name="field_hint">Type %s text</string>
     <string name="apply_language_select">Apply</string>
     <string name="cancel_language_select">Cancel</string>
