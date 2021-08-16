@@ -11,4 +11,7 @@
     <string name="no_internet_connection_label">
         Seems you have no internet connection
     </string>
+    <string name="bad_request_exception">
+        Sorry, something went wrong internally
+    </string>
 </resources>

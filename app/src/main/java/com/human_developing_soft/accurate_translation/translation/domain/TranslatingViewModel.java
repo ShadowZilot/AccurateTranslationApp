@@ -38,15 +38,19 @@ public class TranslatingViewModel extends ViewModel {
         );
         Runnable runnable = () -> {
             try {
-                String result = subject.translate();
-                mObserver.updateField(result, !isFirstField);
+                if (!mLastThread.isInterrupted()) {
+                    String result = subject.translate();
+                    mObserver.updateField(result, !isFirstField);
+                }
             } catch (JSONException e) {
                 mObserver.updateField(
                         provider.string(R.string.error_while_getting_response_label),
                         !isFirstField
                 );
             } catch (BadRequestException e) {
-                mObserver.updateField("", !isFirstField);
+                mObserver.updateField(
+                        provider.string(R.string.bad_request_exception),
+                        !isFirstField);
             }
             catch (NotFoundException e) {
                 mObserver.updateField(
@@ -55,10 +59,15 @@ public class TranslatingViewModel extends ViewModel {
             }
             catch (RuntimeException e) {
                mObserver.updateField(
-                       provider.string(R.string.no_internet_connection_label),
+                       "",
                        !isFirstField);
             }
         };
+
+        if (mLastThread != null) {
+            mLastThread.interrupt();
+        }
+
         mLastThread = new Thread(runnable);
         mLastThread.start();
     }
