@@ -7,6 +7,7 @@
     <string name="cancel_language_select">Cancel</string>
     <string name="label_sign_vice_versa">Sign vice versa</string>
     <string name="error_while_getting_response_label">Error!</string>
+    <string name="success_saving_bookmark_message">Bookmark saved!</string>
     <string name="language_not_support_for_translate_label">
         This languages not supported for translating
     </string>
@@ -16,4 +17,13 @@
     <string name="select_language_message">Select language</string>
     <string name="add_to_bookmarks_button_decs">Add to bookmarks button</string>
     <string name="save_label">Save</string>
+    <string name="fish_text_for_bookmark">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        Aenean commodo ligula eget dolor. Aenean massa.
+        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+        Nulla consequat massa quis enim.
+        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</string>
+    <string name="translation_bookmark_icon_label">Translation bookmark icon</string>
+    <string name="bookmarks_list_is_empty_message">Bookmarks list is empty</string>
 </resources>

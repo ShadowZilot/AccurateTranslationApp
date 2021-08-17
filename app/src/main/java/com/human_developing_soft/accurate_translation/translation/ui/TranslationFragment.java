@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.human_developing_soft.accurate_translation.R;
+import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.domain.CachedSelectedLanguages;
@@ -37,6 +39,25 @@ public class TranslationFragment extends Fragment
                         new CachedSelectedLanguages.Base(requireContext())
                 )
         ).get(TranslatingViewModel.class);
+        mBinding.saveButton.setOnClickListener((View v) -> mViewModel.saveBookmark(
+            new Bookmark.Base(
+                    mBinding.firstLanguageField.getText().toString(),
+                    mBinding.secondLanguageField.getText().toString(),
+                    mBinding.firstLanguageSelector.getText().toString(),
+                    mBinding.secondLanguageSelector.getText().toString(),
+                    "#General"
+            ),
+            (Boolean isSuccess) -> {
+                mBinding.getRoot().post(() -> {
+                    Toast.makeText(
+                            requireContext(),
+                            R.string.success_saving_bookmark_message,
+                            Toast.LENGTH_SHORT
+                    ).show();
+                });
+            },
+            requireContext()
+        ));
         mBinding.firstLanguageField.setTag("free");
         mBinding.firstLanguageField.addTextChangedListener(new TextWatcher() {
             @Override

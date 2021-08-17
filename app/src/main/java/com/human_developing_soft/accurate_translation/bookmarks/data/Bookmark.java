@@ -3,10 +3,13 @@ package com.human_developing_soft.accurate_translation.bookmarks.data;
 import android.content.ContentValues;
 
 import com.human_developing_soft.accurate_translation.CommonSchema;
+import com.human_developing_soft.accurate_translation.bookmarks.ui.BindingBookmark;
 
 public interface Bookmark {
 
     ContentValues value(CommonSchema schema);
+
+    BindingBookmark binding();
 
     class Base implements Bookmark {
         private final String mFirstTranslation;
@@ -50,6 +53,17 @@ public interface Bookmark {
             values.put(attributes[3], mSecondLanguage);
             values.put(attributes[4], mTag);
             return values;
+        }
+
+        @Override
+        public BindingBookmark binding() {
+            return new BindingBookmark.Base(
+                    mFirstTranslation,
+                    mSecondTranslation,
+                    mFirstLanguage,
+                    mSecondLanguage,
+                    mTag
+            );
         }
     }
 }
