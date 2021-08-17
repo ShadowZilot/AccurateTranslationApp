@@ -1,10 +1,12 @@
 package com.human_developing_soft.accurate_translation.translation.data;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.ibm.watson.language_translator.v3.model.Language;
+import com.human_developing_soft.accurate_translation.R;
+import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 
 public interface HandledLanguage {
 
@@ -83,10 +85,17 @@ public interface HandledLanguage {
     }
 
     class Dummy implements HandledLanguage {
+        private final Context mContext;
+
+        public Dummy(Context pContext) {
+            mContext = pContext;
+        }
 
         @Override
         public String name() {
-            return "";
+            return new StringProvider.Base(
+                    mContext
+            ).string(R.string.select_language_message);
         }
 
         @Override

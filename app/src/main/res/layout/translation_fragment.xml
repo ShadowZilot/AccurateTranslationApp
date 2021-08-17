@@ -10,13 +10,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@android:drawable/btn_dialog"
+        android:singleLine="true"
+        android:maxEms="8"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="English" />
+        tools:text="English Engilsh" />
+
+    <ProgressBar
+        android:id="@+id/translationProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/firstLanguageSelector"
+        app:layout_constraintEnd_toStartOf="@id/secondLanguageSelector"
+        app:layout_constraintTop_toTopOf="@id/firstLanguageSelector"
+        app:layout_constraintBottom_toBottomOf="@id/secondLanguageSelector"/>
 
     <ImageView
+        android:id="@+id/translationIcon"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_vice_versa"
@@ -32,9 +45,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:singleLine="true"
+        android:maxEms="8"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Russian" />
+        tools:text="Russian Russian" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/firstFieldContainer"

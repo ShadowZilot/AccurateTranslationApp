@@ -31,8 +31,8 @@ public interface SelectedLanguages {
 
         public Base(String initValue) {
             this(
-                    new HandledLanguage.Base(initValue.split("&")[0]),
-                    new HandledLanguage.Base(initValue.split("&")[1])
+                new HandledLanguage.Base(initValue.split("&")[0]),
+                new HandledLanguage.Base(initValue.split("&")[1])
             );
         }
 
@@ -74,10 +74,20 @@ public interface SelectedLanguages {
         @Override
         public void initFieldHints(EditText firstField, EditText secondField) {
             StringProvider provider = new StringProvider.Base(firstField.getContext());
-            firstField.setHint(provider.string(R.string.field_hint,
-                    mFirstLanguage.name()));
-            secondField.setHint(provider.string(R.string.field_hint,
-                    mSecondLanguage.name()));
+            if (mFirstLanguage.languageCode().equals("")) {
+                firstField.setHint(provider.string(
+                        R.string.select_language_message));
+            } else {
+                firstField.setHint(provider.string(R.string.field_hint,
+                        mFirstLanguage.name()));
+            }
+            if (mSecondLanguage.languageCode().equals("")) {
+                secondField.setHint(provider.string(
+                        R.string.select_language_message));
+            } else {
+                secondField.setHint(provider.string(R.string.field_hint,
+                        mSecondLanguage.name()));
+            }
         }
     }
 }

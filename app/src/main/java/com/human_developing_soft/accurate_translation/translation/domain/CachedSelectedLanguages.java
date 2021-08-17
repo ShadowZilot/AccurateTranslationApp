@@ -26,8 +26,8 @@ public interface CachedSelectedLanguages {
                         ""));
             } catch (IndexOutOfBoundsException e) {
                 return new SelectedLanguages.Base(
-                        new HandledLanguage.Dummy(),
-                        new HandledLanguage.Dummy()
+                        new HandledLanguage.Dummy(mContext),
+                        new HandledLanguage.Dummy(mContext)
                 );
             }
         }

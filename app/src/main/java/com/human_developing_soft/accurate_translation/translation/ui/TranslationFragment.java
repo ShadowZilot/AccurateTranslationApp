@@ -54,6 +54,8 @@ public class TranslationFragment extends Fragment
                     mViewModel.translateText(s.toString(),
                             true,
                             new StringProvider.Base(requireContext()));
+                    mBinding.translationProgress.setVisibility(View.VISIBLE);
+                    mBinding.translationIcon.setVisibility(View.GONE);
                 }
             }
         });
@@ -73,6 +75,8 @@ public class TranslationFragment extends Fragment
                     mViewModel.translateText(s.toString(),
                             false,
                             new StringProvider.Base(requireContext()));
+                    mBinding.translationProgress.setVisibility(View.VISIBLE);
+                    mBinding.translationIcon.setVisibility(View.GONE);
                 }
             }
         });
@@ -134,7 +138,7 @@ public class TranslationFragment extends Fragment
                     )
             );
             mViewModel.updateTranslatingLanguage(language,
-                    new HandledLanguage.Dummy(),
+                    new HandledLanguage.Dummy(requireContext()),
                     new CachedSelectedLanguages.Base(
                             requireContext()
                     ));
@@ -150,7 +154,7 @@ public class TranslationFragment extends Fragment
                             language.name()
                     )
             );
-            mViewModel.updateTranslatingLanguage(new HandledLanguage.Dummy(),
+            mViewModel.updateTranslatingLanguage(new HandledLanguage.Dummy(requireContext()),
                     language,
                     new CachedSelectedLanguages.Base(
                             requireContext()
@@ -168,6 +172,8 @@ public class TranslationFragment extends Fragment
                         mBinding.firstLanguageField.setTag("blocked");
                         mBinding.firstLanguageField.setText(translatingValue);
                         mBinding.firstLanguageField.setTag("free");
+                        mBinding.translationProgress.setVisibility(View.GONE);
+                        mBinding.translationIcon.setVisibility(View.VISIBLE);
                     });
         } else {
             mBinding.secondLanguageField.post(
@@ -175,6 +181,8 @@ public class TranslationFragment extends Fragment
                         mBinding.secondLanguageField.setTag("blocked");
                         mBinding.secondLanguageField.setText(translatingValue);
                         mBinding.secondLanguageField.setTag("free");
+                        mBinding.translationProgress.setVisibility(View.GONE);
+                        mBinding.translationIcon.setVisibility(View.VISIBLE);
                     });
         }
     }
