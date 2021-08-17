@@ -1,24 +1,25 @@
 package com.human_developing_soft.accurate_translation.translation.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.human_developing_soft.accurate_translation.CommonSchema;
 
-public class LanguagesSchema {
+public class LanguagesSchema implements CommonSchema {
     private final String mTableName = "languages";
-    private String mColumnIdentifiable = "isIdentifiable";
-    private String mColumnAsTarget = "isSupAsTarget";
-    private String mColumnCode = "countryCode";
-    private String mColumnDirection = "direction";
-    private String mColumnLanguage = "language";
-    private String mColumnAsSource = "isSupAsSource";
-    private String mColumnNativeName = "nativeName";
-    private String mColumnName = "name";
+    private final String mColumnIdentifiable = "isIdentifiable";
+    private final String mColumnAsTarget = "isSupAsTarget";
+    private final String mColumnCode = "countryCode";
+    private final String mColumnDirection = "direction";
+    private final String mColumnLanguage = "language";
+    private final String mColumnAsSource = "isSupAsSource";
+    private final String mColumnNativeName = "nativeName";
+    private final String mColumnName = "name";
 
-    String tableName() {
+    @Override
+    public String tableName() {
         return mTableName;
     }
 
-    String[] attributes() {
+    @Override
+    public String[] attributes() {
         return new String[]{
                 mColumnLanguage,
                 mColumnName,
@@ -31,8 +32,8 @@ public class LanguagesSchema {
         };
     }
 
-    String schema() {
-
+    @Override
+    public String schema() {
         return String.format("%s (%s TEXT," +
                         " %s TEXT," +
                         " %s TEXT," +

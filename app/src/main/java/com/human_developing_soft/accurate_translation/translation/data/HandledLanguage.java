@@ -42,9 +42,7 @@ public interface HandledLanguage {
             mIsIdentifiable = Boolean.parseBoolean(values[3]);
         }
 
-        public Base(
-                Bundle packedLanguage
-        ) {
+        public Base(Bundle packedLanguage) {
             mName = packedLanguage.getString("name");
             mLanguage = packedLanguage.getString("language");
             mCountryCode = packedLanguage.getString("countryCode");

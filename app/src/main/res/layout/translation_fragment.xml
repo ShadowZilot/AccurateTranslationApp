@@ -90,4 +90,17 @@
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/SaveButton"
+        android:background="@drawable/save_bg"
+        android:text="@string/save_label"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/secondFieldContainer"
+        android:contentDescription="@string/add_to_bookmarks_button_decs" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

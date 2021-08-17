@@ -12,7 +12,6 @@ import com.human_developing_soft.accurate_translation.translation.data.PreTransl
 import com.human_developing_soft.accurate_translation.translation.data.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
-import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 
 import org.json.JSONException;
@@ -83,5 +82,10 @@ public class TranslatingViewModel extends ViewModel {
                        EditText secondField) {
         mSelectedLanguage.initSelectors(firstSelector, secondSelector);
         mSelectedLanguage.initFieldHints(firstField, secondField);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
     }
 }

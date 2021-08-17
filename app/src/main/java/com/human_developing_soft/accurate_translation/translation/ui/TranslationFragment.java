@@ -32,7 +32,6 @@ public class TranslationFragment extends Fragment
                 inflater,
                 container,
                 false);
-
         mViewModel = new ViewModelProvider(this,
                 new TranslatingVMFactory(this,
                         new CachedSelectedLanguages.Base(requireContext())

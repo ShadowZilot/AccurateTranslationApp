@@ -14,4 +14,6 @@
         Seems you have no internet connection
     </string>
     <string name="select_language_message">Select language</string>
+    <string name="add_to_bookmarks_button_decs">Add to bookmarks button</string>
+    <string name="save_label">Save</string>
 </resources>
