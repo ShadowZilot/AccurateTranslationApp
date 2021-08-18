@@ -14,14 +14,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/newTagFieldContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/preSavingDialogTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newTagField"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/type_new_tag_label"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfPreviousTags"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:listitem="@layout/tag_item"
-        app:layout_constraintTop_toBottomOf="@id/preSavingDialogTitle"
+        app:layout_constraintTop_toBottomOf="@id/newTagFieldContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/saveBookmarkButton"/>
 
     <Button
         android:id="@+id/saveBookmarkButton"

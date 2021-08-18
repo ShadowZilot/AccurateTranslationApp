@@ -28,4 +28,5 @@
     <string name="bookmarks_list_is_empty_message">Bookmarks list is empty</string>
     <string name="pre_saving_title">Select or type new, tag for bookmark</string>
     <string name="cancel_label">Cancel</string>
+    <string name="type_new_tag_label">Type new tag</string>
 </resources>

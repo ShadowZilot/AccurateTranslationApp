@@ -1,20 +1,15 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.lifecycle.ViewModel;
 
 import com.human_developing_soft.accurate_translation.R;
-import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
-import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkDatabase;
-import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkStorage;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.PreTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.Translating;
-import com.human_developing_soft.accurate_translation.translation.ui.SavingBookmarkObserver;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
@@ -87,17 +82,6 @@ public class TranslatingViewModel extends ViewModel {
                        EditText secondField) {
         mSelectedLanguage.initSelectors(firstSelector, secondSelector);
         mSelectedLanguage.initFieldHints(firstField, secondField);
-    }
-
-    public void saveBookmark(Bookmark savingBookmark,
-                             SavingBookmarkObserver observer,
-                             Context context) {
-        Runnable runnable = () -> {
-            BookmarkStorage bookmarkStorage = BookmarkDatabase.instance(context);
-            bookmarkStorage.saveBookmark(savingBookmark);
-            observer.onBookmarkSaved(true);
-        };
-        new Thread(runnable).start();
     }
 
     @Override
