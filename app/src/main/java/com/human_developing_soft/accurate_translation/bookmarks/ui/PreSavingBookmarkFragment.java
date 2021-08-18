@@ -24,7 +24,8 @@ import com.human_developing_soft.accurate_translation.translation.domain.TagLoad
 
 import java.util.List;
 
-public class PreSavingBookmarkFragment extends DialogFragment implements TagLoadingObserver {
+public class PreSavingBookmarkFragment extends DialogFragment
+        implements TagLoadingObserver, OnTagPressed {
     private PreSavingBookmarkFragmentBinding mBinding;
     private PreSavingBookmarkVM mViewModel;
     private TagsAdapter mAdapter;
@@ -54,7 +55,7 @@ public class PreSavingBookmarkFragment extends DialogFragment implements TagLoad
                         this
                 )
         ).get(PreSavingBookmarkVM.class);
-        mAdapter = new TagsAdapter();
+        mAdapter = new TagsAdapter(this);
         mBinding.listOfPreviousTags.setLayoutManager(new LinearLayoutManager(requireContext(),
                 RecyclerView.VERTICAL, false));
         mBinding.listOfPreviousTags.addItemDecoration(new DividerItemDecoration(requireContext(),
@@ -94,5 +95,10 @@ public class PreSavingBookmarkFragment extends DialogFragment implements TagLoad
     @Override
     public void onTagLoaded(List<String> tags) {
         mAdapter.onTagLoaded(tags);
+    }
+
+    @Override
+    public void onPressTag(String tagName) {
+        mBinding.newTagField.setText(tagName);
     }
 }

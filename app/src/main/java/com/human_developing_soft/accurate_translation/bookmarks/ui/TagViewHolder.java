@@ -16,8 +16,7 @@ public class TagViewHolder extends RecyclerView.ViewHolder {
 
     void bind(BookmarkTag tag, OnTagPressed listener) {
         mBinding.tagText.setText(tag.tagName());
-        mBinding.isSelectedTag.setChecked(tag.isChecked());
-        mBinding.isSelectedTag.setOnClickListener((View v) ->
-                listener.onPressTag(getAdapterPosition()));
+        mBinding.tagText.setOnClickListener((View v) ->
+                listener.onPressTag(tag.tagName()));
     }
 }

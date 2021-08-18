@@ -42,7 +42,7 @@ public interface Bookmark {
             mSecondTranslation = pSecondTranslation;
             mFirstLanguage = pFirstLanguage;
             mSecondLanguage = pSecondLanguage;
-            mTag = pTag;
+            mTag = pTag = "#" + pTag.replace("#", "");;
         }
 
         @Override
