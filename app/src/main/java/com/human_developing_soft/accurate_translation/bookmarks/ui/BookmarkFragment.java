@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkVMFactory;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkViewModel;
@@ -32,6 +34,25 @@ public class BookmarkFragment extends Fragment implements BookmarkObserver {
         mBinding = BookmarkFragmentBinding.inflate(inflater,
                 container,
                 false);
+        mBinding.bookmarkSearchField.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mViewModel.searchBookmark(query);
+                mBinding.bookmarksList.setVisibility(View.GONE);
+                mBinding.bookmarkProgress.setVisibility(View.VISIBLE);
+                mBinding.emptyBookmarksView.setVisibility(View.GONE);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mViewModel.searchBookmark(newText);
+                mBinding.bookmarksList.setVisibility(View.GONE);
+                mBinding.bookmarkProgress.setVisibility(View.VISIBLE);
+                mBinding.emptyBookmarksView.setVisibility(View.GONE);
+                return true;
+            }
+        });
         mAdapter = new BookmarkAdapter();
         mBinding.bookmarksList.setAdapter(mAdapter);
         mBinding.bookmarksList.setLayoutManager(new LinearLayoutManager(requireContext(),
@@ -56,6 +77,11 @@ public class BookmarkFragment extends Fragment implements BookmarkObserver {
             mBinding.bookmarkProgress.setVisibility(View.GONE);
             if (bookmarks.isEmpty()) {
                 mBinding.emptyBookmarksView.setVisibility(View.VISIBLE);
+                if (mBinding.bookmarkSearchField.getQuery().toString().isEmpty()) {
+                    mBinding.emptyBookmarksView.setText(R.string.bookmarks_list_is_empty_message);
+                } else {
+                    mBinding.emptyBookmarksView.setText(R.string.bookmarks_not_found_message);
+                }
             } else {
                 mBinding.bookmarksList.setVisibility(View.VISIBLE);
                 mAdapter.onBookmarkUpdate(bookmarks);

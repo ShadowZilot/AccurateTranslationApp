@@ -7,6 +7,7 @@
     <string name="cancel_language_select">Cancel</string>
     <string name="label_sign_vice_versa">Sign vice versa</string>
     <string name="error_while_getting_response_label">Error!</string>
+    <string name="bookmarks_not_found_message">Bookmarks not found</string>
     <string name="success_saving_bookmark_message">Bookmark saved!</string>
     <string name="language_not_support_for_translate_label">
         This languages not supported for translating

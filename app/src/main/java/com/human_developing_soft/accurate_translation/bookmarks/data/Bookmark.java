@@ -11,6 +11,8 @@ public interface Bookmark {
 
     BindingBookmark binding();
 
+    Boolean isSearchSubmitted(String searchQuery);
+
     String tag();
 
     class Base implements Bookmark {
@@ -42,7 +44,7 @@ public interface Bookmark {
             mSecondTranslation = pSecondTranslation;
             mFirstLanguage = pFirstLanguage;
             mSecondLanguage = pSecondLanguage;
-            mTag = pTag = "#" + pTag.replace("#", "");;
+            mTag = "#" + pTag.replace("#", "");
         }
 
         @Override
@@ -66,6 +68,13 @@ public interface Bookmark {
                     mSecondLanguage,
                     mTag
             );
+        }
+
+        @Override
+        public Boolean isSearchSubmitted(String searchQuery) {
+            return mFirstTranslation.contains(searchQuery)
+                    || mSecondTranslation.contains(searchQuery)
+                    || mTag.contains(searchQuery);
         }
 
         @Override

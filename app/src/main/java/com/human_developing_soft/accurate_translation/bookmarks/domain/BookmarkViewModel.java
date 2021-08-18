@@ -11,6 +11,7 @@ import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkObser
 public class BookmarkViewModel extends ViewModel {
     private final BookmarkStorage mStorage;
     private final BookmarkObserver mObserver;
+    private Thread mLastThread;
 
     public BookmarkViewModel(Context pContext, BookmarkObserver pObserver) {
         mStorage = BookmarkDatabase.instance(pContext);
@@ -20,5 +21,28 @@ public class BookmarkViewModel extends ViewModel {
     public void bookmarks() {
         Runnable runnable = () -> mObserver.onBookmarkUpdate(mStorage.bookmarks());
         new Thread(runnable).start();
+    }
+
+    public void searchBookmark(String searchQuery) {
+        Runnable runnable = () -> {
+            try {
+                if (searchQuery.equals("")) {
+                    mObserver.onBookmarkUpdate(
+                            mStorage.bookmarks()
+                    );
+                } else {
+                    mObserver.onBookmarkUpdate(
+                            mStorage.searchBookmark(searchQuery)
+                    );
+                }
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        };
+        if (mLastThread != null) {
+            mLastThread.interrupt();
+        }
+        mLastThread = new Thread(runnable);
+        mLastThread.start();
     }
 }

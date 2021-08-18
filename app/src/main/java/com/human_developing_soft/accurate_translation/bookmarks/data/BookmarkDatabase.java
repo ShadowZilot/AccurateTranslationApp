@@ -36,7 +36,16 @@ public class BookmarkDatabase implements BookmarkStorage {
 
     @Override
     public List<Bookmark> searchBookmark(String searchQuery) {
-        return new ArrayList<>();
+        List<Bookmark> allBookmarks = bookmarks();
+        List<Bookmark> searchedBookmarks = new ArrayList<>();
+        for (int i = 0; i < allBookmarks.size(); i++) {
+            if (allBookmarks.get(i).isSearchSubmitted(searchQuery)) {
+                searchedBookmarks.add(
+                    allBookmarks.get(i)
+                );
+            }
+        }
+        return searchedBookmarks;
     }
 
     @Override
