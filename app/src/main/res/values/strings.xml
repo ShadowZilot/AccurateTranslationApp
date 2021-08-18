@@ -26,4 +26,6 @@
         In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</string>
     <string name="translation_bookmark_icon_label">Translation bookmark icon</string>
     <string name="bookmarks_list_is_empty_message">Bookmarks list is empty</string>
+    <string name="pre_saving_title">Select or type new, tag for bookmark</string>
+    <string name="cancel_label">Cancel</string>
 </resources>
