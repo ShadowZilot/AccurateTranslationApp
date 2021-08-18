@@ -11,6 +11,8 @@ public interface Bookmark {
 
     BindingBookmark binding();
 
+    String tag();
+
     class Base implements Bookmark {
         private final String mFirstTranslation;
         private final String mSecondTranslation;
@@ -64,6 +66,11 @@ public interface Bookmark {
                     mSecondLanguage,
                     mTag
             );
+        }
+
+        @Override
+        public String tag() {
+            return mTag;
         }
     }
 }

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TagsAdapter extends RecyclerView.Adapter<TagViewHolder>
-        implements TagLoadingObserver {
-    private final List<String> mTags = new ArrayList<>();
+        implements TagLoadingObserver, OnTagPressed {
+    private final List<BookmarkTag> mTags = new ArrayList<>();
 
     @NonNull
     @Override
@@ -30,7 +30,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull TagViewHolder holder, int position) {
-        holder.bind(mTags.get(position));
+        holder.bind(mTags.get(position), this);
     }
 
     @Override
@@ -43,7 +43,24 @@ public class TagsAdapter extends RecyclerView.Adapter<TagViewHolder>
     @Override
     public void onTagLoaded(List<String> tags) {
         mTags.clear();
-        mTags.addAll(tags);
+        List<BookmarkTag> bookmarkTags = new ArrayList<>();
+        for (String tagName: tags) {
+            bookmarkTags.add(new BookmarkTag.Base(
+               tagName, false
+            ));
+        }
+        mTags.addAll(bookmarkTags);
+        notifyDataSetChanged();
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onPressTag(Integer tagPosition) {
+        for (int i = 0; i < mTags.size(); i++) {
+            mTags.get(i).changedTag(false);
+        }
+        mTags.get(tagPosition).changedTag(true);
         notifyDataSetChanged();
     }
 }
