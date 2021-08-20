@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/bookmarkEditingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/editing_bookmark_label"
+        android:theme="@style/DialogHeaderText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editingFirstLanguageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:theme="@style/BookmarkLanguageText"
+        app:layout_constraintEnd_toStartOf="@id/bookmarkTranslationIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bookmarkEditingTitle"
+        tools:text="English" />
+
+    <ImageView
+        android:id="@+id/bookmarkTranslationIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/translation_bookmark_icon_label"
+        android:src="@drawable/ic_vice_versa"
+        app:layout_constraintBottom_toBottomOf="@id/editingSecondLanguageName"
+        app:layout_constraintEnd_toStartOf="@id/editingSecondLanguageName"
+        app:layout_constraintStart_toEndOf="@id/editingFirstLanguageName"
+        app:layout_constraintTop_toTopOf="@id/editingFirstLanguageName" />
+
+    <TextView
+        android:id="@+id/editingSecondLanguageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:theme="@style/BookmarkLanguageText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/bookmarkTranslationIcon"
+        app:layout_constraintTop_toBottomOf="@id/bookmarkEditingTitle"
+        tools:text="Simplified Chinese" />
+
+    <ScrollView
+        android:id="@+id/editingContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editingFirstLanguageName"
+        app:layout_constraintBottom_toTopOf="@id/cancelEditingBtn">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/editingFirstTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:theme="@style/BookmarkTranslationText.Editing"
+                tools:text="@string/fish_text_for_bookmark" />
+
+            <TextView
+                android:id="@+id/editingSecondTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:theme="@style/BookmarkTranslationText.Editing"
+                tools:text="@string/fish_text_for_bookmark" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editingBookmarkTagContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:helperText="@string/edit_tag_label">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editingBookmarkTagField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:text="#Greeting" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/applyEditingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/save_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/cancelEditingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/cancel_label"
+        android:theme="@style/CancelButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/applyEditingBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

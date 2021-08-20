@@ -15,7 +15,13 @@ public class BookmarkViewHolder extends RecyclerView.ViewHolder {
         mBinding = pBinding;
     }
 
-    void bind(BindingBookmark binding) {
+    void bind(BindingBookmark binding, OnBookmarkLongPressed observer) {
+        mBinding.getRoot().setOnLongClickListener((View v) -> {
+            observer.onLongPressed(
+                    binding.dataBookmark()
+            );
+            return true;
+        });
         mBinding.secondTranslation.setOnClickListener((View v) -> updateMaxLines());
         mBinding.firstTranslation.setOnClickListener((View v) -> updateMaxLines());
         binding.bind(

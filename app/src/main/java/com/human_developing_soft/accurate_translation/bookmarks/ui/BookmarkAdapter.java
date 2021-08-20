@@ -16,6 +16,11 @@ import java.util.List;
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkViewHolder>
         implements BookmarkObserver {
     private final List<Bookmark> mBookmarks = new ArrayList<>();
+    private final OnBookmarkLongPressed mObserver;
+
+    public BookmarkAdapter(OnBookmarkLongPressed pObserver) {
+        mObserver = pObserver;
+    }
 
     @NonNull
     @Override
@@ -31,7 +36,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkViewHolder>
     @Override
     public void onBindViewHolder(@NonNull BookmarkViewHolder holder, int position) {
         holder.bind(
-            mBookmarks.get(position).binding()
+            mBookmarks.get(position).binding(),
+            mObserver
         );
     }
 

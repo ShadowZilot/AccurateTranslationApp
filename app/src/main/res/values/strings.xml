@@ -30,4 +30,6 @@
     <string name="pre_saving_title">Select or type new, tag for bookmark</string>
     <string name="cancel_label">Cancel</string>
     <string name="type_new_tag_label">Type new tag</string>
+    <string name="editing_bookmark_label">Editing bookmark</string>
+    <string name="edit_tag_label">Edit tag</string>
 </resources>

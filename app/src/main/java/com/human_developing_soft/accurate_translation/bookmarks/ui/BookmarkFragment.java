@@ -21,7 +21,8 @@ import com.human_developing_soft.accurate_translation.databinding.BookmarkFragme
 
 import java.util.List;
 
-public class BookmarkFragment extends Fragment implements BookmarkObserver {
+public class BookmarkFragment extends Fragment
+        implements BookmarkObserver, OnBookmarkLongPressed {
     private BookmarkFragmentBinding mBinding;
     private BookmarkViewModel mViewModel;
     private BookmarkAdapter mAdapter;
@@ -53,7 +54,7 @@ public class BookmarkFragment extends Fragment implements BookmarkObserver {
                 return true;
             }
         });
-        mAdapter = new BookmarkAdapter();
+        mAdapter = new BookmarkAdapter(this);
         mBinding.bookmarksList.setAdapter(mAdapter);
         mBinding.bookmarksList.setLayoutManager(new LinearLayoutManager(requireContext(),
                 RecyclerView.VERTICAL, false));
@@ -87,5 +88,11 @@ public class BookmarkFragment extends Fragment implements BookmarkObserver {
                 mAdapter.onBookmarkUpdate(bookmarks);
             }
         });
+    }
+
+    @Override
+    public void onLongPressed(Bookmark pressedBookmark) {
+        BookmarkEditingDialog dialog = new BookmarkEditingDialog(pressedBookmark.binding());
+        dialog.show(getParentFragmentManager(), "editing");
     }
 }
