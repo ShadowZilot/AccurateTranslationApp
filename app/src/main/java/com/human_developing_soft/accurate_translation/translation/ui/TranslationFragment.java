@@ -1,8 +1,6 @@
 package com.human_developing_soft.accurate_translation.translation.ui;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.human_developing_soft.accurate_translation.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.R;
+import com.human_developing_soft.accurate_translation.TranslationFields;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkArguments;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.PreSavingBookmarkFragment;
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;
@@ -22,18 +22,13 @@ import com.human_developing_soft.accurate_translation.translation.domain.Transla
 import com.human_developing_soft.accurate_translation.translation.domain.TranslatingViewModel;
 
 public class TranslationFragment extends Fragment
-        implements TranslatingObserver, FragmentResultListener {
+        implements OnTranslationFieldChanged, TranslatingObserver, FragmentResultListener {
     private TranslationFragmentBinding mBinding;
     private TranslatingViewModel mViewModel;
+    private TranslationFields mFieldManager;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
-        mBinding = TranslationFragmentBinding.inflate(
-                inflater,
-                container,
-                false);
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this,
                 new TranslatingVMFactory(this,
                         new CachedSelectedLanguages.Base(requireContext())
@@ -50,48 +45,9 @@ public class TranslationFragment extends Fragment
             );
             preSaving.show(getParentFragmentManager(), "tags");
         });
-        mBinding.firstLanguageField.setTag("free");
-        mBinding.firstLanguageField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (mBinding.firstLanguageField.getTag().equals("free")) {
-                    mViewModel.translateText(s.toString(),
-                            true,
-                            new StringProvider.Base(requireContext()));
-                    mBinding.translationProgress.setVisibility(View.VISIBLE);
-                    mBinding.translationIcon.setVisibility(View.GONE);
-                }
-            }
-        });
-        mBinding.secondLanguageField.setTag("free");
-        mBinding.secondLanguageField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (mBinding.secondLanguageField.getTag().equals("free")) {
-                    mViewModel.translateText(s.toString(),
-                            false,
-                            new StringProvider.Base(requireContext()));
-                    mBinding.translationProgress.setVisibility(View.VISIBLE);
-                    mBinding.translationIcon.setVisibility(View.GONE);
-                }
-            }
-        });
+        mFieldManager = new TranslationFields(mBinding.firstLanguageField,
+                mBinding.secondLanguageField,
+                this);
         mBinding.firstLanguageSelector.setOnClickListener((View v) -> {
             LanguageSelectorDialog languageSelector = new LanguageSelectorDialog(
                     "firstLanguage");
@@ -124,6 +80,16 @@ public class TranslationFragment extends Fragment
                 mBinding.secondLanguageSelector,
                 mBinding.firstLanguageField,
                 mBinding.secondLanguageField);
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        mBinding = TranslationFragmentBinding.inflate(
+                inflater,
+                container,
+                false);
         return mBinding.getRoot();
     }
 
@@ -177,25 +143,26 @@ public class TranslationFragment extends Fragment
     }
 
     @Override
+    public void translateText(String translationField,
+                              Boolean isFirstField,
+                              StringProvider provider) {
+        mBinding.translationProgress.setVisibility(View.VISIBLE);
+        mBinding.translationIcon.setVisibility(View.GONE);
+        mViewModel.translateText(
+                translationField,
+                isFirstField,
+                provider
+        );
+    }
+
+    @Override
     public void updateField(String translatingValue, Boolean isFirstField) {
-        if (isFirstField) {
-            mBinding.firstLanguageField.post(
-                    () -> {
-                        mBinding.firstLanguageField.setTag("blocked");
-                        mBinding.firstLanguageField.setText(translatingValue);
-                        mBinding.firstLanguageField.setTag("free");
-                        mBinding.translationProgress.setVisibility(View.GONE);
-                        mBinding.translationIcon.setVisibility(View.VISIBLE);
-                    });
-        } else {
-            mBinding.secondLanguageField.post(
-                    () -> {
-                        mBinding.secondLanguageField.setTag("blocked");
-                        mBinding.secondLanguageField.setText(translatingValue);
-                        mBinding.secondLanguageField.setTag("free");
-                        mBinding.translationProgress.setVisibility(View.GONE);
-                        mBinding.translationIcon.setVisibility(View.VISIBLE);
-                    });
-        }
+        requireActivity().runOnUiThread(() -> {
+            mFieldManager.updateField(
+                    translatingValue, isFirstField
+            );
+            mBinding.translationProgress.setVisibility(View.GONE);
+            mBinding.translationIcon.setVisibility(View.VISIBLE);
+        });
     }
 }
