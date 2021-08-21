@@ -8,4 +8,6 @@ public interface LanguageStorage {
     void saveLanguages(List<Language> languages);
 
     List<HandledLanguage> allLanguages();
+
+    HandledLanguage languageByName(String languageName);
 }

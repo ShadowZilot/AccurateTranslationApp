@@ -6,6 +6,8 @@ public interface CursoredBookmark {
 
     String stringByAttribute(String attribute);
 
+    Integer integerByAttribute(String attribute);
+
     class Base implements CursoredBookmark {
         private final Cursor mCursor;
 
@@ -16,6 +18,15 @@ public interface CursoredBookmark {
         @Override
         public String stringByAttribute(String attribute) {
             return mCursor.getString(
+                    mCursor.getColumnIndex(
+                            attribute
+                    )
+            );
+        }
+
+        @Override
+        public Integer integerByAttribute(String attribute) {
+            return mCursor.getInt(
                     mCursor.getColumnIndex(
                             attribute
                     )

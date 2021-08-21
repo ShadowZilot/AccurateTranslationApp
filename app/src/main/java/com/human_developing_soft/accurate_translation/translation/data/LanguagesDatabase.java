@@ -58,6 +58,19 @@ public class LanguagesDatabase implements LanguageStorage {
         return result;
     }
 
+    @Override
+    public HandledLanguage languageByName(String languageName) {
+        List<HandledLanguage> allLanguages = allLanguages();
+        HandledLanguage result = new HandledLanguage.Dummy(mContext);
+        for (int i = 0; i < allLanguages.size(); i++) {
+            if (allLanguages.get(i).name().equals(languageName)) {
+                result = allLanguages.get(i);
+                break;
+            }
+        }
+        return result;
+    }
+
     public static LanguageStorage instance(Context pContext) {
         if (sInstance == null) {
             sInstance = new LanguagesDatabase(pContext);

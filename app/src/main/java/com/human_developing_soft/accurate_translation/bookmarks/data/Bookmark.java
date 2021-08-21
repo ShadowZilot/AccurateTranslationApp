@@ -1,13 +1,8 @@
 package com.human_developing_soft.accurate_translation.bookmarks.data;
 
-import android.content.ContentValues;
-
-import com.human_developing_soft.accurate_translation.CommonSchema;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.BindingBookmark;
 
 public interface Bookmark {
-
-    ContentValues value(CommonSchema schema);
 
     BindingBookmark binding();
 
@@ -15,7 +10,10 @@ public interface Bookmark {
 
     String tag();
 
+    BookmarkEntity toEntity();
+
     class Base implements Bookmark {
+        private final Integer mId;
         private final String mFirstTranslation;
         private final String mSecondTranslation;
         private final String mFirstLanguage;
@@ -23,23 +21,30 @@ public interface Bookmark {
         private final String mTag;
 
         public Base(
-                CursoredBookmark cursor,
-                CommonSchema schema
+                String pFirstTranslation,
+                String pSecondTranslation,
+                String pFirstLanguage,
+                String pSecondLanguage,
+                String pTag
         ) {
             this(
-                cursor.stringByAttribute(schema.attributes()[0]),
-                cursor.stringByAttribute(schema.attributes()[1]),
-                cursor.stringByAttribute(schema.attributes()[2]),
-                cursor.stringByAttribute(schema.attributes()[3]),
-                cursor.stringByAttribute(schema.attributes()[4])
+                    0,
+                    pFirstTranslation,
+                    pSecondTranslation,
+                    pFirstLanguage,
+                    pSecondLanguage,
+                    pTag
             );
         }
 
-        public Base(String pFirstTranslation,
-                    String pSecondTranslation,
-                    String pFirstLanguage,
-                    String pSecondLanguage,
-                    String pTag) {
+        public Base(
+                Integer pId,
+                String pFirstTranslation,
+                String pSecondTranslation,
+                String pFirstLanguage,
+                String pSecondLanguage,
+                String pTag) {
+            mId = pId;
             mFirstTranslation = pFirstTranslation;
             mSecondTranslation = pSecondTranslation;
             mFirstLanguage = pFirstLanguage;
@@ -48,20 +53,9 @@ public interface Bookmark {
         }
 
         @Override
-        public ContentValues value(CommonSchema schema) {
-            ContentValues values = new ContentValues();
-            String[] attributes = schema.attributes();
-            values.put(attributes[0], mFirstTranslation);
-            values.put(attributes[1], mSecondTranslation);
-            values.put(attributes[2], mFirstLanguage);
-            values.put(attributes[3], mSecondLanguage);
-            values.put(attributes[4], mTag);
-            return values;
-        }
-
-        @Override
         public BindingBookmark binding() {
             return new BindingBookmark.Base(
+                    mId,
                     mFirstTranslation,
                     mSecondTranslation,
                     mFirstLanguage,
@@ -80,6 +74,18 @@ public interface Bookmark {
         @Override
         public String tag() {
             return mTag;
+        }
+
+        @Override
+        public BookmarkEntity toEntity() {
+            return new BookmarkEntity(
+                    mId,
+                    mFirstTranslation,
+                    mSecondTranslation,
+                    mFirstLanguage,
+                    mSecondLanguage,
+                    mTag
+            );
         }
     }
 }

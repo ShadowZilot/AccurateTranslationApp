@@ -71,10 +71,14 @@ public class PreSavingBookmarkFragment extends DialogFragment
                                             .toString()
                             ),
                     (Boolean isSuccess) -> {
-                        mBinding.getRoot().post(() -> {
+                        requireActivity().runOnUiThread(() -> {
+                            String toastText = getString(R.string.fail_saving_bookmark_message);
+                            if (isSuccess) {
+                                toastText = getString(R.string.success_saving_bookmark_message);
+                            }
                             Toast.makeText(
                                     requireContext(),
-                                    R.string.success_saving_bookmark_message,
+                                    toastText,
                                     Toast.LENGTH_SHORT
                             ).show();
                         });

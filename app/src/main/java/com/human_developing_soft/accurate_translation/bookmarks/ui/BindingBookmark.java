@@ -15,17 +15,21 @@ public interface BindingBookmark {
     Bookmark dataBookmark();
 
     class Base implements BindingBookmark {
+        private final Integer mId;
         private final String mFirstTranslation;
         private final String mSecondTranslation;
         private final String mFirstLanguage;
         private final String mSecondLanguage;
         private final String mTag;
 
-        public Base(String pFirstTranslation,
-                    String pSecondTranslation,
-                    String pFirstLanguage,
-                    String pSecondLanguage,
-                    String pTag) {
+        public Base(
+                Integer pId,
+                String pFirstTranslation,
+                String pSecondTranslation,
+                String pFirstLanguage,
+                String pSecondLanguage,
+                String pTag) {
+            mId = pId;
             mFirstTranslation = pFirstTranslation;
             mSecondTranslation = pSecondTranslation;
             mFirstLanguage = pFirstLanguage;
@@ -39,16 +43,21 @@ public interface BindingBookmark {
                          TextView firstLanguageView,
                          TextView secondLanguageView,
                          TextView tagView) {
+            firstTranslationView.setTag("blocked");
+            secondTranslationView.setTag("blocked");
             firstTranslationView.setText(mFirstTranslation);
             secondTranslationView.setText(mSecondTranslation);
             firstLanguageView.setText(mFirstLanguage);
             secondLanguageView.setText(mSecondLanguage);
             tagView.setText(mTag);
+            firstTranslationView.setTag("free");
+            secondTranslationView.setTag("free");
         }
 
         @Override
         public Bookmark dataBookmark() {
             return new Bookmark.Base(
+                    mId,
                     mFirstTranslation,
                     mSecondTranslation,
                     mFirstLanguage,

@@ -6,16 +6,9 @@ import android.widget.EditText;
 import androidx.lifecycle.ViewModel;
 
 import com.human_developing_soft.accurate_translation.OnTranslationFieldChanged;
-import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
-import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
-import com.human_developing_soft.accurate_translation.translation.data.PreTranslating;
-import com.human_developing_soft.accurate_translation.translation.data.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
-import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
-
-import org.json.JSONException;
 
 public class TranslatingViewModel extends ViewModel implements OnTranslationFieldChanged {
     private final DomainTranslator mTranslator;
@@ -38,10 +31,8 @@ public class TranslatingViewModel extends ViewModel implements OnTranslationFiel
     public void updateTranslatingLanguage(HandledLanguage firstLanguage,
                                           HandledLanguage secondLanguage,
                                           CachedSelectedLanguages cache) {
-        mTranslator.updateLanguages(firstLanguage, secondLanguage);
-        cache.cacheSelectedLanguage(new SelectedLanguages.Base(
-                firstLanguage, secondLanguage
-        ));
+        mTranslator.updateLanguages(firstLanguage, secondLanguage,
+                cache::cacheSelectedLanguage);
     }
 
     public void initUI(Button firstSelector,

@@ -55,36 +55,44 @@
         android:id="@+id/editingContentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/cancelEditingBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editingFirstLanguageName"
-        app:layout_constraintBottom_toTopOf="@id/cancelEditingBtn">
+        app:layout_constraintTop_toBottomOf="@id/editingFirstLanguageName">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/editingFirstTranslation"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:theme="@style/BookmarkTranslationText.Editing"
-                tools:text="@string/fish_text_for_bookmark" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/editingSecondTranslation"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editingFirstTranslation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    tools:text="@string/fish_text_for_bookmark" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:theme="@style/BookmarkTranslationText.Editing"
-                tools:text="@string/fish_text_for_bookmark" />
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editingSecondTranslation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    tools:text="@string/fish_text_for_bookmark" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editingBookmarkTagContainer"

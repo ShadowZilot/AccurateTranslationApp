@@ -17,10 +17,11 @@ public interface BookmarkArguments {
             mArguments = pArguments;
         }
 
-        public Base(String firstTranslation,
-                    String secondTranslation,
-                    String firstLanguage,
-                    String secondLanguage) {
+        public Base(
+                String firstTranslation,
+                String secondTranslation,
+                String firstLanguage,
+                String secondLanguage) {
             mArguments = new Bundle();
             mArguments.putString("firstTranslation", firstTranslation);
             mArguments.putString("secondTranslation", secondTranslation);

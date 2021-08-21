@@ -9,6 +9,7 @@
     <string name="error_while_getting_response_label">Error!</string>
     <string name="bookmarks_not_found_message">Bookmarks not found</string>
     <string name="success_saving_bookmark_message">Bookmark saved!</string>
+    <string name="fail_saving_bookmark_message">Bookmark unsaved!\n Try another one!</string>
     <string name="language_not_support_for_translate_label">
         This languages not supported for translating
     </string>
@@ -32,4 +33,5 @@
     <string name="type_new_tag_label">Type new tag</string>
     <string name="editing_bookmark_label">Editing bookmark</string>
     <string name="edit_tag_label">Edit tag</string>
+    <string name="bookmark_updated_message">Bookmark successfully update</string>
 </resources>

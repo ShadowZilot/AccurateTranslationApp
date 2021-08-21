@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BookmarkDBHelper extends SQLiteOpenHelper {
 
     public BookmarkDBHelper(Context pContext) {
-        super(pContext, "Bookmarks.db", null, 1);
+        super(pContext,
+                "Bookmarks.db", null, 1);
     }
 
     @Override
