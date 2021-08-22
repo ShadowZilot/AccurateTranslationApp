@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class TranslationFragment extends Fragment
     private TranslatingViewModel mViewModel;
     private TranslationFields mFieldManager;
 
+
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this,
@@ -35,15 +37,21 @@ public class TranslationFragment extends Fragment
                 )
         ).get(TranslatingViewModel.class);
         mBinding.saveButton.setOnClickListener((View v) -> {
-            PreSavingBookmarkFragment preSaving = new PreSavingBookmarkFragment(
-                    new BookmarkArguments.Base(
-                            mBinding.firstLanguageField.getText().toString(),
-                            mBinding.secondLanguageField.getText().toString(),
-                            mBinding.firstLanguageSelector.getText().toString(),
-                            mBinding.secondLanguageSelector.getText().toString()
-                    )
-            );
-            preSaving.show(getParentFragmentManager(), "tags");
+            if (mFieldManager.isFieldsNotEmpty()) {
+                PreSavingBookmarkFragment preSaving = new PreSavingBookmarkFragment(
+                        new BookmarkArguments.Base(
+                                mBinding.firstLanguageField.getText().toString(),
+                                mBinding.secondLanguageField.getText().toString(),
+                                mBinding.firstLanguageSelector.getText().toString(),
+                                mBinding.secondLanguageSelector.getText().toString()
+                        )
+                );
+                preSaving.show(getParentFragmentManager(), "tags");
+            } else {
+                Toast.makeText(requireContext(),
+                        R.string.saving_field_empty_message,
+                        Toast.LENGTH_SHORT).show();
+            }
         });
         mFieldManager = new TranslationFields(mBinding.firstLanguageField,
                 mBinding.secondLanguageField,

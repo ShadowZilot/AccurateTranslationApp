@@ -70,4 +70,9 @@ public class TranslationFields implements TranslatingObserver {
             mSecondField.setTag("free");
         }
     }
+
+    public Boolean isFieldsNotEmpty() {
+        return !mFirstField.getText().toString().isEmpty()
+                && !mSecondField.getText().toString().isEmpty();
+    }
 }

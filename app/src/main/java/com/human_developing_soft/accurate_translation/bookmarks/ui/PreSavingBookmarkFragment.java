@@ -62,29 +62,31 @@ public class PreSavingBookmarkFragment extends DialogFragment
                 DividerItemDecoration.VERTICAL));
         mBinding.listOfPreviousTags.setAdapter(mAdapter);
         mBinding.saveBookmarkButton.setOnClickListener((View v) -> {
-            mViewModel.saveBookmark(
-                    mArguments
-                            .bookmark(
-                                    mBinding
-                                            .newTagField
-                                            .getText()
-                                            .toString()
-                            ),
-                    (Boolean isSuccess) -> {
-                        requireActivity().runOnUiThread(() -> {
-                            String toastText = getString(R.string.fail_saving_bookmark_message);
-                            if (isSuccess) {
-                                toastText = getString(R.string.success_saving_bookmark_message);
-                            }
-                            Toast.makeText(
-                                    requireContext(),
-                                    toastText,
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                        });
-                    }
-            );
-            dismiss();
+            if (!mBinding.newTagField.getText().toString().isEmpty()) {
+                mViewModel.saveBookmark(
+                        mArguments
+                                .bookmark(
+                                        mBinding
+                                                .newTagField
+                                                .getText()
+                                                .toString()
+                                ),
+                        (Boolean isSuccess) -> {
+                            requireActivity().runOnUiThread(() -> {
+                                String toastText = getString(R.string.fail_saving_bookmark_message);
+                                if (isSuccess) {
+                                    toastText = getString(R.string.success_saving_bookmark_message);
+                                }
+                                Toast.makeText(
+                                        requireContext(),
+                                        toastText,
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            });
+                        }
+                );
+                dismiss();
+            }
         });
         mBinding.cancelSavingButton.setOnClickListener((View v) -> dismiss());
         return mBinding.getRoot();
