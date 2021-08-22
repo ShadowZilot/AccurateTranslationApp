@@ -14,6 +14,9 @@ public interface BindingBookmark {
 
     Bookmark dataBookmark();
 
+    Bookmark dataBookmark(String newFirstTranslation,
+                          String newSecondTranslation, String newTag);
+
     class Base implements BindingBookmark {
         private final Integer mId;
         private final String mFirstTranslation;
@@ -63,6 +66,20 @@ public interface BindingBookmark {
                     mFirstLanguage,
                     mSecondLanguage,
                     mTag
+            );
+        }
+
+        @Override
+        public Bookmark dataBookmark(String newFirstTranslation,
+                                     String newSecondTranslation,
+                                     String newTag) {
+            return new Bookmark.Base(
+                    mId,
+                    newFirstTranslation,
+                    newSecondTranslation,
+                    mFirstLanguage,
+                    mSecondLanguage,
+                    newTag
             );
         }
     }

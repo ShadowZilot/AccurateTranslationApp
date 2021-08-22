@@ -62,7 +62,7 @@ public class BookmarkDBWrapped implements BookmarkStorage {
                 .bookmarkDao()
                 .updateBookmark(
                         updatingBookmark.toEntity()
-                ) != -1;
+                ) > 0;
     }
 
     public static BookmarkStorage instance(Context pContext) {

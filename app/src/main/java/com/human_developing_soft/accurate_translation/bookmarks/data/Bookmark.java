@@ -28,7 +28,7 @@ public interface Bookmark {
                 String pTag
         ) {
             this(
-                    0,
+                    null,
                     pFirstTranslation,
                     pSecondTranslation,
                     pFirstLanguage,

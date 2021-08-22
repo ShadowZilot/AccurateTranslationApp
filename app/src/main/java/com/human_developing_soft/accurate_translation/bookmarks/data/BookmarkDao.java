@@ -2,6 +2,7 @@ package com.human_developing_soft.accurate_translation.bookmarks.data;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -12,7 +13,7 @@ public interface BookmarkDao {
     @Query("SELECT * FROM bookmarks")
     List<BookmarkEntity> allBookmarks();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insertBookmark(BookmarkEntity bookmarkEntity);
 
     @Update

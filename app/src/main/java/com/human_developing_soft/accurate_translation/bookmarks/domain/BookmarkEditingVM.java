@@ -47,8 +47,11 @@ public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldCh
     public void updateBookmark(Bookmark updatingBookmark,
                                SavingBookmarkObserver pObserver) {
         Runnable runnable = () -> {
-            mBookmarkStorage.updateBookmark(updatingBookmark);
-            pObserver.onBookmarkSaved(true);
+            pObserver.onBookmarkSaved(
+                    mBookmarkStorage.updateBookmark(
+                            updatingBookmark
+                    )
+            );
         };
         new Thread(runnable).start();
     }

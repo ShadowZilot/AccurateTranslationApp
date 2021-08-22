@@ -65,18 +65,37 @@ public class BookmarkEditingDialog extends DialogFragment
                 )
         ).get(BookmarkEditingVM.class);
         mBinding.applyEditingBtn.setOnClickListener((View v) -> {
-            mViewModel.updateBookmark(mEditingBookmark.dataBookmark(),
-                    (Boolean isSuccess) -> requireActivity().runOnUiThread(() ->
-                            Toast.makeText(
-                                    requireContext(),
-                                    R.string.bookmark_updated_message,
-                                    Toast.LENGTH_SHORT
-                            ).show()));
-            dismiss();
+            String firstTranslation = mBinding.editingFirstTranslation
+                    .getText().toString();
+            String secondTranslation = mBinding.editingSecondTranslation
+                    .getText().toString();
+            String tag = mBinding.editingBookmarkTagField.getText().toString();
+            if (!firstTranslation.equals("")
+                    && !secondTranslation.equals("")
+                    && !tag.equals("")) {
+                mViewModel.updateBookmark(mEditingBookmark.dataBookmark(
+                            firstTranslation,
+                            secondTranslation,
+                            tag
+                        ),
+                        (Boolean isSuccess) -> requireActivity().runOnUiThread(() -> {
+                                    String toastText = isSuccess ?
+                                            getString(R.string.bookmark_updated_message)
+                                            : getString(R.string.fail_update_bookmark_message);
+                                    Toast.makeText(
+                                            requireContext(),
+                                            toastText,
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                }
+                        ));
+                dismiss();
+            }
         });
         mBinding.cancelEditingBtn.setOnClickListener((View v) -> dismiss());
         return mBinding.getRoot();
     }
+
 
     @Override
     public void translateText(String translationField,
