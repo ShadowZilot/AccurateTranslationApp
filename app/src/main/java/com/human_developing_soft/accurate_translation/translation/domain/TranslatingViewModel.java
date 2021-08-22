@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import androidx.lifecycle.ViewModel;
 
-import com.human_developing_soft.accurate_translation.OnTranslationFieldChanged;
+import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;

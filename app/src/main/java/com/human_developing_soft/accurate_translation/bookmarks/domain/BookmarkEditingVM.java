@@ -4,10 +4,9 @@ import android.content.Context;
 
 import androidx.lifecycle.ViewModel;
 
-import com.human_developing_soft.accurate_translation.OnTranslationFieldChanged;
+import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkDBWrapped;
-import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkDatabase;
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkStorage;
 import com.human_developing_soft.accurate_translation.translation.data.LanguageStorage;
 import com.human_developing_soft.accurate_translation.translation.data.LanguagesDatabase;
@@ -45,13 +44,22 @@ public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldCh
     }
 
     public void updateBookmark(Bookmark updatingBookmark,
-                               SavingBookmarkObserver pObserver) {
+                               SavingBookmarkObserver observer) {
         Runnable runnable = () -> {
-            pObserver.onBookmarkSaved(
+            observer.onBookmarkSaved(
                     mBookmarkStorage.updateBookmark(
                             updatingBookmark
                     )
             );
+        };
+        new Thread(runnable).start();
+    }
+
+    public void deleteBookmark(Bookmark deletingBookmark,
+                               OnDeleteBookmarkListener observer) {
+        Runnable runnable = () -> {
+            mBookmarkStorage.deleteBookmark(deletingBookmark);
+            observer.onBookmarkDeleted();
         };
         new Thread(runnable).start();
     }

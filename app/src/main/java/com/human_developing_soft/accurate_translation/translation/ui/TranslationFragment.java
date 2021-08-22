@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.human_developing_soft.accurate_translation.OnTranslationFieldChanged;
+import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.R;
-import com.human_developing_soft.accurate_translation.TranslationFields;
+import com.human_developing_soft.accurate_translation.translation.common.TranslationFields;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkArguments;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.PreSavingBookmarkFragment;
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;

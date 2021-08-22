@@ -35,4 +35,6 @@
     <string name="editing_bookmark_label">Editing bookmark</string>
     <string name="edit_tag_label">Edit tag</string>
     <string name="bookmark_updated_message">Bookmark successfully update</string>
+    <string name="delete_label">Delete</string>
+    <string name="bookmark_delete_message">Bookmark was deleted!</string>
 </resources>

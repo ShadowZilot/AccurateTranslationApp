@@ -10,4 +10,6 @@ public interface BookmarkStorage {
     List<Bookmark> bookmarks();
 
     Boolean updateBookmark(Bookmark updatingBookmark);
+
+    void deleteBookmark(Bookmark deletingBookmark);
 }

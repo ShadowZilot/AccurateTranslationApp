@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.human_developing_soft.accurate_translation.OnTranslationFieldChanged;
+import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.R;
-import com.human_developing_soft.accurate_translation.TranslationFields;
+import com.human_developing_soft.accurate_translation.translation.common.TranslationFields;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkEditingVM;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkEditingVMFactory;
 import com.human_developing_soft.accurate_translation.databinding.BookmarkEditingDialogBinding;
@@ -74,9 +74,9 @@ public class BookmarkEditingDialog extends DialogFragment
                     && !secondTranslation.equals("")
                     && !tag.equals("")) {
                 mViewModel.updateBookmark(mEditingBookmark.dataBookmark(
-                            firstTranslation,
-                            secondTranslation,
-                            tag
+                        firstTranslation,
+                        secondTranslation,
+                        tag
                         ),
                         (Boolean isSuccess) -> requireActivity().runOnUiThread(() -> {
                                     String toastText = isSuccess ?
@@ -89,13 +89,23 @@ public class BookmarkEditingDialog extends DialogFragment
                                     ).show();
                                 }
                         ));
-                dismiss();
+                sendResults(true);
             }
         });
-        mBinding.cancelEditingBtn.setOnClickListener((View v) -> dismiss());
+        mBinding.cancelEditingBtn.setOnClickListener((View v) -> sendResults(false));
+        mBinding.deletingButton.setOnClickListener((View v) -> {
+            mViewModel.deleteBookmark(mEditingBookmark.dataBookmark(),
+                    () -> requireActivity().runOnUiThread(() ->
+                            Toast
+                                    .makeText(requireContext(),
+                                            R.string.bookmark_delete_message,
+                                            Toast.LENGTH_SHORT)
+                                    .show())
+            );
+            sendResults(true);
+        });
         return mBinding.getRoot();
     }
-
 
     @Override
     public void translateText(String translationField,
@@ -109,5 +119,12 @@ public class BookmarkEditingDialog extends DialogFragment
     public void updateField(String translatingValue, Boolean isFirstField) {
         requireActivity().runOnUiThread(() ->
                 mFieldsManager.updateField(translatingValue, isFirstField));
+    }
+
+    private void sendResults(Boolean isEdited) {
+        Bundle result = new Bundle();
+        result.putBoolean("isEdited", isEdited);
+        getParentFragmentManager().setFragmentResult("isEdited", result);
+        dismiss();
     }
 }

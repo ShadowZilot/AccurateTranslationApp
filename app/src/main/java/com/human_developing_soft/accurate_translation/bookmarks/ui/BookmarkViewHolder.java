@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
 import com.human_developing_soft.accurate_translation.databinding.BookmarkItemBinding;
 
 public class BookmarkViewHolder extends RecyclerView.ViewHolder {
@@ -16,12 +17,15 @@ public class BookmarkViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(BindingBookmark binding, OnBookmarkLongPressed observer) {
-        mBinding.getRoot().setOnLongClickListener((View v) -> {
-            observer.onLongPressed(
-                    binding.dataBookmark()
-            );
-            return true;
-        });
+        mBinding.tapPanel.setOnLongClickListener((View v) -> onLongClicked(
+                binding, observer
+        ));
+        mBinding.firstTranslation.setOnLongClickListener((View v) -> onLongClicked(
+                binding, observer
+        ));
+        mBinding.secondTranslation.setOnLongClickListener((View v) -> onLongClicked(
+                binding, observer
+        ));
         mBinding.secondTranslation.setOnClickListener((View v) -> updateMaxLines());
         mBinding.firstTranslation.setOnClickListener((View v) -> updateMaxLines());
         binding.bind(
@@ -31,6 +35,14 @@ public class BookmarkViewHolder extends RecyclerView.ViewHolder {
                 mBinding.secondLanguageName,
                 mBinding.bookmarkTag
         );
+    }
+
+    private boolean onLongClicked(BindingBookmark bindingBookmark,
+                                   OnBookmarkLongPressed observer) {
+        observer.onLongPressed(
+                bindingBookmark.dataBookmark()
+        );
+        return true;
     }
 
     private void updateMaxLines() {

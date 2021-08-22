@@ -13,6 +13,7 @@
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tapPanel"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 

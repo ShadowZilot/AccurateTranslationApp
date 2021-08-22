@@ -1,4 +1,4 @@
-package com.human_developing_soft.accurate_translation;
+package com.human_developing_soft.accurate_translation.translation.common;
 
 import android.text.Editable;
 import android.text.TextWatcher;

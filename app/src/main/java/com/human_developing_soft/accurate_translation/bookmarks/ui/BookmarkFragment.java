@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,7 @@ import com.human_developing_soft.accurate_translation.databinding.BookmarkFragme
 import java.util.List;
 
 public class BookmarkFragment extends Fragment
-        implements BookmarkObserver, OnBookmarkLongPressed {
+        implements BookmarkObserver, OnBookmarkLongPressed, FragmentResultListener {
     private BookmarkFragmentBinding mBinding;
     private BookmarkViewModel mViewModel;
     private BookmarkAdapter mAdapter;
@@ -93,6 +94,21 @@ public class BookmarkFragment extends Fragment
     @Override
     public void onLongPressed(Bookmark pressedBookmark) {
         BookmarkEditingDialog dialog = new BookmarkEditingDialog(pressedBookmark.binding());
+        getParentFragmentManager().setFragmentResultListener("isEdited",
+                this,
+                this);
         dialog.show(getParentFragmentManager(), "editing");
+    }
+
+    @Override
+    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+        if (requestKey.equals("isEdited")) {
+            if (result.getBoolean("isEdited")) {
+                mBinding.bookmarksList.setVisibility(View.GONE);
+                mBinding.bookmarkProgress.setVisibility(View.VISIBLE);
+                mBinding.emptyBookmarksView.setVisibility(View.GONE);
+                mViewModel.bookmarks();
+            }
+        }
     }
 }

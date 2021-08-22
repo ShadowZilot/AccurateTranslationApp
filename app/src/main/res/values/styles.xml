@@ -4,6 +4,10 @@
         <item name="colorPrimary">@android:color/darker_gray</item>
     </style>
 
+    <style name="DeleteButton" parent="Theme.AccurateTranslation">
+        <item name="colorPrimary">@android:color/holo_red_light</item>
+    </style>
+
     <style name="LanguageText" parent="Theme.AccurateTranslation">
         <item name="android:textAlignment">viewStart</item>
         <item name="android:textSize">18sp</item>

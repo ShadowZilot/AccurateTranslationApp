@@ -46,7 +46,7 @@ public class BookmarkDBWrapped implements BookmarkStorage {
         List<BookmarkEntity> bookmarkEntities = mDatabase
                 .bookmarkDao()
                 .allBookmarks();
-        for (int i = 0; i < bookmarkEntities.size(); i++) {
+        for (int i = bookmarkEntities.size()-1; i >= 0; i--) {
             resultList.add(
                     bookmarkEntities
                             .get(i)
@@ -63,6 +63,13 @@ public class BookmarkDBWrapped implements BookmarkStorage {
                 .updateBookmark(
                         updatingBookmark.toEntity()
                 ) > 0;
+    }
+
+    @Override
+    public void deleteBookmark(Bookmark deletingBookmark) {
+        mDatabase
+                .bookmarkDao()
+                .deleteBookmark(deletingBookmark.toEntity());
     }
 
     public static BookmarkStorage instance(Context pContext) {
