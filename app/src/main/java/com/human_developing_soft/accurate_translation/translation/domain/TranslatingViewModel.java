@@ -11,7 +11,7 @@ import com.human_developing_soft.accurate_translation.translation.ui.StringProvi
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 
 public class TranslatingViewModel extends ViewModel implements OnTranslationFieldChanged {
-    private final DomainTranslator mTranslator;
+    private DomainTranslator mTranslator;
 
     public TranslatingViewModel(TranslatingObserver pObserver,
                                 CachedSelectedLanguages cache) {
@@ -43,8 +43,7 @@ public class TranslatingViewModel extends ViewModel implements OnTranslationFiel
         mTranslator.initFields(firstField, secondField);
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
+    public void updateObserver(TranslatingObserver newObserver) {
+        mTranslator.updateObserver(newObserver);
     }
 }

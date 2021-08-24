@@ -10,13 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
-import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.R;
-import com.human_developing_soft.accurate_translation.translation.common.TranslationFields;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkArguments;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.PreSavingBookmarkFragment;
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;
+import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
+import com.human_developing_soft.accurate_translation.translation.common.TranslationFields;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.domain.CachedSelectedLanguages;
 import com.human_developing_soft.accurate_translation.translation.domain.TranslatingVMFactory;
@@ -28,10 +29,9 @@ public class TranslationFragment extends Fragment
     private TranslatingViewModel mViewModel;
     private TranslationFields mFieldManager;
 
-
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this,
+        mViewModel = new ViewModelProvider((ViewModelStoreOwner) this,
                 new TranslatingVMFactory(this,
                         new CachedSelectedLanguages.Base(requireContext())
                 )
@@ -56,23 +56,27 @@ public class TranslationFragment extends Fragment
         mFieldManager = new TranslationFields(mBinding.firstLanguageField,
                 mBinding.secondLanguageField,
                 this);
+        Bundle args = new Bundle();
         mBinding.firstLanguageSelector.setOnClickListener((View v) -> {
-            LanguageSelectorDialog languageSelector = new LanguageSelectorDialog(
-                    "firstLanguage");
+            LanguageSelectorDialog languageSelector = new LanguageSelectorDialog();
+            args.putString("requestCode", "firstLanguage");
+            languageSelector.setArguments(args);
             getParentFragmentManager().setFragmentResultListener(
                     "firstLanguage", this, this
             );
             languageSelector.show(getParentFragmentManager(), "selector");
         });
         mBinding.secondLanguageSelector.setOnClickListener((View v) -> {
-            LanguageSelectorDialog languageSelector = new LanguageSelectorDialog(
-                    "secondLanguage");
+            LanguageSelectorDialog languageSelector = new LanguageSelectorDialog();
+            args.putString("requestCode", "secondLanguage");
+            languageSelector.setArguments(args);
             getParentFragmentManager().setFragmentResultListener(
                     "secondLanguage", this, this
             );
             languageSelector.show(getParentFragmentManager(), "selector");
         });
         if (savedInstanceState != null) {
+            mViewModel.updateObserver(this);
             mBinding.firstLanguageField.setTag("blocked");
             mBinding.secondLanguageField.setTag("blocked");
             mBinding.firstLanguageField.setText(
@@ -172,5 +176,11 @@ public class TranslationFragment extends Fragment
             mBinding.translationProgress.setVisibility(View.GONE);
             mBinding.translationIcon.setVisibility(View.VISIBLE);
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mFieldManager.clearListeners();
     }
 }

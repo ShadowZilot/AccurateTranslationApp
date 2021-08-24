@@ -10,7 +10,9 @@ import com.human_developing_soft.accurate_translation.translation.ui.Translating
 public class TranslationFields implements TranslatingObserver {
     private final EditText mFirstField;
     private final EditText mSecondField;
-    private final OnTranslationFieldChanged mObserver;
+    private TextWatcher mFirstListener;
+    private TextWatcher mSecondListener;
+    private OnTranslationFieldChanged mObserver;
 
     public TranslationFields(EditText pFirstField,
                              EditText pSecondField,
@@ -19,7 +21,7 @@ public class TranslationFields implements TranslatingObserver {
         mSecondField = pSecondField;
         mObserver = pObserver;
         mFirstField.setTag("free");
-        mFirstField.addTextChangedListener(new TextWatcher() {
+        mFirstListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -36,9 +38,10 @@ public class TranslationFields implements TranslatingObserver {
                             new StringProvider.Base(mFirstField.getContext()));
                 }
             }
-        });
+        };
+        mFirstField.addTextChangedListener(mFirstListener);
         mSecondField.setTag("free");
-        mSecondField.addTextChangedListener(new TextWatcher() {
+        mSecondListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -55,7 +58,8 @@ public class TranslationFields implements TranslatingObserver {
                             new StringProvider.Base(mSecondField.getContext()));
                 }
             }
-        });
+        };
+        mSecondField.addTextChangedListener(mSecondListener);
     }
 
     @Override
@@ -74,5 +78,13 @@ public class TranslationFields implements TranslatingObserver {
     public Boolean isFieldsNotEmpty() {
         return !mFirstField.getText().toString().isEmpty()
                 && !mSecondField.getText().toString().isEmpty();
+    }
+
+    public void clearListeners() {
+        mFirstField.removeTextChangedListener(mFirstListener);
+        mSecondField.removeTextChangedListener(mSecondListener);
+        mFirstListener = null;
+        mSecondListener = null;
+        mObserver = null;
     }
 }

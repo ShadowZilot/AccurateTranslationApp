@@ -26,11 +26,6 @@ public class LanguageSelectorDialog extends DialogFragment
     private LanguageSelectorDialogBinding mBinding;
     private LanguageSelectorVM mViewModel;
     private LanguagesAdapter mAdapter;
-    private final String mRequest;
-
-    public LanguageSelectorDialog(String pRequest) {
-        mRequest = pRequest;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,7 +77,8 @@ public class LanguageSelectorDialog extends DialogFragment
                 .languageByIndex(languageIndex)
                 .languageBundle();
         getParentFragmentManager().setFragmentResult(
-                mRequest, packedLanguage
+                requireArguments().getString("requestCode"),
+                packedLanguage
         );
         dismiss();
     }

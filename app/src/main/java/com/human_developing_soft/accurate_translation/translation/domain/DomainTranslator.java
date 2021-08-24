@@ -17,7 +17,7 @@ import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import org.json.JSONException;
 
 public class DomainTranslator implements OnTranslationFieldChanged {
-    private final TranslatingObserver mObserver;
+    private TranslatingObserver mObserver;
     private Thread mLastThread;
     private SelectedLanguages mSelectedLanguage;
 
@@ -84,5 +84,9 @@ public class DomainTranslator implements OnTranslationFieldChanged {
 
         mLastThread = new Thread(runnable);
         mLastThread.start();
+    }
+
+    public void updateObserver(TranslatingObserver newObserver) {
+        mObserver = newObserver;
     }
 }
