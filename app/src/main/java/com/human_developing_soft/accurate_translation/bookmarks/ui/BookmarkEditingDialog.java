@@ -13,29 +13,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.R;
-import com.human_developing_soft.accurate_translation.translation.common.TranslationFields;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkEditingVM;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkEditingVMFactory;
 import com.human_developing_soft.accurate_translation.databinding.BookmarkEditingDialogBinding;
+import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
+import com.human_developing_soft.accurate_translation.translation.common.TranslationFields;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 
 public class BookmarkEditingDialog extends DialogFragment
         implements OnTranslationFieldChanged, TranslatingObserver {
-    private final BindingBookmark mEditingBookmark;
+    private BindingBookmark mEditingBookmark;
     private BookmarkEditingDialogBinding mBinding;
     private BookmarkEditingVM mViewModel;
     private TranslationFields mFieldsManager;
 
-    public BookmarkEditingDialog(BindingBookmark pEditingBookmark) {
-        mEditingBookmark = pEditingBookmark;
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        mEditingBookmark = new BindingBookmark.Base(requireArguments());
         mBinding = BookmarkEditingDialogBinding.inflate(getLayoutInflater());
         return new AlertDialog.Builder(requireContext())
                 .setView(mBinding.getRoot())
@@ -104,6 +101,9 @@ public class BookmarkEditingDialog extends DialogFragment
             );
             sendResults(true);
         });
+        if (savedInstanceState != null) {
+            mViewModel.updateObserver(this);
+        }
         return mBinding.getRoot();
     }
 

@@ -1,5 +1,6 @@
 package com.human_developing_soft.accurate_translation.bookmarks.ui;
 
+import android.os.Bundle;
 import android.widget.TextView;
 
 import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
@@ -11,6 +12,8 @@ public interface BindingBookmark {
               TextView firstLanguageView,
               TextView secondLanguageView,
               TextView tagView);
+
+    Bundle toBundle();
 
     Bookmark dataBookmark();
 
@@ -24,6 +27,19 @@ public interface BindingBookmark {
         private final String mFirstLanguage;
         private final String mSecondLanguage;
         private final String mTag;
+
+        public Base(
+                Bundle initBundle
+        ) {
+            this(
+                    initBundle.getInt("id"),
+                    initBundle.getString("firstTranslation"),
+                    initBundle.getString("secondTranslation"),
+                    initBundle.getString("firstLanguage"),
+                    initBundle.getString("secondLanguage"),
+                    initBundle.getString("tag")
+            );
+        }
 
         public Base(
                 Integer pId,
@@ -55,6 +71,18 @@ public interface BindingBookmark {
             tagView.setText(mTag);
             firstTranslationView.setTag("free");
             secondTranslationView.setTag("free");
+        }
+
+        @Override
+        public Bundle toBundle() {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", mId);
+            bundle.putString("firstTranslation", mFirstTranslation);
+            bundle.putString("secondTranslation", mSecondTranslation);
+            bundle.putString("firstLanguage", mFirstLanguage);
+            bundle.putString("secondLanguage", mSecondLanguage);
+            bundle.putString("tag", mTag);
+            return bundle;
         }
 
         @Override

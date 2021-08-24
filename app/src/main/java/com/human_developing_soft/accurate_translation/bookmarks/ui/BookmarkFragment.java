@@ -93,7 +93,8 @@ public class BookmarkFragment extends Fragment
 
     @Override
     public void onLongPressed(Bookmark pressedBookmark) {
-        BookmarkEditingDialog dialog = new BookmarkEditingDialog(pressedBookmark.binding());
+        BookmarkEditingDialog dialog = new BookmarkEditingDialog();
+        dialog.setArguments(pressedBookmark.binding().toBundle());
         getParentFragmentManager().setFragmentResultListener("isEdited",
                 this,
                 this);

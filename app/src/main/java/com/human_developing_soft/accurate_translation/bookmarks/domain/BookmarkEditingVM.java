@@ -63,4 +63,8 @@ public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldCh
         };
         new Thread(runnable).start();
     }
+
+    public void updateObserver(TranslatingObserver newObserver) {
+        mTranslator.updateObserver(newObserver);
+    }
 }
