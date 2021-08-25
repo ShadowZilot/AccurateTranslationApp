@@ -29,15 +29,12 @@ public class PreSavingBookmarkFragment extends DialogFragment
     private PreSavingBookmarkFragmentBinding mBinding;
     private PreSavingBookmarkVM mViewModel;
     private TagsAdapter mAdapter;
-    private final BookmarkArguments mArguments;
-
-    public PreSavingBookmarkFragment(BookmarkArguments pArguments) {
-        mArguments = pArguments;
-    }
+    private BookmarkArguments mArguments;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        mArguments = new BookmarkArguments.Base(requireArguments());
         mBinding = PreSavingBookmarkFragmentBinding.inflate(getLayoutInflater());
         return new AlertDialog.Builder(requireContext())
                 .setView(mBinding.getRoot())
@@ -55,6 +52,9 @@ public class PreSavingBookmarkFragment extends DialogFragment
                         this
                 )
         ).get(PreSavingBookmarkVM.class);
+        if (savedInstanceState != null) {
+            mViewModel.updateObserver(this);
+        }
         mAdapter = new TagsAdapter(this);
         mBinding.listOfPreviousTags.setLayoutManager(new LinearLayoutManager(requireContext(),
                 RecyclerView.VERTICAL, false));

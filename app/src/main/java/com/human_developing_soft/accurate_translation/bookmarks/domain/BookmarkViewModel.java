@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.ViewModel;
 
+import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkDBWrapped;
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkDatabase;
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkStorage;
@@ -11,7 +12,7 @@ import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkObser
 
 public class BookmarkViewModel extends ViewModel {
     private final BookmarkStorage mStorage;
-    private final BookmarkObserver mObserver;
+    private BookmarkObserver mObserver;
     private Thread mLastThread;
 
     public BookmarkViewModel(Context pContext, BookmarkObserver pObserver) {
@@ -45,5 +46,9 @@ public class BookmarkViewModel extends ViewModel {
         }
         mLastThread = new Thread(runnable);
         mLastThread.start();
+    }
+
+    public void updateObserver(BookmarkObserver newObserver) {
+        mObserver = newObserver;
     }
 }

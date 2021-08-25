@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PreSavingBookmarkVM extends ViewModel {
     private final BookmarkStorage mDatabase;
-    private final TagLoadingObserver mObserver;
+    private TagLoadingObserver mObserver;
 
     public PreSavingBookmarkVM(Context pContext,
                                TagLoadingObserver pObserver) {
@@ -47,5 +47,9 @@ public class PreSavingBookmarkVM extends ViewModel {
             );
         };
         new Thread(runnable).start();
+    }
+
+    public void updateObserver(TagLoadingObserver newObserver) {
+        mObserver = newObserver;
     }
 }

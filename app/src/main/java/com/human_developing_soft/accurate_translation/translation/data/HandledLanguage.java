@@ -14,6 +14,8 @@ public interface HandledLanguage {
 
     String languageCode();
 
+    String countryCode();
+
     Bundle languageBundle();
 
     class Base implements HandledLanguage {
@@ -60,6 +62,11 @@ public interface HandledLanguage {
         }
 
         @Override
+        public String countryCode() {
+            return mCountryCode.toLowerCase();
+        }
+
+        @Override
         public Bundle languageBundle() {
             Bundle packed = new Bundle();
             packed.putString("name", mName);
@@ -98,6 +105,11 @@ public interface HandledLanguage {
 
         @Override
         public String languageCode() {
+            return "";
+        }
+
+        @Override
+        public String countryCode() {
             return "";
         }
 

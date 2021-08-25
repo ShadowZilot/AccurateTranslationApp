@@ -38,14 +38,14 @@ public class TranslationFragment extends Fragment
         ).get(TranslatingViewModel.class);
         mBinding.saveButton.setOnClickListener((View v) -> {
             if (mFieldManager.isFieldsNotEmpty()) {
-                PreSavingBookmarkFragment preSaving = new PreSavingBookmarkFragment(
-                        new BookmarkArguments.Base(
-                                mBinding.firstLanguageField.getText().toString(),
-                                mBinding.secondLanguageField.getText().toString(),
-                                mBinding.firstLanguageSelector.getText().toString(),
-                                mBinding.secondLanguageSelector.getText().toString()
-                        )
-                );
+                Bundle args = new BookmarkArguments.Base(
+                        mBinding.firstLanguageField.getText().toString(),
+                        mBinding.secondLanguageField.getText().toString(),
+                        mViewModel.languageName(true),
+                        mViewModel.languageName(false)
+                ).arguments();
+                PreSavingBookmarkFragment preSaving = new PreSavingBookmarkFragment();
+                preSaving.setArguments(args);
                 preSaving.show(getParentFragmentManager(), "tags");
             } else {
                 Toast.makeText(requireContext(),
@@ -117,9 +117,6 @@ public class TranslationFragment extends Fragment
     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
         if (requestKey.equals("firstLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
-            mBinding.firstLanguageSelector.setText(
-                    language.name()
-            );
             mBinding.firstLanguageField.setHint(
                     new StringProvider.Base(
                             requireContext()
@@ -134,9 +131,6 @@ public class TranslationFragment extends Fragment
                     ));
         } else if (requestKey.equals("secondLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
-            mBinding.secondLanguageSelector.setText(
-                    language.name()
-            );
             mBinding.secondLanguageField.setHint(
                     new StringProvider.Base(
                             requireContext()
@@ -150,6 +144,10 @@ public class TranslationFragment extends Fragment
                             requireContext()
                     ));
         }
+        mViewModel.initUI(mBinding.firstLanguageSelector,
+                mBinding.secondLanguageSelector,
+                mBinding.firstLanguageField,
+                mBinding.secondLanguageField);
         mBinding.firstLanguageField.setText("");
         mBinding.secondLanguageField.setText("");
     }

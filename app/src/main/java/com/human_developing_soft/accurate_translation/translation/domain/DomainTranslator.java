@@ -1,11 +1,11 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.translation.common.OnLanguageUpdated;
 import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
-import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.PreTranslating;
@@ -35,14 +35,18 @@ public class DomainTranslator implements OnTranslationFieldChanged {
         observer.onLanguageUpdate(mSelectedLanguage);
     }
 
-    public void initSelectors(Button firstSelector,
-                              Button secondSelector) {
+    public void initSelectors(ImageView firstSelector,
+                              ImageView secondSelector) {
         mSelectedLanguage.initSelectors(firstSelector, secondSelector);
     }
 
     public void initFields(EditText firstField,
                            EditText secondField) {
         mSelectedLanguage.initFieldHints(firstField, secondField);
+    }
+
+    public String[] languagesName() {
+        return mSelectedLanguage.countryCodes();
     }
 
     @Override

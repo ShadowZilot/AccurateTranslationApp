@@ -1,7 +1,7 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
@@ -14,9 +14,11 @@ public interface SelectedLanguages {
     SelectedLanguages updateLanguages(HandledLanguage firstLanguage,
                                       HandledLanguage secondLanguage);
 
-    void initSelectors(Button firstSelector, Button secondSelector);
+    void initSelectors(ImageView firstSelector, ImageView secondSelector);
 
     String packedString();
+
+    String[] countryCodes();
 
     void initFieldHints(EditText firstField, EditText secondField);
 
@@ -31,8 +33,8 @@ public interface SelectedLanguages {
 
         public Base(String initValue) {
             this(
-                new HandledLanguage.Base(initValue.split("&")[0]),
-                new HandledLanguage.Base(initValue.split("&")[1])
+                    new HandledLanguage.Base(initValue.split("&")[0]),
+                    new HandledLanguage.Base(initValue.split("&")[1])
             );
         }
 
@@ -61,14 +63,29 @@ public interface SelectedLanguages {
         }
 
         @Override
-        public void initSelectors(Button firstSelector, Button secondSelector) {
-            firstSelector.setText(mFirstLanguage.name());
-            secondSelector.setText(mSecondLanguage.name());
+        public void initSelectors(ImageView firstSelector,
+                                  ImageView secondSelector) {
+            ImageLoading loader = new ImageLoading.Base(firstSelector.getContext());
+            firstSelector.setImageDrawable(loader.flagByCountryCode(
+                    mFirstLanguage.countryCode()
+            ));
+            secondSelector.setImageDrawable(loader.flagByCountryCode(
+                    mSecondLanguage.countryCode()
+            ));
         }
+
 
         @Override
         public String packedString() {
             return mFirstLanguage.toString() + "&" + mSecondLanguage.toString();
+        }
+
+        @Override
+        public String[] countryCodes() {
+            return new String[] {
+                    mFirstLanguage.countryCode(),
+                    mSecondLanguage.countryCode()
+            };
         }
 
         @Override

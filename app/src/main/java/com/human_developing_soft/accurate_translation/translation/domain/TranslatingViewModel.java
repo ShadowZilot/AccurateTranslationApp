@@ -2,6 +2,7 @@ package com.human_developing_soft.accurate_translation.translation.domain;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.lifecycle.ViewModel;
 
@@ -35,8 +36,16 @@ public class TranslatingViewModel extends ViewModel implements OnTranslationFiel
                 cache::cacheSelectedLanguage);
     }
 
-    public void initUI(Button firstSelector,
-                       Button secondSelector,
+    public String languageName(Boolean isFirst) {
+        if (isFirst) {
+            return mTranslator.languagesName()[0];
+        } else {
+            return mTranslator.languagesName()[1];
+        }
+    }
+
+    public void initUI(ImageView firstSelector,
+                       ImageView secondSelector,
                        EditText firstField,
                        EditText secondField) {
         mTranslator.initSelectors(firstSelector, secondSelector);

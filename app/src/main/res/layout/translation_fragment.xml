@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/firstLanguageSelector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableStart="@android:drawable/btn_dialog"
-        android:singleLine="true"
-        android:maxEms="8"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="English Engilsh" />
+        app:civ_border_color="@color/purple_700"
+        app:civ_border_width="2dp"
+        tools:src="@tools:sample/avatars" />
 
     <ProgressBar
         android:id="@+id/translationProgress"
@@ -39,18 +38,17 @@
         app:layout_constraintBottom_toBottomOf="@id/secondLanguageSelector"
         android:contentDescription="@string/label_sign_vice_versa" />
 
-    <Button
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/secondLanguageSelector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:singleLine="true"
-        android:maxEms="8"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Russian Russian" />
+        app:civ_border_color="@color/purple_700"
+        app:civ_border_width="2dp"
+        tools:src="@tools:sample/avatars" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/firstFieldContainer"

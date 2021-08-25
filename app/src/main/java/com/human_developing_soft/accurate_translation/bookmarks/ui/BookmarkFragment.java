@@ -61,6 +61,9 @@ public class BookmarkFragment extends Fragment
                 RecyclerView.VERTICAL, false));
         mViewModel = new ViewModelProvider(this,
                 new BookmarkVMFactory(requireContext(), this)).get(BookmarkViewModel.class);
+        if (savedInstanceState != null) {
+            mViewModel.updateObserver(this);
+        }
         return mBinding.getRoot();
     }
 
@@ -75,7 +78,7 @@ public class BookmarkFragment extends Fragment
 
     @Override
     public void onBookmarkUpdate(List<Bookmark> bookmarks) {
-        mBinding.getRoot().post(() -> {
+        requireActivity().runOnUiThread(() -> {
             mBinding.bookmarkProgress.setVisibility(View.GONE);
             if (bookmarks.isEmpty()) {
                 mBinding.emptyBookmarksView.setVisibility(View.VISIBLE);
