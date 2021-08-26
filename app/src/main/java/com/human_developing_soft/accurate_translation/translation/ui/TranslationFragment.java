@@ -1,6 +1,7 @@
 package com.human_developing_soft.accurate_translation.translation.ui;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkArguments;
@@ -23,19 +23,57 @@ import com.human_developing_soft.accurate_translation.translation.domain.CachedS
 import com.human_developing_soft.accurate_translation.translation.domain.TranslatingVMFactory;
 import com.human_developing_soft.accurate_translation.translation.domain.TranslatingViewModel;
 
+import java.util.Locale;
+
 public class TranslationFragment extends Fragment
-        implements OnTranslationFieldChanged, TranslatingObserver, FragmentResultListener {
+        implements OnTranslationFieldChanged, TranslatingObserver,
+        FragmentResultListener, TextToSpeech.OnInitListener {
     private TranslationFragmentBinding mBinding;
     private TranslatingViewModel mViewModel;
     private TranslationFields mFieldManager;
+    private TextToSpeech mTextToSpeech;
+    private Boolean mIsEngineWorking = false;
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider((ViewModelStoreOwner) this,
+        mViewModel = new ViewModelProvider(this,
                 new TranslatingVMFactory(this,
                         new CachedSelectedLanguages.Base(requireContext())
                 )
         ).get(TranslatingViewModel.class);
+        mTextToSpeech = new TextToSpeech(requireContext(), this);
+        mBinding.clearButton.setOnClickListener((View v) -> {
+            mFieldManager.clearFields();
+            mBinding.translationButtonPanel.setVisibility(View.GONE);
+            mBinding.buttonsDivider.setVisibility(View.INVISIBLE);
+        });
+        mBinding.firstSoundButton.setOnClickListener((View v) -> {
+            if (mIsEngineWorking) {
+                mBinding.firstSoundButton.setBackgroundResource(R.drawable.ic_sound);
+                Locale locale = mViewModel.localeByLanguage(true);
+                    mTextToSpeech.setLanguage(locale);
+                    mTextToSpeech.speak(
+                            mBinding.firstLanguageField.getText().toString(),
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            ""
+                    );
+                mBinding.firstSoundButton.setBackgroundResource(R.drawable.ic_non_active_sound);
+            }
+        });
+        mBinding.secondSoundButton.setOnClickListener((View v) -> {
+            if (mIsEngineWorking) {
+                mBinding.secondSoundButton.setBackgroundResource(R.drawable.ic_sound);
+                Locale locale = mViewModel.localeByLanguage(false);
+                    mTextToSpeech.setLanguage(locale);
+                    mTextToSpeech.speak(
+                            mBinding.secondLanguageField.getText().toString(),
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "");
+                mBinding.secondSoundButton.setBackgroundResource(R.drawable.ic_non_active_sound);
+            }
+        });
         mBinding.saveButton.setOnClickListener((View v) -> {
             if (mFieldManager.isFieldsNotEmpty()) {
                 Bundle args = new BookmarkArguments.Base(
@@ -156,8 +194,15 @@ public class TranslationFragment extends Fragment
     public void translateText(String translationField,
                               Boolean isFirstField,
                               StringProvider provider) {
+        if (translationField.isEmpty()) {
+            mBinding.translationButtonPanel.setVisibility(View.GONE);
+            mBinding.buttonsDivider.setVisibility(View.INVISIBLE);
+        } else {
+            mBinding.translationButtonPanel.setVisibility(View.VISIBLE);
+            mBinding.buttonsDivider.setVisibility(View.VISIBLE);
+        }
         mBinding.translationProgress.setVisibility(View.VISIBLE);
-        mBinding.translationIcon.setVisibility(View.GONE);
+        mBinding.translationIcon.setVisibility(View.INVISIBLE);
         mViewModel.translateText(
                 translationField,
                 isFirstField,
@@ -180,5 +225,10 @@ public class TranslationFragment extends Fragment
     public void onDestroy() {
         super.onDestroy();
         mFieldManager.clearListeners();
+    }
+
+    @Override
+    public void onInit(int status) {
+        mIsEngineWorking = status == TextToSpeech.SUCCESS;
     }
 }

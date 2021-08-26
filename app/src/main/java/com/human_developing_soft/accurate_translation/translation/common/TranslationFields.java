@@ -80,6 +80,15 @@ public class TranslationFields implements TranslatingObserver {
                 && !mSecondField.getText().toString().isEmpty();
     }
 
+    public void clearFields() {
+        mFirstField.setTag("blocked");
+        mSecondField.setTag("blocked");
+        mFirstField.setText("");
+        mSecondField.setText("");
+        mFirstField.setTag("free");
+        mFirstField.setTag("free");
+    }
+
     public void clearListeners() {
         mFirstField.removeTextChangedListener(mFirstListener);
         mSecondField.removeTextChangedListener(mSecondListener);

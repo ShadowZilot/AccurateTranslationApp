@@ -38,4 +38,6 @@
     <string name="delete_label">Delete</string>
     <string name="bookmark_delete_message">Bookmark was deleted!</string>
     <string name="saving_field_empty_message">Fields is empty!\nPlease fill the fields and try again.</string>
+    <string name="clear_label">Clear</string>
+    <string name="sound_button_description">Sound button</string>
 </resources>

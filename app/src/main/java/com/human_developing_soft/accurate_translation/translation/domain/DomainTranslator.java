@@ -16,6 +16,8 @@ import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 
 import org.json.JSONException;
 
+import java.util.Locale;
+
 public class DomainTranslator implements OnTranslationFieldChanged {
     private TranslatingObserver mObserver;
     private Thread mLastThread;
@@ -47,6 +49,10 @@ public class DomainTranslator implements OnTranslationFieldChanged {
 
     public String[] languagesName() {
         return mSelectedLanguage.countryCodes();
+    }
+
+    public Locale localeByLanguage(Boolean isFirst) {
+        return mSelectedLanguage.localeByLanguage(isFirst);
     }
 
     @Override

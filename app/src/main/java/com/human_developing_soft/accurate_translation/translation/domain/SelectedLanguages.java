@@ -7,6 +7,8 @@ import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 
+import java.util.Locale;
+
 public interface SelectedLanguages {
 
     String[] languagesCode(Boolean isSwapNeeded);
@@ -19,6 +21,8 @@ public interface SelectedLanguages {
     String packedString();
 
     String[] countryCodes();
+
+    Locale localeByLanguage(Boolean isFirst);
 
     void initFieldHints(EditText firstField, EditText secondField);
 
@@ -86,6 +90,15 @@ public interface SelectedLanguages {
                     mFirstLanguage.countryCode(),
                     mSecondLanguage.countryCode()
             };
+        }
+
+        @Override
+        public Locale localeByLanguage(Boolean isFirst) {
+            HandledLanguage language = isFirst ? mFirstLanguage : mSecondLanguage;
+            return new Locale(
+                language.languageCode(),
+                language.countryCode()
+            );
         }
 
         @Override

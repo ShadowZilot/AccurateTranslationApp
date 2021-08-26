@@ -1,6 +1,6 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.widget.Button;
+import android.content.Context;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -10,6 +10,8 @@ import com.human_developing_soft.accurate_translation.translation.common.OnTrans
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
+
+import java.util.Locale;
 
 public class TranslatingViewModel extends ViewModel implements OnTranslationFieldChanged {
     private DomainTranslator mTranslator;
@@ -54,5 +56,9 @@ public class TranslatingViewModel extends ViewModel implements OnTranslationFiel
 
     public void updateObserver(TranslatingObserver newObserver) {
         mTranslator.updateObserver(newObserver);
+    }
+
+    public Locale localeByLanguage(Boolean isFirst) {
+        return mTranslator.localeByLanguage(isFirst);
     }
 }
