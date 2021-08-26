@@ -2,6 +2,7 @@ package com.human_developing_soft.accurate_translation.translation.ui;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,29 +50,25 @@ public class TranslationFragment extends Fragment
         });
         mBinding.firstSoundButton.setOnClickListener((View v) -> {
             if (mIsEngineWorking) {
-                mBinding.firstSoundButton.setBackgroundResource(R.drawable.ic_sound);
                 Locale locale = mViewModel.localeByLanguage(true);
-                    mTextToSpeech.setLanguage(locale);
-                    mTextToSpeech.speak(
-                            mBinding.firstLanguageField.getText().toString(),
-                            TextToSpeech.QUEUE_FLUSH,
-                            null,
-                            ""
-                    );
-                mBinding.firstSoundButton.setBackgroundResource(R.drawable.ic_non_active_sound);
+                mTextToSpeech.setLanguage(locale);
+                mTextToSpeech.speak(
+                        mBinding.firstLanguageField.getText().toString(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "first"
+                );
             }
         });
         mBinding.secondSoundButton.setOnClickListener((View v) -> {
             if (mIsEngineWorking) {
-                mBinding.secondSoundButton.setBackgroundResource(R.drawable.ic_sound);
                 Locale locale = mViewModel.localeByLanguage(false);
-                    mTextToSpeech.setLanguage(locale);
-                    mTextToSpeech.speak(
-                            mBinding.secondLanguageField.getText().toString(),
-                            TextToSpeech.QUEUE_FLUSH,
-                            null,
-                            "");
-                mBinding.secondSoundButton.setBackgroundResource(R.drawable.ic_non_active_sound);
+                mTextToSpeech.setLanguage(locale);
+                mTextToSpeech.speak(
+                        mBinding.secondLanguageField.getText().toString(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "second");
             }
         });
         mBinding.saveButton.setOnClickListener((View v) -> {
@@ -230,5 +227,40 @@ public class TranslationFragment extends Fragment
     @Override
     public void onInit(int status) {
         mIsEngineWorking = status == TextToSpeech.SUCCESS;
+        mTextToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+            @Override
+            public void onStart(String utteranceId) {
+                if (utteranceId.equals("first")) {
+                    mBinding.firstSoundButton.setBackgroundResource(
+                            R.drawable.ic_sound);
+                    mBinding.secondSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                } else if (utteranceId.equals("second")) {
+                    mBinding.secondSoundButton.setBackgroundResource(
+                            R.drawable.ic_sound);
+                    mBinding.firstSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                }
+            }
+
+            @Override
+            public void onDone(String utteranceId) {
+                if (utteranceId.equals("first")) {
+                    mBinding.firstSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                } else if (utteranceId.equals("second")) {
+                    mBinding.secondSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                }
+            }
+
+            @Override
+            public void onError(String utteranceId) {
+                Toast.makeText(requireContext(),
+                        R.string.sound_not_support_message,
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
     }
 }

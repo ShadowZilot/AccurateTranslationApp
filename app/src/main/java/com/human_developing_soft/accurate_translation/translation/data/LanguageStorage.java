@@ -9,5 +9,5 @@ public interface LanguageStorage {
 
     List<HandledLanguage> allLanguages();
 
-    HandledLanguage languageByName(String languageName);
+    HandledLanguage languageByCountry(String countryCode);
 }

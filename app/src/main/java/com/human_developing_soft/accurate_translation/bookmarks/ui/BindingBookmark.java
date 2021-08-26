@@ -1,19 +1,23 @@
 package com.human_developing_soft.accurate_translation.bookmarks.ui;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
+import com.human_developing_soft.accurate_translation.translation.domain.ImageLoading;
 
 public interface BindingBookmark {
 
     void bind(TextView firstTranslationView,
               TextView secondTranslationView,
-              TextView firstLanguageView,
-              TextView secondLanguageView,
+              ImageView firstLanguageView,
+              ImageView secondLanguageView,
               TextView tagView);
 
     Bundle toBundle();
+
+    String[] languagesName();
 
     Bookmark dataBookmark();
 
@@ -59,15 +63,21 @@ public interface BindingBookmark {
         @Override
         public void bind(TextView firstTranslationView,
                          TextView secondTranslationView,
-                         TextView firstLanguageView,
-                         TextView secondLanguageView,
+                         ImageView firstLanguageView,
+                         ImageView secondLanguageView,
                          TextView tagView) {
+            ImageLoading loading = new ImageLoading.Base(
+                    firstLanguageView.getContext());
             firstTranslationView.setTag("blocked");
             secondTranslationView.setTag("blocked");
             firstTranslationView.setText(mFirstTranslation);
             secondTranslationView.setText(mSecondTranslation);
-            firstLanguageView.setText(mFirstLanguage);
-            secondLanguageView.setText(mSecondLanguage);
+            firstLanguageView.setImageDrawable(
+                    loading.flagByCountryCode(mFirstLanguage)
+            );
+            secondLanguageView.setImageDrawable(
+                    loading.flagByCountryCode(mSecondLanguage)
+            );
             tagView.setText(mTag);
             firstTranslationView.setTag("free");
             secondTranslationView.setTag("free");
@@ -83,6 +93,14 @@ public interface BindingBookmark {
             bundle.putString("secondLanguage", mSecondLanguage);
             bundle.putString("tag", mTag);
             return bundle;
+        }
+
+        @Override
+        public String[] languagesName() {
+            return new String[] {
+                    mFirstLanguage,
+                    mSecondLanguage
+            };
         }
 
         @Override

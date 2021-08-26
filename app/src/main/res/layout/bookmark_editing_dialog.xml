@@ -15,17 +15,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/editingFirstLanguageName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:theme="@style/BookmarkLanguageText"
+        android:layout_marginTop="8dp"
+        app:civ_border_width="2dp"
         app:layout_constraintEnd_toStartOf="@id/bookmarkTranslationIcon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bookmarkEditingTitle"
-        tools:text="English" />
+        tools:src="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/bookmarkTranslationIcon"
@@ -38,17 +38,17 @@
         app:layout_constraintStart_toEndOf="@id/editingFirstLanguageName"
         app:layout_constraintTop_toTopOf="@id/editingFirstLanguageName" />
 
-    <TextView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/editingSecondLanguageName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:theme="@style/BookmarkLanguageText"
+        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/bookmarkTranslationIcon"
         app:layout_constraintTop_toBottomOf="@id/bookmarkEditingTitle"
-        tools:text="Simplified Chinese" />
+        tools:src="@tools:sample/avatars" />
 
     <ScrollView
         android:id="@+id/editingContentContainer"

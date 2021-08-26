@@ -59,11 +59,11 @@ public class LanguagesDatabase implements LanguageStorage {
     }
 
     @Override
-    public HandledLanguage languageByName(String languageName) {
+    public HandledLanguage languageByCountry(String countryCode) {
         List<HandledLanguage> allLanguages = allLanguages();
         HandledLanguage result = new HandledLanguage.Dummy(mContext);
         for (int i = 0; i < allLanguages.size(); i++) {
-            if (allLanguages.get(i).name().equals(languageName)) {
+            if (allLanguages.get(i).countryCode().equals(countryCode)) {
                 result = allLanguages.get(i);
                 break;
             }

@@ -57,8 +57,8 @@ public class BookmarkEditingDialog extends DialogFragment
         mViewModel = new ViewModelProvider(this,
                 new BookmarkEditingVMFactory(this,
                         requireContext(),
-                        mBinding.editingFirstLanguageName.getText().toString(),
-                        mBinding.editingSecondLanguageName.getText().toString()
+                        mEditingBookmark.languagesName()[0],
+                        mEditingBookmark.languagesName()[1]
                 )
         ).get(BookmarkEditingVM.class);
         mBinding.applyEditingBtn.setOnClickListener((View v) -> {

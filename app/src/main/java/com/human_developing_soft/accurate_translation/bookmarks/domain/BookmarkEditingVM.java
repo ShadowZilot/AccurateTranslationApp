@@ -4,10 +4,10 @@ import android.content.Context;
 
 import androidx.lifecycle.ViewModel;
 
-import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.bookmarks.data.Bookmark;
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkDBWrapped;
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkStorage;
+import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.translation.data.LanguageStorage;
 import com.human_developing_soft.accurate_translation.translation.data.LanguagesDatabase;
 import com.human_developing_soft.accurate_translation.translation.domain.DomainTranslator;
@@ -26,8 +26,8 @@ public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldCh
                              String secondLanguage) {
         LanguageStorage languageStorage = LanguagesDatabase.instance(pContext);
         SelectedLanguages selectedLanguages = new SelectedLanguages.Base(
-                languageStorage.languageByName(firstLanguage),
-                languageStorage.languageByName(secondLanguage)
+                languageStorage.languageByCountry(firstLanguage),
+                languageStorage.languageByCountry(secondLanguage)
         );
         mTranslator = new DomainTranslator(pObserver,
                 selectedLanguages);
@@ -45,13 +45,11 @@ public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldCh
 
     public void updateBookmark(Bookmark updatingBookmark,
                                SavingBookmarkObserver observer) {
-        Runnable runnable = () -> {
-            observer.onBookmarkSaved(
-                    mBookmarkStorage.updateBookmark(
-                            updatingBookmark
-                    )
-            );
-        };
+        Runnable runnable = () -> observer.onBookmarkSaved(
+                mBookmarkStorage.updateBookmark(
+                        updatingBookmark
+                )
+        );
         new Thread(runnable).start();
     }
 
