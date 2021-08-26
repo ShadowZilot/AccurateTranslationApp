@@ -15,98 +15,180 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/editingFirstLanguageName"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:civ_border_width="2dp"
-        app:layout_constraintEnd_toStartOf="@id/bookmarkTranslationIcon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bookmarkEditingTitle"
-        tools:src="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/bookmarkTranslationIcon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:contentDescription="@string/translation_bookmark_icon_label"
-        android:src="@drawable/ic_vice_versa"
-        app:layout_constraintBottom_toBottomOf="@id/editingSecondLanguageName"
-        app:layout_constraintEnd_toStartOf="@id/editingSecondLanguageName"
-        app:layout_constraintStart_toEndOf="@id/editingFirstLanguageName"
-        app:layout_constraintTop_toTopOf="@id/editingFirstLanguageName" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/editingSecondLanguageName"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:civ_border_width="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/bookmarkTranslationIcon"
-        app:layout_constraintTop_toBottomOf="@id/bookmarkEditingTitle"
-        tools:src="@tools:sample/avatars" />
-
     <ScrollView
-        android:id="@+id/editingContentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/cancelEditingBtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bookmarkEditingTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editingFirstLanguageName">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/applyEditingBtn">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="8dp"
+            app:cardElevation="8dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/translationSurface"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editingFirstTranslation"
+                <View
+                    android:id="@+id/buttonsDivider"
                     android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editingSecondFieldContainer" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editingFirstFieldContainer"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editingFirstLanguageSelector">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editingFirstLanguageField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="text"
+                        android:inputType="textMultiLine"
+                        android:textSize="20sp"
+                        tools:text="Hello, how are you?" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/editingFirstLanguageSelector"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
+                    app:civ_border_color="@color/purple_700"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageButton
+                    android:id="@+id/editingFirstSoundButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    tools:text="@string/fish_text_for_bookmark" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:background="@drawable/ic_non_active_sound"
+                    android:contentDescription="@string/sound_button_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editingSecondTranslation"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editingSecondFieldContainer"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editingSecondLanguageSelector">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editingSecondLanguageField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="text"
+                        android:inputType="textMultiLine"
+                        android:textSize="20sp"
+                        tools:text="Привет как ты?" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/editingSecondLanguageSelector"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
+                    app:civ_border_color="@color/purple_700"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/leftDivider"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageButton
+                    android:id="@+id/editingSecondSoundButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    tools:text="@string/fish_text_for_bookmark" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:background="@drawable/ic_non_active_sound"
+                    android:contentDescription="@string/sound_button_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rightDivider" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editingBookmarkTagContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:helperText="@string/edit_tag_label">
+                <ProgressBar
+                    android:id="@+id/editingTranslationProgress"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="32dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editingFirstFieldContainer" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editingBookmarkTagField"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:text="#Greeting" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/editingTranslationIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="32dp"
+                    android:contentDescription="@string/label_sign_vice_versa"
+                    android:rotation="90"
+                    android:src="@drawable/ic_vice_versa"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editingFirstFieldContainer" />
+
+                <View
+                    android:id="@+id/leftDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/editingTranslationIcon"
+                    app:layout_constraintEnd_toStartOf="@id/editingTranslationIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/editingTranslationIcon" />
+
+                <View
+                    android:id="@+id/rightDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/editingTranslationIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/editingTranslationIcon"
+                    app:layout_constraintTop_toTopOf="@id/editingTranslationIcon" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    app:layout_constraintTop_toBottomOf="@id/buttonsDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editingBookmarkTagField"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:text="Greeting"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
     </ScrollView>
 
     <Button
@@ -134,11 +216,11 @@
         android:id="@+id/deletingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete_label"
-        android:theme="@style/DeleteButton"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:text="@string/delete_label"
+        android:theme="@style/DeleteButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

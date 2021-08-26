@@ -6,188 +6,193 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardElevation="8dp">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/translationSurface"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardElevation="8dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/firstFieldContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/firstLanguageSelector">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/translationSurface"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/firstLanguageField"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/firstFieldContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/firstLanguageSelector">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/firstLanguageField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="text"
+                        android:inputType="textMultiLine"
+                        android:textSize="20sp"
+                        tools:text="Hello, how are you?" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/firstLanguageSelector"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:civ_border_color="@color/purple_700"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageButton
+                    android:id="@+id/firstSoundButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_non_active_sound"
+                    android:contentDescription="@string/sound_button_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/secondFieldContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/secondLanguageSelector">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/secondLanguageField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="text"
+                        android:inputType="textMultiLine"
+                        android:textSize="20sp"
+                        tools:text="Привет как ты?" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/secondLanguageSelector"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:civ_border_color="@color/purple_700"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/leftDivider"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageButton
+                    android:id="@+id/secondSoundButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_non_active_sound"
+                    android:contentDescription="@string/sound_button_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rightDivider" />
+
+                <ProgressBar
+                    android:id="@+id/translationProgress"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="32dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/firstFieldContainer" />
+
+                <ImageView
+                    android:id="@+id/translationIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="32dp"
+                    android:contentDescription="@string/label_sign_vice_versa"
+                    android:rotation="90"
+                    android:src="@drawable/ic_vice_versa"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/firstFieldContainer" />
+
+                <View
+                    android:id="@+id/leftDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/translationIcon"
+                    app:layout_constraintEnd_toStartOf="@id/translationIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/translationIcon" />
+
+                <View
+                    android:id="@+id/rightDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/translationIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/translationIcon"
+                    app:layout_constraintTop_toTopOf="@id/translationIcon" />
+
+                <View
+                    android:id="@+id/buttonsDivider"
                     android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@android:color/darker_gray"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/secondFieldContainer" />
+
+                <LinearLayout
+                    android:id="@+id/translationButtonPanel"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:autofillHints="text"
-                    android:inputType="textMultiLine"
-                    android:textSize="20sp"
-                    tools:text="Hello, how are you?" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttonsDivider">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/firstLanguageSelector"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:civ_border_color="@color/purple_700"
-                app:civ_border_width="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/clearButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/clear_label"
+                        android:theme="@style/Widget.MaterialComponents.Button.TextButton" />
 
-            <ImageButton
-                android:id="@+id/firstSoundButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_non_active_sound"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/sound_button_description" />
+                    <Button
+                        android:id="@+id/saveButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="8dp"
+                        android:contentDescription="@string/add_to_bookmarks_button_decs"
+                        android:text="@string/save_label"
+                        android:theme="@style/SaveButton"
+                        app:icon="@drawable/ic_save" />
+                </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/secondFieldContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/secondLanguageSelector">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/secondLanguageField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="text"
-                    android:inputType="textMultiLine"
-                    android:textSize="20sp"
-                    tools:text="Привет как ты?" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/secondLanguageSelector"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:civ_border_color="@color/purple_700"
-                app:civ_border_width="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/leftDivider"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageButton
-                android:id="@+id/secondSoundButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_non_active_sound"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rightDivider"
-                android:contentDescription="@string/sound_button_description" />
-
-            <ProgressBar
-                android:id="@+id/translationProgress"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="32dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/firstFieldContainer" />
-
-            <ImageView
-                android:id="@+id/translationIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="32dp"
-                android:contentDescription="@string/label_sign_vice_versa"
-                android:rotation="90"
-                android:src="@drawable/ic_vice_versa"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/firstFieldContainer" />
-
-            <View
-                android:id="@+id/leftDivider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginEnd="16dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintBottom_toBottomOf="@id/translationIcon"
-                app:layout_constraintEnd_toStartOf="@id/translationIcon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/translationIcon" />
-
-            <View
-                android:id="@+id/rightDivider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintBottom_toBottomOf="@id/translationIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/translationIcon"
-                app:layout_constraintTop_toTopOf="@id/translationIcon" />
-
-            <View
-                android:id="@+id/buttonsDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="32dp"
-                android:visibility="invisible"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/secondFieldContainer" />
-
-            <LinearLayout
-                android:id="@+id/translationButtonPanel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/buttonsDivider"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/clearButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/clear_label"
-                    android:theme="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_margin="8dp"/>
-
-                <Button
-                    android:id="@+id/saveButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/save_label"
-                    android:layout_gravity="center_vertical"
-                    app:icon="@drawable/ic_save"
-                    android:contentDescription="@string/add_to_bookmarks_button_decs"
-                    android:theme="@style/SaveButton"/>
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 </LinearLayout>

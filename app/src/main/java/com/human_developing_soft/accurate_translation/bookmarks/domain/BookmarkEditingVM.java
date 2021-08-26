@@ -16,6 +16,8 @@ import com.human_developing_soft.accurate_translation.translation.ui.SavingBookm
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 
+import java.util.Locale;
+
 public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldChanged {
     private final DomainTranslator mTranslator;
     private final BookmarkStorage mBookmarkStorage;
@@ -64,5 +66,9 @@ public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldCh
 
     public void updateObserver(TranslatingObserver newObserver) {
         mTranslator.updateObserver(newObserver);
+    }
+
+    public Locale localeByLanguage(Boolean isFirst) {
+        return mTranslator.localeByLanguage(isFirst);
     }
 }

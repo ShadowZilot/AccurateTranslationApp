@@ -3,6 +3,8 @@ package com.human_developing_soft.accurate_translation.bookmarks.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +24,16 @@ import com.human_developing_soft.accurate_translation.translation.common.Transla
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 
+import java.util.Locale;
+
 public class BookmarkEditingDialog extends DialogFragment
-        implements OnTranslationFieldChanged, TranslatingObserver {
+        implements OnTranslationFieldChanged, TranslatingObserver, TextToSpeech.OnInitListener {
     private BindingBookmark mEditingBookmark;
     private BookmarkEditingDialogBinding mBinding;
     private BookmarkEditingVM mViewModel;
     private TranslationFields mFieldsManager;
+    private TextToSpeech mTextToSpeech;
+    private Boolean mIsEngineWorking = false;
 
     @NonNull
     @Override
@@ -45,14 +51,15 @@ public class BookmarkEditingDialog extends DialogFragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mEditingBookmark.bind(
-                mBinding.editingFirstTranslation,
-                mBinding.editingSecondTranslation,
-                mBinding.editingFirstLanguageName,
-                mBinding.editingSecondLanguageName,
+                mBinding.editingFirstLanguageField,
+                mBinding.editingSecondLanguageField,
+                mBinding.editingFirstLanguageSelector,
+                mBinding.editingSecondLanguageSelector,
                 mBinding.editingBookmarkTagField
         );
-        mFieldsManager = new TranslationFields(mBinding.editingFirstTranslation,
-                mBinding.editingSecondTranslation,
+        mTextToSpeech = new TextToSpeech(requireContext(), this);
+        mFieldsManager = new TranslationFields(mBinding.editingFirstLanguageField,
+                mBinding.editingSecondLanguageField,
                 this);
         mViewModel = new ViewModelProvider(this,
                 new BookmarkEditingVMFactory(this,
@@ -61,10 +68,33 @@ public class BookmarkEditingDialog extends DialogFragment
                         mEditingBookmark.languagesName()[1]
                 )
         ).get(BookmarkEditingVM.class);
+        mBinding.editingFirstSoundButton.setOnClickListener((View v) -> {
+            if (mIsEngineWorking) {
+                Locale locale = mViewModel.localeByLanguage(true);
+                mTextToSpeech.setLanguage(locale);
+                mTextToSpeech.speak(
+                        mBinding.editingFirstLanguageField.getText().toString(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "first"
+                );
+            }
+        });
+        mBinding.editingSecondSoundButton.setOnClickListener((View v) -> {
+            if (mIsEngineWorking) {
+                Locale locale = mViewModel.localeByLanguage(false);
+                mTextToSpeech.setLanguage(locale);
+                mTextToSpeech.speak(
+                        mBinding.editingSecondLanguageField.getText().toString(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "second");
+            }
+        });
         mBinding.applyEditingBtn.setOnClickListener((View v) -> {
-            String firstTranslation = mBinding.editingFirstTranslation
+            String firstTranslation = mBinding.editingFirstLanguageField
                     .getText().toString();
-            String secondTranslation = mBinding.editingSecondTranslation
+            String secondTranslation = mBinding.editingSecondLanguageField
                     .getText().toString();
             String tag = mBinding.editingBookmarkTagField.getText().toString();
             if (!firstTranslation.equals("")
@@ -126,5 +156,45 @@ public class BookmarkEditingDialog extends DialogFragment
         result.putBoolean("isEdited", isEdited);
         getParentFragmentManager().setFragmentResult("isEdited", result);
         dismiss();
+    }
+
+    @Override
+    public void onInit(int status) {
+        mIsEngineWorking = status == TextToSpeech.SUCCESS;
+        mTextToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+            @Override
+            public void onStart(String utteranceId) {
+                if (utteranceId.equals("first")) {
+                    mBinding.editingFirstSoundButton.setBackgroundResource(
+                            R.drawable.ic_sound);
+                    mBinding.editingSecondSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                } else if (utteranceId.equals("second")) {
+                    mBinding.editingSecondSoundButton.setBackgroundResource(
+                            R.drawable.ic_sound);
+                    mBinding.editingFirstSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                }
+            }
+
+            @Override
+            public void onDone(String utteranceId) {
+                if (utteranceId.equals("first")) {
+                    mBinding.editingFirstSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                } else if (utteranceId.equals("second")) {
+                    mBinding.editingSecondSoundButton.setBackgroundResource(
+                            R.drawable.ic_non_active_sound);
+                }
+            }
+
+            @Override
+            public void onError(String utteranceId) {
+                Toast.makeText(requireContext(),
+                        R.string.sound_not_support_message,
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
     }
 }
