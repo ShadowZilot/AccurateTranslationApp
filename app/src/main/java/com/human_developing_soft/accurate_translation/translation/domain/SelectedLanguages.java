@@ -26,6 +26,8 @@ public interface SelectedLanguages {
 
     void initFieldHints(EditText firstField, EditText secondField);
 
+    String localeForMic(Boolean isFirst);
+
     class Base implements SelectedLanguages {
         private final HandledLanguage mFirstLanguage;
         private final HandledLanguage mSecondLanguage;
@@ -118,6 +120,19 @@ public interface SelectedLanguages {
                 secondField.setHint(provider.string(R.string.field_hint,
                         mSecondLanguage.name()));
             }
+        }
+
+        @Override
+        public String localeForMic(Boolean isFirst) {
+            String result = "";
+            if (isFirst) {
+                result = String.format("%s-%s", mFirstLanguage.languageCode(),
+                        mFirstLanguage.countryCode().toUpperCase());
+            } else {
+                result = String.format("%s-%s", mSecondLanguage.languageCode(),
+                        mSecondLanguage.countryCode().toUpperCase());
+            }
+            return result;
         }
     }
 }

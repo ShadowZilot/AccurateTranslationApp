@@ -59,10 +59,22 @@
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:visibility="invisible"
                     android:background="@drawable/ic_non_active_sound"
                     android:contentDescription="@string/sound_button_description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/firstMicButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_mic"
+                    android:contentDescription="@string/sound_button_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/secondFieldContainer"
@@ -96,11 +108,23 @@
                     tools:src="@tools:sample/avatars" />
 
                 <ImageButton
+                    android:id="@+id/secondMicButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_mic"
+                    android:contentDescription="@string/sound_button_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rightDivider"/>
+
+                <ImageButton
                     android:id="@+id/secondSoundButton"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:visibility="invisible"
                     android:background="@drawable/ic_non_active_sound"
                     android:contentDescription="@string/sound_button_description"
                     app:layout_constraintEnd_toEndOf="parent"

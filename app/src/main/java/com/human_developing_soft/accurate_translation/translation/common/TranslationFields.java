@@ -75,6 +75,23 @@ public class TranslationFields implements TranslatingObserver {
         }
     }
 
+    public void updateFieldAfterMic(String translatingValue, Boolean isFirstField) {
+        if (isFirstField) {
+            mFirstField.setTag("blocked");
+            mFirstField.setText(translatingValue);
+            mFirstField.setTag("free");
+        } else {
+            mSecondField.setTag("blocked");
+            mSecondField.setText(translatingValue);
+            mSecondField.setTag("free");
+        }
+        mObserver.translateText(
+                translatingValue,
+                isFirstField,
+                new StringProvider.Base(mFirstField.getContext())
+        );
+    }
+
     public Boolean isFieldsNotEmpty() {
         return !mFirstField.getText().toString().isEmpty()
                 && !mSecondField.getText().toString().isEmpty();

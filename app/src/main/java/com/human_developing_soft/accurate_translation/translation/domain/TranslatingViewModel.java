@@ -1,6 +1,5 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.content.Context;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -56,6 +55,10 @@ public class TranslatingViewModel extends ViewModel implements OnTranslationFiel
 
     public void updateObserver(TranslatingObserver newObserver) {
         mTranslator.updateObserver(newObserver);
+    }
+
+    public String localeForMic(Boolean isFirst) {
+        return mTranslator.localeForMic(isFirst);
     }
 
     public Locale localeByLanguage(Boolean isFirst) {

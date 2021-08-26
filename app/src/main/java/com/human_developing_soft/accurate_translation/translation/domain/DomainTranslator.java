@@ -99,4 +99,8 @@ public class DomainTranslator implements OnTranslationFieldChanged {
     public void updateObserver(TranslatingObserver newObserver) {
         mObserver = newObserver;
     }
+
+    public String localeForMic(Boolean isFirst) {
+        return mSelectedLanguage.localeForMic(isFirst);
+    }
 }

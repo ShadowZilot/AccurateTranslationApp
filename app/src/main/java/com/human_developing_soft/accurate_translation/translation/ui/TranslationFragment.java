@@ -1,6 +1,9 @@
 package com.human_developing_soft.accurate_translation.translation.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
@@ -47,6 +51,10 @@ public class TranslationFragment extends Fragment
             mFieldManager.clearFields();
             mBinding.translationButtonPanel.setVisibility(View.GONE);
             mBinding.buttonsDivider.setVisibility(View.INVISIBLE);
+            mBinding.firstMicButton.setVisibility(View.VISIBLE);
+            mBinding.secondMicButton.setVisibility(View.VISIBLE);
+            mBinding.firstSoundButton.setVisibility(View.GONE);
+            mBinding.secondSoundButton.setVisibility(View.GONE);
         });
         mBinding.firstSoundButton.setOnClickListener((View v) -> {
             if (mIsEngineWorking) {
@@ -70,6 +78,17 @@ public class TranslationFragment extends Fragment
                         null,
                         "second");
             }
+        });
+        mBinding.firstMicButton.setOnClickListener((View v) -> {
+            recordSpeech(
+                    mViewModel.localeForMic(true),
+                    1
+            );
+        });
+        mBinding.secondMicButton.setOnClickListener((View v) -> {
+            recordSpeech(
+                    mViewModel.localeForMic(false),
+                    2);
         });
         mBinding.saveButton.setOnClickListener((View v) -> {
             if (mFieldManager.isFieldsNotEmpty()) {
@@ -194,9 +213,17 @@ public class TranslationFragment extends Fragment
         if (translationField.isEmpty()) {
             mBinding.translationButtonPanel.setVisibility(View.GONE);
             mBinding.buttonsDivider.setVisibility(View.INVISIBLE);
+            mBinding.firstMicButton.setVisibility(View.VISIBLE);
+            mBinding.secondMicButton.setVisibility(View.VISIBLE);
+            mBinding.firstSoundButton.setVisibility(View.GONE);
+            mBinding.secondSoundButton.setVisibility(View.GONE);
         } else {
             mBinding.translationButtonPanel.setVisibility(View.VISIBLE);
             mBinding.buttonsDivider.setVisibility(View.VISIBLE);
+            mBinding.firstMicButton.setVisibility(View.GONE);
+            mBinding.secondMicButton.setVisibility(View.GONE);
+            mBinding.firstSoundButton.setVisibility(View.VISIBLE);
+            mBinding.secondSoundButton.setVisibility(View.VISIBLE);
         }
         mBinding.translationProgress.setVisibility(View.VISIBLE);
         mBinding.translationIcon.setVisibility(View.INVISIBLE);
@@ -262,5 +289,40 @@ public class TranslationFragment extends Fragment
                         .show();
             }
         });
+    }
+
+    private void recordSpeech(String language, Integer fieldCode) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        );
+        intent.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE,
+                language
+        );
+        intent.putExtra(
+                RecognizerIntent.EXTRA_PROMPT,
+                getString(R.string.mic_message)
+        );
+        startActivityForResult(intent, fieldCode);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == 1) {
+                mFieldManager.updateFieldAfterMic(
+                        data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0),
+                        true
+                );
+            } else if (requestCode == 2) {
+                mFieldManager.updateFieldAfterMic(
+                        data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0),
+                        false
+                );
+            }
+        }
     }
 }
