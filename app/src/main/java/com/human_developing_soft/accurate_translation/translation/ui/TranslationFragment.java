@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.BookmarkArguments;
 import com.human_developing_soft.accurate_translation.bookmarks.ui.PreSavingBookmarkFragment;
+import com.human_developing_soft.accurate_translation.camera.ui.CameraActivity;
 import com.human_developing_soft.accurate_translation.databinding.TranslationFragmentBinding;
 import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.translation.common.TranslationFields;
@@ -93,10 +94,14 @@ public class TranslationFragment extends Fragment
                     2);
         });
         mBinding.firstCamButton.setOnClickListener((View v) -> {
-            
+            startCameraActivity(
+                    mViewModel.languageName(true)
+            );
         });
         mBinding.secondCamButton.setOnClickListener((View v) -> {
-
+            startCameraActivity(
+                    mViewModel.languageName(false)
+            );
         });
         mBinding.saveButton.setOnClickListener((View v) -> {
             if (mFieldManager.isFieldsNotEmpty()) {
@@ -154,6 +159,12 @@ public class TranslationFragment extends Fragment
                 mBinding.secondLanguageSelector,
                 mBinding.firstLanguageField,
                 mBinding.secondLanguageField);
+    }
+
+    private void startCameraActivity(String languageName) {
+        Intent cameraIntent = new Intent(requireContext(), CameraActivity.class);
+        cameraIntent.putExtra("countryCode", languageName);
+        startActivityForResult(cameraIntent, 3);
     }
 
     @Override

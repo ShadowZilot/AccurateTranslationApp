@@ -44,4 +44,8 @@
     <string name="type_bookmark_tag_label">Type bookmark tag</string>
     <string name="mic_message">Say text for translating</string>
     <string name="cam_button_access_description">Picture translation button</string>
+    <string name="image_selector_message">Select image source</string>
+    <string name="camera_label">Camera</string>
+    <string name="gallery_label">Gallery</string>
+    <string name="scanned_hint_message">The scanned text will be appear here</string>
 </resources>

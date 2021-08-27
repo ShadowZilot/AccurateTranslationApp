@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/imageSelectorTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:theme="@style/TextAppearance.AppCompat.Title"
+        android:text="@string/image_selector_message"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/cameraSource"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_label"
+        android:theme="@style/ImageSourceText"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="@id/imageSelectorTitle"
+        app:layout_constraintTop_toBottomOf="@id/imageSelectorTitle"/>
+
+    <View
+        android:id="@+id/cameraDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/cameraSource"
+        app:layout_constraintStart_toStartOf="@id/cameraSource"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/gallerySource"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/ImageSourceText"
+        android:text="@string/gallery_label"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/cameraSource"
+        app:layout_constraintTop_toBottomOf="@id/cameraSource" />
+
+    <View
+        android:id="@+id/galleryDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/gallerySource"
+        app:layout_constraintStart_toStartOf="@id/gallerySource"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
