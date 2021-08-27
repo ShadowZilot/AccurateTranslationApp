@@ -43,4 +43,5 @@
     <string name="sound_not_support_message">This language not support for sound</string>
     <string name="type_bookmark_tag_label">Type bookmark tag</string>
     <string name="mic_message">Say text for translating</string>
+    <string name="cam_button_access_description">Picture translation button</string>
 </resources>

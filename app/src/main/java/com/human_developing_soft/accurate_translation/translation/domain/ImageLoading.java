@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 
+import com.human_developing_soft.accurate_translation.R;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -26,7 +28,7 @@ public interface ImageLoading {
                         countryCode));
                 return Drawable.createFromStream(stream, null);
             } catch (IOException e) {
-                return null;
+                return mContext.getDrawable(R.drawable.ic_no_select_language);
             }
         }
     }

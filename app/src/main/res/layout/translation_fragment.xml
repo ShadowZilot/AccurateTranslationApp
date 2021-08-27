@@ -76,6 +76,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
+                <ImageButton
+                    android:id="@+id/firstCamButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/firstMicButton"
+                    android:contentDescription="@string/cam_button_access_description" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/secondFieldContainer"
                     android:layout_width="0dp"
@@ -129,6 +140,17 @@
                     android:contentDescription="@string/sound_button_description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rightDivider" />
+
+                <ImageButton
+                    android:id="@+id/secondCamButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintTop_toBottomOf="@id/rightDivider"
+                    app:layout_constraintEnd_toStartOf="@id/secondMicButton"
+                    android:contentDescription="@string/cam_button_access_description" />
 
                 <ProgressBar
                     android:id="@+id/translationProgress"

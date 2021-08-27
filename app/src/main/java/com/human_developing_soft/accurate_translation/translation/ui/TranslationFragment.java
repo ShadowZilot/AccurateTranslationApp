@@ -53,6 +53,8 @@ public class TranslationFragment extends Fragment
             mBinding.buttonsDivider.setVisibility(View.INVISIBLE);
             mBinding.firstMicButton.setVisibility(View.VISIBLE);
             mBinding.secondMicButton.setVisibility(View.VISIBLE);
+            mBinding.firstCamButton.setVisibility(View.VISIBLE);
+            mBinding.secondCamButton.setVisibility(View.VISIBLE);
             mBinding.firstSoundButton.setVisibility(View.GONE);
             mBinding.secondSoundButton.setVisibility(View.GONE);
         });
@@ -89,6 +91,12 @@ public class TranslationFragment extends Fragment
             recordSpeech(
                     mViewModel.localeForMic(false),
                     2);
+        });
+        mBinding.firstCamButton.setOnClickListener((View v) -> {
+            
+        });
+        mBinding.secondCamButton.setOnClickListener((View v) -> {
+
         });
         mBinding.saveButton.setOnClickListener((View v) -> {
             if (mFieldManager.isFieldsNotEmpty()) {
@@ -217,6 +225,8 @@ public class TranslationFragment extends Fragment
             mBinding.secondMicButton.setVisibility(View.VISIBLE);
             mBinding.firstSoundButton.setVisibility(View.GONE);
             mBinding.secondSoundButton.setVisibility(View.GONE);
+            mBinding.firstCamButton.setVisibility(View.VISIBLE);
+            mBinding.secondCamButton.setVisibility(View.VISIBLE);
         } else {
             mBinding.translationButtonPanel.setVisibility(View.VISIBLE);
             mBinding.buttonsDivider.setVisibility(View.VISIBLE);
@@ -224,6 +234,8 @@ public class TranslationFragment extends Fragment
             mBinding.secondMicButton.setVisibility(View.GONE);
             mBinding.firstSoundButton.setVisibility(View.VISIBLE);
             mBinding.secondSoundButton.setVisibility(View.VISIBLE);
+            mBinding.firstCamButton.setVisibility(View.GONE);
+            mBinding.secondCamButton.setVisibility(View.GONE);
         }
         mBinding.translationProgress.setVisibility(View.VISIBLE);
         mBinding.translationIcon.setVisibility(View.INVISIBLE);
