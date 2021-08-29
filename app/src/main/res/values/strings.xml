@@ -48,4 +48,5 @@
     <string name="camera_label">Camera</string>
     <string name="gallery_label">Gallery</string>
     <string name="scanned_hint_message">The scanned text will be appear here</string>
+    <string name="camera_sourse_message">Picture for translating</string>
 </resources>

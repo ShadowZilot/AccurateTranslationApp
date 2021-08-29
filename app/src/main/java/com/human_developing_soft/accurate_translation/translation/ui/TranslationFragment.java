@@ -95,12 +95,14 @@ public class TranslationFragment extends Fragment
         });
         mBinding.firstCamButton.setOnClickListener((View v) -> {
             startCameraActivity(
-                    mViewModel.languageName(true)
+                    mViewModel.languageName(true),
+                    true
             );
         });
         mBinding.secondCamButton.setOnClickListener((View v) -> {
             startCameraActivity(
-                    mViewModel.languageName(false)
+                    mViewModel.languageName(false),
+                    false
             );
         });
         mBinding.saveButton.setOnClickListener((View v) -> {
@@ -161,9 +163,10 @@ public class TranslationFragment extends Fragment
                 mBinding.secondLanguageField);
     }
 
-    private void startCameraActivity(String languageName) {
+    private void startCameraActivity(String languageName, Boolean isFirst) {
         Intent cameraIntent = new Intent(requireContext(), CameraActivity.class);
         cameraIntent.putExtra("countryCode", languageName);
+        cameraIntent.putExtra("isFirst", isFirst);
         startActivityForResult(cameraIntent, 3);
     }
 
@@ -333,7 +336,6 @@ public class TranslationFragment extends Fragment
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
             if (requestCode == 1) {
                 mFieldManager.updateFieldAfterMic(
@@ -346,6 +348,12 @@ public class TranslationFragment extends Fragment
                         false
                 );
             }
+        }
+        if (resultCode == 3 && data != null) {
+            mFieldManager.updateFieldAfterMic(
+                    data.getStringExtra("scannedText"),
+                    data.getBooleanExtra("isFirst", true)
+            );
         }
     }
 }
