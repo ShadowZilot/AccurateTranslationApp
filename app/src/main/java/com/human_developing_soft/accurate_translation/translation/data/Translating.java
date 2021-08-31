@@ -1,6 +1,5 @@
 package com.human_developing_soft.accurate_translation.translation.data;
 
-import com.human_developing_soft.accurate_translation.translation.domain.SelectedLanguages;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;

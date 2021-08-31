@@ -4,12 +4,16 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +32,6 @@ import com.human_developing_soft.accurate_translation.databinding.ImageSelectorD
 public class SourceSelectDialog extends DialogFragment {
     private ImageSelectorDialogBinding mBinding;
     private Uri mImageUri;
-
     private String[] mCameraPermission;
 
     @NonNull
@@ -45,16 +48,12 @@ public class SourceSelectDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mCameraPermission = new String[] {
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        mCameraPermission = new String[]{
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
         mBinding.cameraSource.setOnClickListener((View v) -> {
-            if (checkCameraPermission()) {
-                pickCamera();
-            } else {
-                requestCameraPermission();
-            }
+            pickCamera();
         });
         mBinding.gallerySource.setOnClickListener((View v) -> pickGallery());
         return mBinding.getRoot();
@@ -67,12 +66,13 @@ public class SourceSelectDialog extends DialogFragment {
         if (resultCode == Activity.RESULT_OK && data != null) {
             Bundle bundle = new Bundle();
             if (requestCode == 1) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                 bundle.putParcelable(
-                        "image",
-                        mImageUri);
+                        "camera",
+                        bitmap);
             } else if (requestCode == 2) {
                 bundle.putParcelable(
-                        "image",
+                        "gallery",
                         data.getData()
                 );
             }
@@ -84,16 +84,12 @@ public class SourceSelectDialog extends DialogFragment {
     }
 
     private void pickCamera() {
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE,
-                R.string.camera_sourse_message);
-        mImageUri = requireActivity().getContentResolver().insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                values);
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-        startActivityForResult(Intent.createChooser(cameraIntent,
-                getString(R.string.camera_sourse_message)), 1);
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(takePictureIntent, 1);
+        } catch (ActivityNotFoundException e) {
+            Log.d("SourceDialog", "Camera not found");
+        }
     }
 
     private void pickGallery() {
@@ -101,7 +97,7 @@ public class SourceSelectDialog extends DialogFragment {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setType("image/*");
         startActivityForResult(Intent.createChooser(galleryIntent,
-        getString(R.string.camera_sourse_message)), 2);
+                getString(R.string.camera_sourse_message)), 2);
     }
 
     @Override
