@@ -232,32 +232,34 @@ public class TranslationFragment extends Fragment
     public void translateText(String translationField,
                               Boolean isFirstField,
                               StringProvider provider) {
-        if (translationField.isEmpty()) {
-            mBinding.translationButtonPanel.setVisibility(View.GONE);
-            mBinding.buttonsDivider.setVisibility(View.INVISIBLE);
-            mBinding.firstMicButton.setVisibility(View.VISIBLE);
-            mBinding.secondMicButton.setVisibility(View.VISIBLE);
-            mBinding.firstSoundButton.setVisibility(View.GONE);
-            mBinding.secondSoundButton.setVisibility(View.GONE);
-            mBinding.firstCamButton.setVisibility(View.VISIBLE);
-            mBinding.secondCamButton.setVisibility(View.VISIBLE);
-        } else {
-            mBinding.translationButtonPanel.setVisibility(View.VISIBLE);
-            mBinding.buttonsDivider.setVisibility(View.VISIBLE);
-            mBinding.firstMicButton.setVisibility(View.GONE);
-            mBinding.secondMicButton.setVisibility(View.GONE);
-            mBinding.firstSoundButton.setVisibility(View.VISIBLE);
-            mBinding.secondSoundButton.setVisibility(View.VISIBLE);
-            mBinding.firstCamButton.setVisibility(View.GONE);
-            mBinding.secondCamButton.setVisibility(View.GONE);
-        }
-        mBinding.translationProgress.setVisibility(View.VISIBLE);
-        mBinding.translationIcon.setVisibility(View.INVISIBLE);
-        mViewModel.translateText(
-                translationField,
-                isFirstField,
-                provider
-        );
+        requireActivity().runOnUiThread(() -> {
+            if (translationField.isEmpty()) {
+                mBinding.translationButtonPanel.setVisibility(View.GONE);
+                mBinding.buttonsDivider.setVisibility(View.INVISIBLE);
+                mBinding.firstMicButton.setVisibility(View.VISIBLE);
+                mBinding.secondMicButton.setVisibility(View.VISIBLE);
+                mBinding.firstSoundButton.setVisibility(View.GONE);
+                mBinding.secondSoundButton.setVisibility(View.GONE);
+                mBinding.firstCamButton.setVisibility(View.VISIBLE);
+                mBinding.secondCamButton.setVisibility(View.VISIBLE);
+            } else {
+                mBinding.translationButtonPanel.setVisibility(View.VISIBLE);
+                mBinding.buttonsDivider.setVisibility(View.VISIBLE);
+                mBinding.firstMicButton.setVisibility(View.GONE);
+                mBinding.secondMicButton.setVisibility(View.GONE);
+                mBinding.firstSoundButton.setVisibility(View.VISIBLE);
+                mBinding.secondSoundButton.setVisibility(View.VISIBLE);
+                mBinding.firstCamButton.setVisibility(View.GONE);
+                mBinding.secondCamButton.setVisibility(View.GONE);
+            }
+            mBinding.translationProgress.setVisibility(View.VISIBLE);
+            mBinding.translationIcon.setVisibility(View.INVISIBLE);
+            mViewModel.translateText(
+                    translationField,
+                    isFirstField,
+                    provider
+            );
+        });
     }
 
     @Override

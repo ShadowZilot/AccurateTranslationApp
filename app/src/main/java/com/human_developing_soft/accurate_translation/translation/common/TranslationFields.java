@@ -12,28 +12,26 @@ public class TranslationFields implements TranslatingObserver {
     private final EditText mSecondField;
     private TextWatcher mFirstListener;
     private TextWatcher mSecondListener;
-    private OnTranslationFieldChanged mObserver;
+    private TextTimer mTextTimer;
 
     public TranslationFields(EditText pFirstField,
                              EditText pSecondField,
                              OnTranslationFieldChanged pObserver) {
         mFirstField = pFirstField;
         mSecondField = pSecondField;
-        mObserver = pObserver;
+        mTextTimer = new TextTimer.Base(pObserver);
         mFirstField.setTag("free");
         mFirstListener = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (mFirstField.getTag().equals("free")) {
-                    mObserver.translateText(s.toString(),
+                    mTextTimer.updateTextData(s.toString(),
                             true,
                             new StringProvider.Base(mFirstField.getContext()));
                 }
@@ -43,17 +41,15 @@ public class TranslationFields implements TranslatingObserver {
         mSecondField.setTag("free");
         mSecondListener = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (mSecondField.getTag().equals("free")) {
-                    mObserver.translateText(s.toString(),
+                    mTextTimer.updateTextData(s.toString(),
                             false,
                             new StringProvider.Base(mSecondField.getContext()));
                 }
@@ -85,7 +81,7 @@ public class TranslationFields implements TranslatingObserver {
             mSecondField.setText(translatingValue);
             mSecondField.setTag("free");
         }
-        mObserver.translateText(
+        mTextTimer.updateImmediately(
                 translatingValue,
                 isFirstField,
                 new StringProvider.Base(mFirstField.getContext())
@@ -111,6 +107,6 @@ public class TranslationFields implements TranslatingObserver {
         mSecondField.removeTextChangedListener(mSecondListener);
         mFirstListener = null;
         mSecondListener = null;
-        mObserver = null;
+        mTextTimer = null;
     }
 }

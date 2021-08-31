@@ -1,94 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.fenchtose.nocropper.CropperImageView
-        android:id="@+id/recognizingImage"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_weight="3"
-        android:visibility="visible" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2">
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/languageCircle"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/languageName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:theme="@style/LanguageText"
-            app:layout_constraintBottom_toBottomOf="@id/languageCircle"
-            app:layout_constraintStart_toEndOf="@id/languageCircle"
-            app:layout_constraintTop_toTopOf="@id/languageCircle"
-            tools:text="English" />
-
-        <ImageButton
-            android:id="@+id/cameraButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_camera"
-            android:contentDescription="@string/cam_button_access_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/scanTextContainer"
+        <com.fenchtose.nocropper.CropperImageView
+            android:id="@+id/recognizingImage"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            app:boxBackgroundMode="none"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@id/submitButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/languageCircle">
+            android:layout_height="130dp"
+            android:layout_weight="3"
+            android:src="@drawable/ic_empty_image"
+            android:visibility="visible" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/scannedTextField"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/languageCircle"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/languageName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:theme="@style/LanguageText"
+                app:layout_constraintBottom_toBottomOf="@id/languageCircle"
+                app:layout_constraintStart_toEndOf="@id/languageCircle"
+                app:layout_constraintTop_toTopOf="@id/languageCircle"
+                tools:text="English" />
+
+            <ImageButton
+                android:id="@+id/cameraButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_camera"
+                android:contentDescription="@string/cam_button_access_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/scanTextContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/scanned_hint_message" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:boxBackgroundMode="none"
+                app:hintEnabled="false"
+                app:layout_constraintBottom_toTopOf="@id/submitButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/languageCircle">
 
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/apply_language_select"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/scannedTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/scanned_hint_message" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/cancel_label"
-            android:theme="@style/CancelButton"
-            app:layout_constraintBottom_toBottomOf="@id/submitButton"
-            app:layout_constraintEnd_toStartOf="@id/submitButton" />
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/apply_language_select"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/cancel_label"
+                android:theme="@style/CancelButton"
+                app:layout_constraintBottom_toBottomOf="@id/submitButton"
+                app:layout_constraintEnd_toStartOf="@id/submitButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

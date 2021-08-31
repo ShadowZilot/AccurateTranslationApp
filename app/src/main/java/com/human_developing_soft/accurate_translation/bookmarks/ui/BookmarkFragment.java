@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,6 +60,8 @@ public class BookmarkFragment extends Fragment
         mBinding.bookmarksList.setAdapter(mAdapter);
         mBinding.bookmarksList.setLayoutManager(new LinearLayoutManager(requireContext(),
                 RecyclerView.VERTICAL, false));
+        mBinding.bookmarksList.addItemDecoration(new DividerItemDecoration(requireContext(),
+                DividerItemDecoration.VERTICAL));
         mViewModel = new ViewModelProvider(this,
                 new BookmarkVMFactory(requireContext(), this)).get(BookmarkViewModel.class);
         if (savedInstanceState != null) {
