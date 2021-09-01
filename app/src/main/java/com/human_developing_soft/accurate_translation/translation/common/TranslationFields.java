@@ -107,6 +107,6 @@ public class TranslationFields implements TranslatingObserver {
         mSecondField.removeTextChangedListener(mSecondListener);
         mFirstListener = null;
         mSecondListener = null;
-        mTextTimer = null;
+        mTextTimer.clearObserver();
     }
 }

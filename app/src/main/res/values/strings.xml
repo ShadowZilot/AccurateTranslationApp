@@ -50,4 +50,5 @@
     <string name="scanned_hint_message">The scanned text will be appear here</string>
     <string name="camera_sourse_message">Picture for translating</string>
     <string name="unrecognized_message">This text could\'t to be recognized. Try another one.</string>
+    <string name="translation_label">Translation</string>
 </resources>

@@ -15,8 +15,10 @@ public interface TextTimer {
                            Boolean isFirst,
                            StringProvider provider);
 
+    void clearObserver();
+
     class Base implements TextTimer {
-        private final OnTranslationFieldChanged mObserver;
+        private OnTranslationFieldChanged mObserver;
         private Timer mTimer;
 
         public Base(OnTranslationFieldChanged observer) {
@@ -52,6 +54,11 @@ public interface TextTimer {
                     isFirst,
                     provider
             );
+        }
+
+        @Override
+        public void clearObserver() {
+            mObserver = null;
         }
     }
 }

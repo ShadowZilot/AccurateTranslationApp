@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/translationScreen"
+        android:icon="@drawable/ic_baseline_translate_24"
+        android:title="@string/translation_tab_name"/>
+    <item
+        android:id="@+id/bookmarksScreen"
+        android:icon="@drawable/ic_baseline_book_24"
+        android:title="@string/bookmark_tab_name"/>
+</menu>
