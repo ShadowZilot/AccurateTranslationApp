@@ -47,6 +47,10 @@ public class DomainTranslator implements OnTranslationFieldChanged {
         mSelectedLanguage.initFieldHints(firstField, secondField);
     }
 
+    public void swapLanguage() {
+        mSelectedLanguage.swapLanguage();
+    }
+
     public String[] languagesName() {
         return mSelectedLanguage.countryCodes();
     }

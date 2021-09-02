@@ -13,6 +13,7 @@ public class TranslationFields implements TranslatingObserver {
     private TextWatcher mFirstListener;
     private TextWatcher mSecondListener;
     private TextTimer mTextTimer;
+    private Boolean mIsLastFirst;
 
     public TranslationFields(EditText pFirstField,
                              EditText pSecondField,
@@ -31,6 +32,7 @@ public class TranslationFields implements TranslatingObserver {
             @Override
             public void afterTextChanged(Editable s) {
                 if (mFirstField.getTag().equals("free")) {
+                    mIsLastFirst = true;
                     mTextTimer.updateTextData(s.toString(),
                             true,
                             new StringProvider.Base(mFirstField.getContext()));
@@ -49,6 +51,7 @@ public class TranslationFields implements TranslatingObserver {
             @Override
             public void afterTextChanged(Editable s) {
                 if (mSecondField.getTag().equals("free")) {
+                    mIsLastFirst = true;
                     mTextTimer.updateTextData(s.toString(),
                             false,
                             new StringProvider.Base(mSecondField.getContext()));
@@ -109,5 +112,28 @@ public class TranslationFields implements TranslatingObserver {
         mSecondListener = null;
         mTextTimer.clearObserver();
         mTextTimer = null;
+    }
+
+    public void swapLanguage() {
+        mFirstField.setTag("blocked");
+        mSecondField.setTag("blocked");
+        String tmpText = mFirstField.getText().toString();
+        mFirstField.setText(mSecondField.getText().toString());
+        mSecondField.setText(tmpText);
+        mFirstField.setTag("free");
+        mSecondField.setTag("free");
+        if (mIsLastFirst) {
+            mTextTimer.updateImmediately(
+                    mFirstField.getText().toString(),
+                    true,
+                    new StringProvider.Base(mFirstField.getContext())
+            );
+        } else {
+            mTextTimer.updateImmediately(
+                    mSecondField.getText().toString(),
+                    false,
+                    new StringProvider.Base(mFirstField.getContext())
+            );
+        }
     }
 }

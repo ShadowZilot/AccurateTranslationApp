@@ -28,6 +28,8 @@ public interface SelectedLanguages {
 
     String localeForMic(Boolean isFirst);
 
+    void swapLanguage();
+
     class Base implements SelectedLanguages {
         private HandledLanguage mFirstLanguage;
         private HandledLanguage mSecondLanguage;
@@ -133,6 +135,13 @@ public interface SelectedLanguages {
                         mSecondLanguage.countryCode().toUpperCase());
             }
             return result;
+        }
+
+        @Override
+        public void swapLanguage() {
+            HandledLanguage tmp = mFirstLanguage;
+            mFirstLanguage = mSecondLanguage;
+            mSecondLanguage = tmp;
         }
     }
 }

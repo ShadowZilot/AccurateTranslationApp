@@ -1,8 +1,6 @@
 package com.human_developing_soft.accurate_translation.translation.ui;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.speech.tts.UtteranceProgressListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -69,8 +66,16 @@ public class TranslationFragment extends Fragment
                     "rotation",
                     mBinding.translationIcon.getRotation(),
                     mBinding.translationIcon.getRotation()+180f);
+            mViewModel.swapLanguage();
+            mViewModel.initUI(
+                    mBinding.firstLanguageSelector,
+                    mBinding.secondLanguageSelector,
+                    mBinding.firstLanguageField,
+                    mBinding.secondLanguageField
+            );
             animator.setDuration(100);
             animator.start();
+            mFieldManager.swapLanguage();
         });
         mBinding.firstSoundButton.setOnClickListener((View v) -> {
             if (mIsEngineWorking) {
@@ -95,29 +100,21 @@ public class TranslationFragment extends Fragment
                         "second");
             }
         });
-        mBinding.firstMicButton.setOnClickListener((View v) -> {
-            recordSpeech(
-                    mViewModel.localeForMic(true),
-                    1
-            );
-        });
-        mBinding.secondMicButton.setOnClickListener((View v) -> {
-            recordSpeech(
-                    mViewModel.localeForMic(false),
-                    2);
-        });
-        mBinding.firstCamButton.setOnClickListener((View v) -> {
-            startCameraActivity(
-                    mViewModel.languageName(true),
-                    true
-            );
-        });
-        mBinding.secondCamButton.setOnClickListener((View v) -> {
-            startCameraActivity(
-                    mViewModel.languageName(false),
-                    false
-            );
-        });
+        mBinding.firstMicButton.setOnClickListener((View v) -> recordSpeech(
+                mViewModel.localeForMic(true),
+                1
+        ));
+        mBinding.secondMicButton.setOnClickListener((View v) -> recordSpeech(
+                mViewModel.localeForMic(false),
+                2));
+        mBinding.firstCamButton.setOnClickListener((View v) -> startCameraActivity(
+                mViewModel.languageName(true),
+                true
+        ));
+        mBinding.secondCamButton.setOnClickListener((View v) -> startCameraActivity(
+                mViewModel.languageName(false),
+                false
+        ));
         mBinding.saveButton.setOnClickListener((View v) -> {
             if (mFieldManager.isFieldsNotEmpty()) {
                 Bundle args = new BookmarkArguments.Base(
@@ -206,13 +203,6 @@ public class TranslationFragment extends Fragment
     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
         if (requestKey.equals("firstLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
-            mBinding.firstLanguageField.setHint(
-                    new StringProvider.Base(
-                            requireContext()
-                    ).string(R.string.field_hint,
-                            language.name()
-                    )
-            );
             mViewModel.updateTranslatingLanguage(language,
                     new HandledLanguage.Dummy(requireContext()),
                     new CachedSelectedLanguages.Base(
@@ -220,13 +210,6 @@ public class TranslationFragment extends Fragment
                     ));
         } else if (requestKey.equals("secondLanguage")) {
             HandledLanguage language = new HandledLanguage.Base(result);
-            mBinding.secondLanguageField.setHint(
-                    new StringProvider.Base(
-                            requireContext()
-                    ).string(R.string.field_hint,
-                            language.name()
-                    )
-            );
             mViewModel.updateTranslatingLanguage(new HandledLanguage.Dummy(requireContext()),
                     language,
                     new CachedSelectedLanguages.Base(

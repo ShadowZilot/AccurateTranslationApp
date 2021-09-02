@@ -57,6 +57,10 @@ public class TranslatingViewModel extends ViewModel implements OnTranslationFiel
         mTranslator.updateObserver(newObserver);
     }
 
+     public void swapLanguage() {
+        mTranslator.swapLanguage();
+     }
+
     public String localeForMic(Boolean isFirst) {
         return mTranslator.localeForMic(isFirst);
     }
