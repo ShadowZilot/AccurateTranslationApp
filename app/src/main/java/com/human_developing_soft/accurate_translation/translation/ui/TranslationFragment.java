@@ -1,5 +1,8 @@
 package com.human_developing_soft.accurate_translation.translation.ui;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.speech.tts.UtteranceProgressListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,7 +64,13 @@ public class TranslationFragment extends Fragment
             mBinding.secondSoundButton.setVisibility(View.GONE);
         });
         mBinding.translationIcon.setOnClickListener((View v) -> {
-            
+            ObjectAnimator animator = ObjectAnimator.ofFloat(
+                    mBinding.translationIcon,
+                    "rotation",
+                    mBinding.translationIcon.getRotation(),
+                    mBinding.translationIcon.getRotation()+180f);
+            animator.setDuration(100);
+            animator.start();
         });
         mBinding.firstSoundButton.setOnClickListener((View v) -> {
             if (mIsEngineWorking) {
