@@ -6,7 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public interface TextTimer {
-
     void updateTextData(String updatedText,
                         Boolean isFirst,
                         StringProvider provider);
@@ -36,11 +35,13 @@ public interface TextTimer {
             mTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    mObserver.translateText(
-                            updatedText,
-                            isFirst,
-                            provider
-                    );
+                    if (mObserver != null) {
+                        mObserver.translateText(
+                                updatedText,
+                                isFirst,
+                                provider
+                        );
+                    }
                 }
             }, 1000L);
         }

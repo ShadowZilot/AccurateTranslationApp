@@ -59,6 +59,9 @@ public class TranslationFragment extends Fragment
             mBinding.firstSoundButton.setVisibility(View.GONE);
             mBinding.secondSoundButton.setVisibility(View.GONE);
         });
+        mBinding.translationIcon.setOnClickListener((View v) -> {
+            
+        });
         mBinding.firstSoundButton.setOnClickListener((View v) -> {
             if (mIsEngineWorking) {
                 Locale locale = mViewModel.localeByLanguage(true);

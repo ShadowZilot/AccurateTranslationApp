@@ -29,8 +29,8 @@ public interface SelectedLanguages {
     String localeForMic(Boolean isFirst);
 
     class Base implements SelectedLanguages {
-        private final HandledLanguage mFirstLanguage;
-        private final HandledLanguage mSecondLanguage;
+        private HandledLanguage mFirstLanguage;
+        private HandledLanguage mSecondLanguage;
 
         public Base(HandledLanguage pFirstLanguage, HandledLanguage pSecondLanguage) {
             mFirstLanguage = pFirstLanguage;
