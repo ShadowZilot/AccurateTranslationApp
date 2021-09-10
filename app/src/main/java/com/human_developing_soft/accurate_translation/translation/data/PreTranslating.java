@@ -37,19 +37,12 @@ public interface PreTranslating {
                         "en"
                 ).translate();
                 return new Translating.Base(
-                        new HandledTranslating(new PreTranslating.Dummy())
+                        new HandledTranslating(new TranslatingChoosing.Dummy())
                                 .translate(temporaryTranslation),
                         "en",
                         codes[1]
                 ).translate();
             }
-        }
-    }
-
-    class Dummy implements PreTranslating {
-        @Override
-        public String translate() {
-            return "Dummy PreTranslating implementation";
         }
     }
 }

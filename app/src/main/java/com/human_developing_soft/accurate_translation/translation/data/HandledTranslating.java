@@ -5,9 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HandledTranslating implements Translating {
-    private final PreTranslating mDecoratingObject;
+    private final TranslatingChoosing mDecoratingObject;
 
-    public HandledTranslating(PreTranslating pDecorating) {
+    public HandledTranslating(TranslatingChoosing pDecorating) {
         mDecoratingObject = pDecorating;
     }
 

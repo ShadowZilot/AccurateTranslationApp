@@ -8,8 +8,8 @@ import com.human_developing_soft.accurate_translation.translation.common.OnLangu
 import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
-import com.human_developing_soft.accurate_translation.translation.data.PreTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.Translating;
+import com.human_developing_soft.accurate_translation.translation.data.TranslatingChoosing;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
@@ -64,7 +64,7 @@ public class DomainTranslator implements OnTranslationFieldChanged {
                               Boolean isFirstField,
                               StringProvider provider) {
         Translating subject = new HandledTranslating(
-                new PreTranslating.Base(
+                new TranslatingChoosing.Base(
                         translationField,
                         mSelectedLanguage,
                         isFirstField
