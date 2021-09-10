@@ -6,7 +6,6 @@ import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 
 import org.json.JSONException;
 
-
 public interface Translating {
 
     String translate() throws JSONException;

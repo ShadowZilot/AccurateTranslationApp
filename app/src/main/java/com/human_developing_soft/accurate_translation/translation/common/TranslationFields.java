@@ -13,7 +13,7 @@ public class TranslationFields implements TranslatingObserver {
     private TextWatcher mFirstListener;
     private TextWatcher mSecondListener;
     private TextTimer mTextTimer;
-    private Boolean mIsLastFirst;
+    private Boolean mIsLastFirst = true;
 
     public TranslationFields(EditText pFirstField,
                              EditText pSecondField,
