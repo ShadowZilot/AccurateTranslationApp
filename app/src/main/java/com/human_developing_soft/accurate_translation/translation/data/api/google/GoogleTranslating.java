@@ -26,7 +26,7 @@ public class GoogleTranslating implements Translating {
     }
 
     @Override
-    public String translate() throws JSONException {
+    public String translate() {
         String requestText = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="
                 + mFirstCode + "&tl=" + mSecondCode + "&dt=t&ie=UTF-8&ae=UTF-8&q="
                 + mTranslatingText;

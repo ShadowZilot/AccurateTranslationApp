@@ -1,21 +1,23 @@
 package com.human_developing_soft.accurate_translation.translation.domain;
 
-import android.os.Build;
+import com.human_developing_soft.accurate_translation.translation.data.api.CharactersLimit;
 
 public interface VersionChecking {
 
-    Boolean isNormalApi();
+    Boolean isLimitedApi();
 
     class Base implements VersionChecking {
-        private final Boolean mIsNormalApi;
+        private final Number mTranslatingTextLength;
 
-        public Base() {
-            mIsNormalApi = Build.VERSION.SDK_INT > 23;
+        public Base(String translatingText) {
+            mTranslatingTextLength = translatingText.length();
         }
 
         @Override
-        public Boolean isNormalApi() {
-            return mIsNormalApi;
+        public Boolean isLimitedApi() {
+            return mTranslatingTextLength.intValue() > new CharactersLimit
+                        .Constant()
+                        .limit();
         }
     }
 }

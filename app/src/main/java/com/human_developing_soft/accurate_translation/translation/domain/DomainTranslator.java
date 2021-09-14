@@ -74,18 +74,12 @@ public class DomainTranslator implements OnTranslationFieldChanged {
                     String result = subject.translate();
                     mObserver.updateField(result, !isFirstField);
                 }
-            } catch (JSONException e) {
-                mObserver.updateField(
-                        provider.string(R.string.error_while_getting_response_label),
-                        !isFirstField
-                );
             } catch (NotFoundException e) {
                 mObserver.updateField(
                         provider.string(R.string.language_not_support_for_translate_label),
                         !isFirstField);
-            } catch (RuntimeException e) {
-                mObserver.updateField(
-                        "",
+            } catch (JSONException | RuntimeException e) {
+                mObserver.updateField("",
                         !isFirstField);
             }
         };

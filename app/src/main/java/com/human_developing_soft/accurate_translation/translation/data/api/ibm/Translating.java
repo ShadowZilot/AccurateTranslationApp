@@ -40,7 +40,7 @@ public interface Translating {
 
     class Dummy implements Translating {
         @Override
-        public String translate() throws JSONException {
+        public String translate() {
             return "Dummy translating implementation";
         }
     }

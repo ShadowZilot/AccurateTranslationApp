@@ -18,7 +18,7 @@ public class TranslatingChoosing implements Translating {
     public TranslatingChoosing(String translatingText,
                                SelectedLanguages selectedLanguages,
                                Boolean isSwapNeeded) {
-        mChecking = new VersionChecking.Base();
+        mChecking = new VersionChecking.Base(translatingText);
         mTranslatingText = translatingText;
         mSelectedLanguages = selectedLanguages;
         mIsSwapNeeded = isSwapNeeded;
@@ -26,7 +26,7 @@ public class TranslatingChoosing implements Translating {
 
     @Override
     public String translate() throws JSONException {
-        if (mChecking.isNormalApi()) {
+        if (mChecking.isLimitedApi()) {
             return new HandledTranslating(
                     new IbmApi(mTranslatingText,
                             mSelectedLanguages,
@@ -39,7 +39,7 @@ public class TranslatingChoosing implements Translating {
                     mTranslatingText,
                     mSelectedLanguages,
                     mIsSwapNeeded
-                )
+            )
             ).translate();
         }
     }
