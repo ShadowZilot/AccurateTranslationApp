@@ -1,13 +1,13 @@
-package com.human_developing_soft.accurate_translation.translation.data;
+package com.human_developing_soft.accurate_translation.translation.data.api.ibm;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HandledTranslating implements Translating {
-    private final TranslatingChoosing mDecoratingObject;
+    private final Translating mDecoratingObject;
 
-    public HandledTranslating(TranslatingChoosing pDecorating) {
+    public HandledTranslating(Translating pDecorating) {
         mDecoratingObject = pDecorating;
     }
 

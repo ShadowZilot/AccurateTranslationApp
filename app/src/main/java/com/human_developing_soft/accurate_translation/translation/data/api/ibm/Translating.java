@@ -1,4 +1,4 @@
-package com.human_developing_soft.accurate_translation.translation.data;
+package com.human_developing_soft.accurate_translation.translation.data.api.ibm;
 
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.language_translator.v3.LanguageTranslator;
@@ -35,6 +35,13 @@ public interface Translating {
                     .build();
             return languageTranslator.translate(translateOptions)
                     .execute().getResult().toString();
+        }
+    }
+
+    class Dummy implements Translating {
+        @Override
+        public String translate() throws JSONException {
+            return "Dummy translating implementation";
         }
     }
 }

@@ -1,44 +1,46 @@
 package com.human_developing_soft.accurate_translation.translation.data;
 
+import com.human_developing_soft.accurate_translation.translation.data.api.GoogleApi;
+import com.human_developing_soft.accurate_translation.translation.data.api.IbmApi;
+import com.human_developing_soft.accurate_translation.translation.data.api.ibm.HandledTranslating;
+import com.human_developing_soft.accurate_translation.translation.data.api.ibm.Translating;
 import com.human_developing_soft.accurate_translation.translation.domain.SelectedLanguages;
 import com.human_developing_soft.accurate_translation.translation.domain.VersionChecking;
 
 import org.json.JSONException;
 
-public interface TranslatingChoosing {
+public class TranslatingChoosing implements Translating {
+    private final VersionChecking mChecking;
+    private final String mTranslatingText;
+    private final SelectedLanguages mSelectedLanguages;
+    private final Boolean mIsSwapNeeded;
 
-    String translate() throws JSONException;
-
-    class Base implements TranslatingChoosing {
-        private final VersionChecking mChecking;
-        private final String mTranslatingText;
-        private final SelectedLanguages mSelectedLanguages;
-        private final Boolean mIsSwapNeeded;
-
-        public Base(String translatingText,
-                    SelectedLanguages selectedLanguages,
-                    Boolean isSwapNeeded) {
-            mChecking = new VersionChecking.Base();
-            mTranslatingText = translatingText;
-            mSelectedLanguages = selectedLanguages;
-            mIsSwapNeeded = isSwapNeeded;
-        }
-
-        @Override
-        public String translate() throws JSONException {
-            if (mChecking.isNormalApi()) {
-                return new PreTranslating.Base(mTranslatingText,
-                        mSelectedLanguages,
-                        mIsSwapNeeded).translate();
-            }
-            return "";
-        }
+    public TranslatingChoosing(String translatingText,
+                               SelectedLanguages selectedLanguages,
+                               Boolean isSwapNeeded) {
+        mChecking = new VersionChecking.Base();
+        mTranslatingText = translatingText;
+        mSelectedLanguages = selectedLanguages;
+        mIsSwapNeeded = isSwapNeeded;
     }
 
-    class Dummy implements TranslatingChoosing {
-        @Override
-        public String translate() {
-            return "Dummy PreTranslating implementation";
+    @Override
+    public String translate() throws JSONException {
+        if (mChecking.isNormalApi()) {
+            return new HandledTranslating(
+                    new IbmApi(mTranslatingText,
+                            mSelectedLanguages,
+                            mIsSwapNeeded
+                    )
+            ).translate();
+        } else {
+            return new com.human_developing_soft.accurate_translation.translation
+                    .data.api.google.HandledTranslating(new GoogleApi(
+                    mTranslatingText,
+                    mSelectedLanguages,
+                    mIsSwapNeeded
+                )
+            ).translate();
         }
     }
 }

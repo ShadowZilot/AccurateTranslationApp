@@ -7,9 +7,9 @@ import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.translation.common.OnLanguageUpdated;
 import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
-import com.human_developing_soft.accurate_translation.translation.data.HandledTranslating;
-import com.human_developing_soft.accurate_translation.translation.data.Translating;
 import com.human_developing_soft.accurate_translation.translation.data.TranslatingChoosing;
+import com.human_developing_soft.accurate_translation.translation.data.api.ibm.HandledTranslating;
+import com.human_developing_soft.accurate_translation.translation.data.api.ibm.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
@@ -63,13 +63,11 @@ public class DomainTranslator implements OnTranslationFieldChanged {
     public void translateText(String translationField,
                               Boolean isFirstField,
                               StringProvider provider) {
-        Translating subject = new HandledTranslating(
-                new TranslatingChoosing.Base(
+        Translating subject = new TranslatingChoosing(
                         translationField,
                         mSelectedLanguage,
                         isFirstField
-                )
-        );
+                );
         Runnable runnable = () -> {
             try {
                 if (!mLastThread.isInterrupted()) {
