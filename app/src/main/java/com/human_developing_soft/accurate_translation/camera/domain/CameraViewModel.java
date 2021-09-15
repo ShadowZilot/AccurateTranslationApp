@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import androidx.lifecycle.ViewModel;
 
 import com.human_developing_soft.accurate_translation.translation.data.LanguageStorage;
-import com.human_developing_soft.accurate_translation.translation.data.LanguagesDatabase;
+import com.human_developing_soft.accurate_translation.translation.data.LanguagesDBWrapped;
 import com.human_developing_soft.accurate_translation.translation.domain.ImageLoading;
 
 public class CameraViewModel extends ViewModel {
@@ -15,7 +15,7 @@ public class CameraViewModel extends ViewModel {
     private final String mLanguageCountryCode;
 
     public CameraViewModel(Context context, String languageCountryCode) {
-        mLanguageStorage = LanguagesDatabase.instance(context);
+        mLanguageStorage = LanguagesDBWrapped.instance(context);
         ImageLoading loading = new ImageLoading.Base(context);
         mLanguageImage = loading.flagByCountryCode(
                 languageCountryCode);

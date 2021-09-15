@@ -8,7 +8,6 @@ import com.human_developing_soft.accurate_translation.translation.common.OnLangu
 import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.translation.data.HandledLanguage;
 import com.human_developing_soft.accurate_translation.translation.data.TranslatingChoosing;
-import com.human_developing_soft.accurate_translation.translation.data.api.ibm.HandledTranslating;
 import com.human_developing_soft.accurate_translation.translation.data.api.ibm.Translating;
 import com.human_developing_soft.accurate_translation.translation.ui.StringProvider;
 import com.human_developing_soft.accurate_translation.translation.ui.TranslatingObserver;

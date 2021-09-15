@@ -1,37 +1,38 @@
 package com.human_developing_soft.accurate_translation.translation.data;
 
+import android.content.Context;
+
 import com.ibm.watson.language_translator.v3.model.Language;
 import com.ibm.watson.language_translator.v3.model.TranslationModel;
+import com.human_developing_soft.accurate_translation.translation.data.ModelList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface LanguagesHandler {
-    List<Language> languagesList();
+    List<HandledLanguage> languagesList();
 
     class Base implements LanguagesHandler {
         private final ModelList mModels;
-        private final LanguagesList mLanguages;
+        private final LanguageStorage mLanguages;
 
-        public Base(ModelList pModels,
-                    LanguagesList pLanguages) {
+        public Base(ModelList pModels, Context context) {
             mModels = pModels;
-            mLanguages = pLanguages;
+            mLanguages = LanguagesDBWrapped.instance(context);
         }
 
         @Override
-        public List<Language> languagesList() {
-            List<Language> languages = mLanguages.languages();
+        public List<HandledLanguage> languagesList() {
             List<TranslationModel> models = mModels.models();
-            List<Language> resultList = new ArrayList<>();
+            List<HandledLanguage> resultList = new ArrayList<>();
             boolean isLanguageValid = false;
-            for (Language language : languages) {
+            for (HandledLanguage language : mLanguages.allLanguages()) {
                 for (TranslationModel model : models) {
-                    if ((language.getLanguage().equals(model.getTarget())
+                    if ((language.languageCode().equals(model.getTarget())
                             && model.getSource().equals("en"))
-                            || (language.getLanguage().equals(model.getSource())
+                            || (language.languageCode().equals(model.getSource())
                             && model.getTarget().equals("en"))
-                    || language.getLanguage().equals("en")) {
+                    || language.languageCode().equals("en")) {
                         isLanguageValid = true;
                         break;
                     } else {

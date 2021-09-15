@@ -9,7 +9,7 @@ import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkDBW
 import com.human_developing_soft.accurate_translation.bookmarks.data.BookmarkStorage;
 import com.human_developing_soft.accurate_translation.translation.common.OnTranslationFieldChanged;
 import com.human_developing_soft.accurate_translation.translation.data.LanguageStorage;
-import com.human_developing_soft.accurate_translation.translation.data.LanguagesDatabase;
+import com.human_developing_soft.accurate_translation.translation.data.LanguagesDBWrapped;
 import com.human_developing_soft.accurate_translation.translation.domain.DomainTranslator;
 import com.human_developing_soft.accurate_translation.translation.domain.SelectedLanguages;
 import com.human_developing_soft.accurate_translation.translation.ui.SavingBookmarkObserver;
@@ -26,7 +26,7 @@ public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldCh
                              Context pContext,
                              String firstLanguage,
                              String secondLanguage) {
-        LanguageStorage languageStorage = LanguagesDatabase.instance(pContext);
+        LanguageStorage languageStorage = LanguagesDBWrapped.instance(pContext);
         SelectedLanguages selectedLanguages = new SelectedLanguages.Base(
                 languageStorage.languageByCountry(firstLanguage),
                 languageStorage.languageByCountry(secondLanguage)
