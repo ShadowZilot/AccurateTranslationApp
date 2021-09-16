@@ -26,21 +26,12 @@ public class TranslatingChoosing implements Translating {
 
     @Override
     public String translate() throws JSONException {
-        if (mChecking.isLimitedApi()) {
-            return new HandledTranslating(
-                    new IbmApi(mTranslatingText,
-                            mSelectedLanguages,
-                            mIsSwapNeeded
-                    )
-            ).translate();
-        } else {
-            return new com.human_developing_soft.accurate_translation.translation
-                    .data.api.google.HandledTranslating(new GoogleApi(
-                    mTranslatingText,
-                    mSelectedLanguages,
-                    mIsSwapNeeded
-            )
-            ).translate();
-        }
+        return new com.human_developing_soft.accurate_translation.translation
+                .data.api.google.HandledTranslating(new GoogleApi(
+                mTranslatingText,
+                mSelectedLanguages,
+                mIsSwapNeeded
+        )
+        ).translate();
     }
 }

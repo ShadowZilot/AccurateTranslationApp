@@ -17,7 +17,7 @@ public class LanguagesDBWrapped implements LanguageStorage {
         mDatabase = Room.databaseBuilder(mContext,
                 LanguageDatabase.class,
                 "Language_db")
-                .createFromAsset("Languages_db.db")
+                .createFromAsset("Language_db.db")
                 .build();
     }
 

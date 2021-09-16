@@ -14,7 +14,7 @@ public class HandledTranslating implements Translating {
 
     @Override
     public String translate() throws JSONException {
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         JSONArray jsonArray = new JSONArray(
                 mDecoratingObject.translate());
         for (int i = 0; i < 1; i++) {
@@ -22,9 +22,9 @@ public class HandledTranslating implements Translating {
             JSONArray jsonArray1 = jsonArray.getJSONArray(0);
             for (int j = 0; j < jsonArray1.length(); j++) {
 
-                ans = jsonArray1.getJSONArray(j).get(0).toString();
+                ans.append(jsonArray1.getJSONArray(j).get(0).toString());
             }
         }
-        return ans;
+        return ans.toString();
     }
 }

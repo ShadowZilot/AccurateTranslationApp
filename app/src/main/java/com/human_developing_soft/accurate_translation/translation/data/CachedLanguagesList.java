@@ -19,7 +19,7 @@ public interface CachedLanguagesList {
 
         @Override
         public List<HandledLanguage> languages() {
-            LanguageStorage database = LanguagesDatabase.instance(mContext);
+            LanguageStorage database = LanguagesDBWrapped.instance(mContext);
             List<HandledLanguage> languages = database.allLanguages();
             if (languages.isEmpty()) {
                 database.saveLanguages(mWrappedObject.languagesList());
