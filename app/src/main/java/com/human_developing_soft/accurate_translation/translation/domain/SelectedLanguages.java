@@ -126,7 +126,7 @@ public interface SelectedLanguages {
 
         @Override
         public String localeForMic(Boolean isFirst) {
-            String result = "";
+            String result;
             if (isFirst) {
                 result = String.format("%s-%s", mFirstLanguage.languageCode(),
                         mFirstLanguage.countryCode().toUpperCase());

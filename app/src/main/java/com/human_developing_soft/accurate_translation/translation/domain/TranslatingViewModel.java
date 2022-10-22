@@ -13,7 +13,7 @@ import com.human_developing_soft.accurate_translation.translation.ui.Translating
 import java.util.Locale;
 
 public class TranslatingViewModel extends ViewModel implements OnTranslationFieldChanged {
-    private DomainTranslator mTranslator;
+    private final DomainTranslator mTranslator;
 
     public TranslatingViewModel(TranslatingObserver pObserver,
                                 CachedSelectedLanguages cache) {

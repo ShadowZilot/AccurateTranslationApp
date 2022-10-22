@@ -19,21 +19,23 @@ import com.human_developing_soft.accurate_translation.translation.ui.Translating
 import java.util.Locale;
 
 public class BookmarkEditingVM extends ViewModel implements OnTranslationFieldChanged {
-    private final DomainTranslator mTranslator;
-    private final BookmarkStorage mBookmarkStorage;
+    private DomainTranslator mTranslator;
+    private BookmarkStorage mBookmarkStorage;
 
     public BookmarkEditingVM(TranslatingObserver pObserver,
                              Context pContext,
                              String firstLanguage,
                              String secondLanguage) {
-        LanguageStorage languageStorage = LanguagesDBWrapped.instance(pContext);
-        SelectedLanguages selectedLanguages = new SelectedLanguages.Base(
-                languageStorage.languageByCountry(firstLanguage),
-                languageStorage.languageByCountry(secondLanguage)
-        );
-        mTranslator = new DomainTranslator(pObserver,
-                selectedLanguages);
-        mBookmarkStorage = BookmarkDBWrapped.instance(pContext);
+        new Thread(() -> {
+            LanguageStorage languageStorage = LanguagesDBWrapped.instance(pContext);
+            SelectedLanguages selectedLanguages = new SelectedLanguages.Base(
+                    languageStorage.languageByCountry(firstLanguage),
+                    languageStorage.languageByCountry(secondLanguage)
+            );
+            mTranslator = new DomainTranslator(pObserver,
+                    selectedLanguages);
+            mBookmarkStorage = BookmarkDBWrapped.instance(pContext);
+        }).start();
     }
 
     @Override

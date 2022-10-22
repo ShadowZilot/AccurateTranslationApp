@@ -72,14 +72,15 @@ public class PreSavingBookmarkFragment extends DialogFragment
                                                 .toString()
                                 ),
                         (Boolean isSuccess) -> {
-                            requireActivity().runOnUiThread(() -> {
-                                String toastText = getString(R.string.fail_saving_bookmark_message);
-                                if (isSuccess) {
-                                    toastText = getString(R.string.success_saving_bookmark_message);
-                                }
+                            String toastText = getString(R.string.fail_saving_bookmark_message);
+                            if (isSuccess) {
+                                toastText = getString(R.string.success_saving_bookmark_message);
+                            }
+                            String finalToastText = toastText;
+                            mBinding.getRoot().post(() -> {
                                 Toast.makeText(
                                         requireContext(),
-                                        toastText,
+                                        finalToastText,
                                         Toast.LENGTH_SHORT
                                 ).show();
                             });
@@ -100,7 +101,7 @@ public class PreSavingBookmarkFragment extends DialogFragment
 
     @Override
     public void onTagLoaded(List<String> tags) {
-        mAdapter.onTagLoaded(tags);
+        requireActivity().runOnUiThread(() -> mAdapter.onTagLoaded(tags));
     }
 
     @Override
