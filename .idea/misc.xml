@@ -6,6 +6,7 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.3703125" />
         <entry key="app/src/main/res/drawable/ic_bookmark.xml" value="0.3490740740740741" />
         <entry key="app/src/main/res/drawable/ic_camera.xml" value="0.37135416666666665" />
+        <entry key="app/src/main/res/drawable/ic_deleting.xml" value="0.209" />
         <entry key="app/src/main/res/drawable/ic_mic.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/ic_non_active_sound.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/ic_save.xml" value="0.34629629629629627" />
@@ -24,8 +25,9 @@
         <entry key="app/src/main/res/layout/layout.xml" value="0.33958333333333335" />
         <entry key="app/src/main/res/layout/pre_saving_bookmark_fragment.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/tag_item.xml" value="0.35520833333333335" />
-        <entry key="app/src/main/res/layout/translation_fragment.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/translation_fragment.xml" value="0.3879857381184896" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/menu/search_menu.xml" value="0.40260416666666665" />
       </map>
     </option>
   </component>
