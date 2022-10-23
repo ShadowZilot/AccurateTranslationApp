@@ -37,25 +37,26 @@ public class BookmarkFragment extends Fragment
         mBinding = BookmarkFragmentBinding.inflate(inflater,
                 container,
                 false);
-        mBinding.bookmarkSearchField.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mViewModel.searchBookmark(query);
-                mBinding.bookmarksList.setVisibility(View.GONE);
-                mBinding.bookmarkProgress.setVisibility(View.VISIBLE);
-                mBinding.emptyBookmarksView.setVisibility(View.GONE);
-                return true;
-            }
+        ((SearchView) mBinding.searchContainer.getMenu().findItem(R.id.searchMenuItem))
+                .setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        mViewModel.searchBookmark(query);
+                        mBinding.bookmarksList.setVisibility(View.GONE);
+                        mBinding.bookmarkProgress.setVisibility(View.VISIBLE);
+                        mBinding.emptyBookmarksView.setVisibility(View.GONE);
+                        return true;
+                    }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                mViewModel.searchBookmark(newText);
-                mBinding.bookmarksList.setVisibility(View.GONE);
-                mBinding.bookmarkProgress.setVisibility(View.VISIBLE);
-                mBinding.emptyBookmarksView.setVisibility(View.GONE);
-                return true;
-            }
-        });
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        mViewModel.searchBookmark(newText);
+                        mBinding.bookmarksList.setVisibility(View.GONE);
+                        mBinding.bookmarkProgress.setVisibility(View.VISIBLE);
+                        mBinding.emptyBookmarksView.setVisibility(View.GONE);
+                        return true;
+                    }
+                });
         mAdapter = new BookmarkAdapter(this);
         mBinding.bookmarksList.setAdapter(mAdapter);
         mBinding.bookmarksList.setLayoutManager(new LinearLayoutManager(requireContext(),
@@ -85,7 +86,8 @@ public class BookmarkFragment extends Fragment
             mBinding.bookmarkProgress.setVisibility(View.GONE);
             if (bookmarks.isEmpty()) {
                 mBinding.emptyBookmarksView.setVisibility(View.VISIBLE);
-                if (mBinding.bookmarkSearchField.getQuery().toString().isEmpty()) {
+                if (((SearchView) mBinding.searchContainer.getMenu().findItem(R.id.searchMenuItem))
+                        .getQuery().toString().isEmpty()) {
                     mBinding.emptyBookmarksView.setText(R.string.bookmarks_list_is_empty_message);
                 } else {
                     mBinding.emptyBookmarksView.setText(R.string.bookmarks_not_found_message);
