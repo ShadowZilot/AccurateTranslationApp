@@ -37,7 +37,24 @@ public class BookmarkFragment extends Fragment
         mBinding = BookmarkFragmentBinding.inflate(inflater,
                 container,
                 false);
-        ((SearchView) mBinding.searchContainer.getMenu().findItem(R.id.searchMenuItem))
+        mAdapter = new BookmarkAdapter(this);
+        mBinding.bookmarksList.setAdapter(mAdapter);
+        mBinding.bookmarksList.setLayoutManager(new LinearLayoutManager(requireContext(),
+                RecyclerView.VERTICAL, false));
+        mBinding.bookmarksList.addItemDecoration(new DividerItemDecoration(requireContext(),
+                DividerItemDecoration.VERTICAL));
+        mViewModel = new ViewModelProvider(this,
+                new BookmarkVMFactory(requireContext(), this)).get(BookmarkViewModel.class);
+        if (savedInstanceState != null) {
+            mViewModel.updateObserver(this);
+        }
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedState) {
+        ((SearchView) mBinding.searchContainer.getMenu()
+                .findItem(R.id.searchMenuItem).getActionView())
                 .setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
@@ -57,18 +74,6 @@ public class BookmarkFragment extends Fragment
                         return true;
                     }
                 });
-        mAdapter = new BookmarkAdapter(this);
-        mBinding.bookmarksList.setAdapter(mAdapter);
-        mBinding.bookmarksList.setLayoutManager(new LinearLayoutManager(requireContext(),
-                RecyclerView.VERTICAL, false));
-        mBinding.bookmarksList.addItemDecoration(new DividerItemDecoration(requireContext(),
-                DividerItemDecoration.VERTICAL));
-        mViewModel = new ViewModelProvider(this,
-                new BookmarkVMFactory(requireContext(), this)).get(BookmarkViewModel.class);
-        if (savedInstanceState != null) {
-            mViewModel.updateObserver(this);
-        }
-        return mBinding.getRoot();
     }
 
     @Override
@@ -86,7 +91,8 @@ public class BookmarkFragment extends Fragment
             mBinding.bookmarkProgress.setVisibility(View.GONE);
             if (bookmarks.isEmpty()) {
                 mBinding.emptyBookmarksView.setVisibility(View.VISIBLE);
-                if (((SearchView) mBinding.searchContainer.getMenu().findItem(R.id.searchMenuItem))
+                if (((SearchView) mBinding.searchContainer
+                        .getMenu().findItem(R.id.searchMenuItem).getActionView())
                         .getQuery().toString().isEmpty()) {
                     mBinding.emptyBookmarksView.setText(R.string.bookmarks_list_is_empty_message);
                 } else {
