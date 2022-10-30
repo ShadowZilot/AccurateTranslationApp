@@ -1,7 +1,5 @@
 package com.human_developing_soft.accurate_translation.bookmarks.ui;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -12,9 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.human_developing_soft.accurate_translation.R;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkEditingVM;
 import com.human_developing_soft.accurate_translation.bookmarks.domain.BookmarkEditingVMFactory;
@@ -26,7 +24,7 @@ import com.human_developing_soft.accurate_translation.translation.ui.Translating
 
 import java.util.Locale;
 
-public class BookmarkEditingDialog extends DialogFragment
+public class BookmarkEditingDialog extends BottomSheetDialogFragment
         implements OnTranslationFieldChanged, TranslatingObserver, TextToSpeech.OnInitListener {
     private BindingBookmark mEditingBookmark;
     private BookmarkEditingDialogBinding mBinding;
@@ -35,21 +33,13 @@ public class BookmarkEditingDialog extends DialogFragment
     private TextToSpeech mTextToSpeech;
     private Boolean mIsEngineWorking = false;
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        mEditingBookmark = new BindingBookmark.Base(requireArguments());
-        mBinding = BookmarkEditingDialogBinding.inflate(getLayoutInflater());
-        return new AlertDialog.Builder(requireContext())
-                .setView(mBinding.getRoot())
-                .create();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mEditingBookmark = new BindingBookmark.Base(requireArguments());
+        mBinding = BookmarkEditingDialogBinding.inflate(getLayoutInflater());
         mEditingBookmark.bind(
                 mBinding.editingFirstLanguageField,
                 mBinding.editingSecondLanguageField,
