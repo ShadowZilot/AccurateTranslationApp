@@ -19,13 +19,15 @@ public interface Bookmark {
         private final String mFirstLanguage;
         private final String mSecondLanguage;
         private final String mTag;
+        private final Long mDate;
 
         public Base(
                 String pFirstTranslation,
                 String pSecondTranslation,
                 String pFirstLanguage,
                 String pSecondLanguage,
-                String pTag
+                String pTag,
+                Long pDate
         ) {
             this(
                     null,
@@ -33,7 +35,8 @@ public interface Bookmark {
                     pSecondTranslation,
                     pFirstLanguage,
                     pSecondLanguage,
-                    pTag
+                    pTag,
+                    pDate
             );
         }
 
@@ -43,13 +46,15 @@ public interface Bookmark {
                 String pSecondTranslation,
                 String pFirstLanguage,
                 String pSecondLanguage,
-                String pTag) {
+                String pTag,
+                Long pDate) {
             mId = pId;
             mFirstTranslation = pFirstTranslation;
             mSecondTranslation = pSecondTranslation;
             mFirstLanguage = pFirstLanguage;
             mSecondLanguage = pSecondLanguage;
             mTag = "#" + pTag.replace("#", "");
+            mDate = pDate;
         }
 
         @Override
@@ -60,7 +65,8 @@ public interface Bookmark {
                     mSecondTranslation,
                     mFirstLanguage,
                     mSecondLanguage,
-                    mTag
+                    mTag,
+                    mDate
             );
         }
 
@@ -84,7 +90,8 @@ public interface Bookmark {
                     mSecondTranslation,
                     mFirstLanguage,
                     mSecondLanguage,
-                    mTag
+                    mTag,
+                    mDate
             );
         }
     }

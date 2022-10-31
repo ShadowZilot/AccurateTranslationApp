@@ -41,7 +41,8 @@ public interface BookmarkArguments {
                     mArguments.getString("secondTranslation"),
                     mArguments.getString("firstLanguage"),
                     mArguments.getString("secondLanguage"),
-                    tag
+                    tag,
+                    System.currentTimeMillis()
             );
         }
     }

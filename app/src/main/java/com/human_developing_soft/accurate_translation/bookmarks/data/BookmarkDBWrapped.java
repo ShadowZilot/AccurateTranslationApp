@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.human_developing_soft.accurate_translation.bookmarks.data.migrations.MigrationFrom1To2;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,9 @@ public class BookmarkDBWrapped implements BookmarkStorage {
         mContext = pContext.getApplicationContext();
         mDatabase = Room.databaseBuilder(mContext,
                 BookmarkDatabase.class, "Bookmarks")
+                .addMigrations(
+                        new MigrationFrom1To2(1, 2)
+                )
                 .build();
     }
 

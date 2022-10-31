@@ -1,8 +1,11 @@
 package com.human_developing_soft.accurate_translation.bookmarks.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(
         tableName = "bookmarks"
@@ -15,27 +18,32 @@ public class BookmarkEntity {
             String mSecondTranslation,
             String mFirstLanguage,
             String mSecondLanguage,
-            String mTag) {
+            String mTag,
+            @NonNull Long pDate) {
         this.mId = mId;
         this.mFirstTranslation = mFirstTranslation;
         this.mSecondTranslation = mSecondTranslation;
         this.mFirstLanguage = mFirstLanguage;
         this.mSecondLanguage = mSecondLanguage;
         this.mTag = mTag;
+        this.mDate = pDate;
     }
 
     @PrimaryKey(autoGenerate = true)
     Integer mId;
     @ColumnInfo(name = "firstTranslation")
-    private String mFirstTranslation;
+    private final String mFirstTranslation;
     @ColumnInfo(name = "secondTranslation")
-    private String mSecondTranslation;
+    private final String mSecondTranslation;
     @ColumnInfo(name = "firstLanguage")
-    private String mFirstLanguage;
+    private final String mFirstLanguage;
     @ColumnInfo(name = "secondLanguage")
-    private String mSecondLanguage;
+    private final String mSecondLanguage;
     @ColumnInfo(name = "tag")
-    private String mTag;
+    private final String mTag;
+    @ColumnInfo(name = "date")
+    @NotNull
+    private final Long mDate;
 
     public Bookmark toBookmark() {
         return new Bookmark.Base(
@@ -44,7 +52,8 @@ public class BookmarkEntity {
                 mSecondTranslation,
                 mFirstLanguage,
                 mSecondLanguage,
-                mTag
+                mTag,
+                mDate
         );
     }
 
@@ -71,4 +80,6 @@ public class BookmarkEntity {
     public String getTag() {
         return mTag;
     }
+
+    public Long getDate() { return mDate; }
 }

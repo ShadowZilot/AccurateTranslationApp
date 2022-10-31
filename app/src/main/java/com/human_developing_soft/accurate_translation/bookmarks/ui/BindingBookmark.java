@@ -31,6 +31,7 @@ public interface BindingBookmark {
         private final String mFirstLanguage;
         private final String mSecondLanguage;
         private final String mTag;
+        private final Long mDate;
 
         public Base(
                 Bundle initBundle
@@ -41,7 +42,8 @@ public interface BindingBookmark {
                     initBundle.getString("secondTranslation"),
                     initBundle.getString("firstLanguage"),
                     initBundle.getString("secondLanguage"),
-                    initBundle.getString("tag")
+                    initBundle.getString("tag"),
+                    initBundle.getLong("date")
             );
         }
 
@@ -51,13 +53,15 @@ public interface BindingBookmark {
                 String pSecondTranslation,
                 String pFirstLanguage,
                 String pSecondLanguage,
-                String pTag) {
+                String pTag,
+                Long pDate) {
             mId = pId;
             mFirstTranslation = pFirstTranslation;
             mSecondTranslation = pSecondTranslation;
             mFirstLanguage = pFirstLanguage;
             mSecondLanguage = pSecondLanguage;
             mTag = pTag;
+            mDate = pDate;
         }
 
         @Override
@@ -92,6 +96,7 @@ public interface BindingBookmark {
             bundle.putString("firstLanguage", mFirstLanguage);
             bundle.putString("secondLanguage", mSecondLanguage);
             bundle.putString("tag", mTag);
+            bundle.putLong("date", mDate);
             return bundle;
         }
 
@@ -111,7 +116,8 @@ public interface BindingBookmark {
                     mSecondTranslation,
                     mFirstLanguage,
                     mSecondLanguage,
-                    mTag
+                    mTag,
+                    mDate
             );
         }
 
@@ -125,7 +131,8 @@ public interface BindingBookmark {
                     newSecondTranslation,
                     mFirstLanguage,
                     mSecondLanguage,
-                    newTag
+                    newTag,
+                    mDate
             );
         }
     }
